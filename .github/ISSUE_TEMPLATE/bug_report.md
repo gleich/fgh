@@ -3,7 +3,7 @@ name: '🐛 Bug Report'
 about: Bug report
 title: ''
 labels: bug
-assignees: '@github_username'
+assignees: '@Matt-Gleich'
 ---
 
 <!--

@@ -1,6 +1,6 @@
 # Contributing
 
-👋 Welcome to project_name! Thank you for showing interest in contributing to project_name, we would love to have your contribution. Below are some details on how to contribute to project_name. Please read carefully!
+👋 Welcome to fgh! Thank you for showing interest in contributing to fgh, we would love to have your contribution. Below are some details on how to contribute to fgh. Please read carefully!
 
 ## 🐛 Requesting Features/Reporting Bugs
 

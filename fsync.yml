@@ -1,17 +1,17 @@
 commit_message: 🔄 Update file via sync
 replace:
-  - before: p\roject_name
-    after: project_name
-  - before: p\roject_description
-    after: project_description
-  - before: g\ithub_username
-    after: github_username
-  - before: p\roject_author_email
-    after: project_author_email
-  - before: d\ocker_username
-    after: docker_username
-  - before: p\roject_author_full_name
-    after: project_author_full_name
+  - before: project_name
+    after: fgh
+  - before: project_description
+    after: 📁 Manage your GitHub project locally
+  - before: github_username
+    after: Matt-Gleich
+  - before: project_author_email
+    after: matthewgleich@gmail.com
+  - before: docker_username
+    after: mattgleich
+  - before: project_author_full_name
+    after: Matthew Gleich
 files:
   - path: .gitignore
     source: https://github.com/Matt-Gleich/go_template/blob/master/.gitignore

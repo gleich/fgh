@@ -21,5 +21,5 @@ This PR resolves #22
 -->
 
 <!--
-Thank you for your contribution to project_name!
+Thank you for your contribution to fgh!
 -->
