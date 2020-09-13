@@ -1,0 +1,41 @@
+commit_message: 🔄 Update file via sync
+replace:
+  - before: p\roject_name
+    after: project_name
+  - before: p\roject_description
+    after: project_description
+  - before: g\ithub_username
+    after: github_username
+  - before: p\roject_author_email
+    after: project_author_email
+  - before: d\ocker_username
+    after: docker_username
+  - before: p\roject_author_full_name
+    after: project_author_full_name
+files:
+  - path: .gitignore
+    source: https://github.com/Matt-Gleich/go_template/blob/master/.gitignore
+  - path: LICENSE.md
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/licenses/MIT_LICENSE.md
+  - path: dev.lint.Dockerfile
+    source: https://github.com/Matt-Gleich/go_template/blob/master/dev.lint.Dockerfile
+  - path: dev.Dockerfile
+    source: https://github.com/Matt-Gleich/go_template/blob/master/dev.Dockerfile
+  - path: Dockerfile
+    source: https://github.com/Matt-Gleich/go_template/blob/master/Dockerfile
+  - path: CONTRIBUTING.md
+    source: https://github.com/Matt-Gleich/go_template/blob/master/CONTRIBUTING.md
+  - path: CODE_OF_CONDUCT.md
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/CODE_OF_CONDUCT.md
+  - path: .github/PULL_REQUEST_TEMPLATE.md
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/templates/pull_request.md
+  - path: .github/ISSUE_TEMPLATE/bug_report.md
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/templates/issue_bug.md
+  - path: .github/ISSUE_TEMPLATE/feature_request.md
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/templates/issue_feature.md
+  - path: .github/workflows/release.yml
+    source: https://github.com/Matt-Gleich/go_template/blob/master/.github/workflows/release.yml
+  - path: .github/workflows/contributors.yml
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/workflows/contributors.yml
+  - path: .github/workflows/fsync.yml
+    source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/workflows/fsync.yml
