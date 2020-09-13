@@ -1,9 +1,7 @@
 package main
 
-import (
-	"github.com/Matt-Gleich/logoru"
-)
+import "github.com/Matt-Gleich/fgh/pkg/commands"
 
 func main() {
-	logoru.Success("Program booted up!")
+	commands.Execute()
 }
