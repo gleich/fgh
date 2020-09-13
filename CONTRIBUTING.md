@@ -43,5 +43,5 @@ Once you have those installed please run `make local-test` and `make local-lint`
 
 ## ℹ️ General
 
-- When you take on an issue please set yourself as the assignee or leave a comment letting maintainers know that you are a going to work on it.
+- When you take on an issue please set yourself as the assignee or leave a comment letting maintainers know that you are going to work on it.
 - This project syncs files from other repos. To check where certain files come from check the `fsync.yml` file. This means if you wanna change that file you need to change the file from the source repo.
