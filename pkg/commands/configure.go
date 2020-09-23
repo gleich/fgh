@@ -7,9 +7,10 @@ import (
 
 var configureCmd = &cobra.Command{
 	Use:   "configure",
-	Short: "Configure fgh",
+	Short: "Configure fgh with an interactive prompt",
 	Run: func(cmd *cobra.Command, args []string) {
-		configure.AskQuestions()
+		config := configure.AskQuestions()
+		configure.WriteConfiguration(config)
 	},
 }
 
