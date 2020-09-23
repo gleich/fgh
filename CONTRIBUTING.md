@@ -5,7 +5,7 @@
 ## 🐛 Requesting Features/Reporting Bugs
 
 1. Click on the "Issues" tab in the repo.
-2. Make sure that the issue does exist already by searching for it.
+2. Make sure that the issue doesn't exist already by searching for it.
 3. Pick the issue template.
 4. Fill in the issue template.
 
