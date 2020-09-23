@@ -6,13 +6,13 @@ import (
 )
 
 // Outline for the answers
-type AnswersOutline struct {
+type SecretsOutline struct {
 	PAT      string
 	Username string
 }
 
 // Ask questions to fill in configuration files
-func AskQuestions() AnswersOutline {
+func AskSecretQuestions() SecretsOutline {
 	questions := []*survey.Question{
 		{
 			Name:   "PAT",
@@ -23,7 +23,7 @@ func AskQuestions() AnswersOutline {
 			Prompt: &survey.Input{Message: "What is your GitHub username?"},
 		},
 	}
-	var answers AnswersOutline
+	var answers SecretsOutline
 	err := survey.Ask(questions, &answers)
 	if err != nil {
 		statuser.Error("Failed to ask questions about config", err, 1)

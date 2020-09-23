@@ -9,8 +9,8 @@ var configureCmd = &cobra.Command{
 	Use:   "configure",
 	Short: "Configure fgh with an interactive prompt",
 	Run: func(cmd *cobra.Command, args []string) {
-		config := configure.AskQuestions()
-		configure.WriteConfiguration(config)
+		secretConfig := configure.AskSecretQuestions()
+		configure.WriteConfiguration(secretConfig)
 	},
 }
 

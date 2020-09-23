@@ -1,7 +1,6 @@
 package configure
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"runtime"
@@ -10,14 +9,14 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
-func WriteConfiguration(config AnswersOutline) {
-	folder := createFolders(true)
-	fmt.Println(folder)
+func WriteConfiguration(secrets SecretsOutline) {
+	configFolder := createFolders()
+	writeSecrets(configFolder, secrets)
 }
 
 // Create the folder where the configuration should live
 // Returns the folder path created
-func createFolders(testing bool) string {
+func createFolders() string {
 	homePath, err := os.UserHomeDir()
 	if err != nil {
 		statuser.Error("Failed to get homedirectory", err, 1)
@@ -41,4 +40,13 @@ func createFolders(testing bool) string {
 		statuser.Error("Failed to create the configuration folder", err, 1)
 	}
 	return folderPath
+}
+
+// Write the secret configuration for the program
+func writeSecrets(folder string, secrets SecretsOutline) {
+	filePath := filepath.Join(folder, "secrets.yaml")
+	err := utils.WriteYAML(secrets, filePath)
+	if err != nil {
+		statuser.Error("Failed to write config secrets", err, 1)
+	}
 }
