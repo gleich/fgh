@@ -11,7 +11,7 @@ build-docker-dev-lint:
 build-go:
 	go get -v -t -d ./...
 	go build -v .
-	rm fgh
+	# rm fgh
 
 #########
 # Linting

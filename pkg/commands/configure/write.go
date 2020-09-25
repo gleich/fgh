@@ -9,14 +9,15 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
+const SecretsFileName = "secrets.yaml"
+
 func WriteConfiguration(secrets SecretsOutline) {
 	configFolder := createFolders()
 	writeSecrets(configFolder, secrets)
 }
 
-// Create the folder where the configuration should live
-// Returns the folder path created
-func createFolders() string {
+// Get the folder path for where the configuration should live
+func GetFolderPath() string {
 	homePath, err := os.UserHomeDir()
 	if err != nil {
 		statuser.Error("Failed to get homedirectory", err, 1)
@@ -27,8 +28,14 @@ func createFolders() string {
 	} else {
 		folderPath = filepath.Join(homePath, ".fgh")
 	}
+	return folderPath
+}
 
-	_, err = os.Stat(folderPath)
+// Create the folder where the configuration should live
+// Returns the folder path created
+func createFolders() string {
+	folderPath := GetFolderPath()
+	_, err := os.Stat(folderPath)
 	if !os.IsNotExist(err) {
 		override := utils.Confirm("Configuration already exists. Do you want to override it?")
 		if !override {
@@ -44,7 +51,7 @@ func createFolders() string {
 
 // Write the secret configuration for the program
 func writeSecrets(folder string, secrets SecretsOutline) {
-	filePath := filepath.Join(folder, "secrets.yaml")
+	filePath := filepath.Join(folder, SecretsFileName)
 	err := utils.WriteYAML(secrets, filePath)
 	if err != nil {
 		statuser.Error("Failed to write config secrets", err, 1)
