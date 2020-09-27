@@ -1,8 +1,6 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/spf13/cobra"
@@ -17,7 +15,7 @@ var addCmd = &cobra.Command{
 		secrets := configuration.GetSecrets()
 		repo := clone.GetRepository(secrets, args)
 		path := clone.Location(repo)
-		fmt.Println(path)
+		clone.Clone(secrets, repo, path)
 	},
 }
 
