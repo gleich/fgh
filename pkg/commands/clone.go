@@ -2,19 +2,17 @@ package commands
 
 import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/spf13/cobra"
 )
 
 var addCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
-	Use:                   "clone",
+	Use:                   "clone <OWNER/REPO>",
 	Short:                 "Clone a repository",
+	Args:                  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
-		secrets := configure.SecretsOutline{
-			PAT:      "HERE IS THE PERSONAL ACCESS TOKEN",
-			Username: "Matt-Gleich",
-		}
+		secrets := configuration.GetSecrets()
 		clone.GetRepository(secrets, args)
 	},
 }

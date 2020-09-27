@@ -5,10 +5,17 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/Matt-Gleich/statuser/v2"
 )
 
-func Secrets() configure.SecretsOutline {
+// Get the secret configuration
+func GetSecrets() configure.SecretsOutline {
 	folderPath := configure.GetFolderPath()
 	filePath := filepath.Join(folderPath, configure.SecretsFileName)
-	utils.ReadYAML(filePath)
+	var config configure.SecretsOutline
+	err := utils.ReadYAML(filePath, &config)
+	if err != nil {
+		statuser.Error("Failed to read from configuration", err, 1)
+	}
+	return config
 }

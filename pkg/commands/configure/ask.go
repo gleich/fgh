@@ -7,8 +7,8 @@ import (
 
 // Outline for the answers
 type SecretsOutline struct {
-	PAT      string
-	Username string
+	PAT      string `yaml:"pat"`
+	Username string `yaml:"username"`
 }
 
 // Ask questions to fill in configuration files

@@ -8,9 +8,11 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strings"
+	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/briandowns/spinner"
 	"golang.org/x/oauth2"
 )
 
@@ -27,10 +29,13 @@ type Repository struct {
 }
 
 func GetRepository(secrets configure.SecretsOutline, args []string) Repository {
-	fmt.Println("Making request")
 	query, owner, name := fillQuery(secrets, args)
+	spin := spinner.New(spinner.CharSets[13], 40*time.Millisecond)
+	spin.Suffix = fmt.Sprintf(" ℹ️  Getting metadata for %v/%v", owner, name)
+	spin.Start()
 	repo := getData(secrets, query, owner, name)
-	fmt.Println(repo)
+	spin.Stop()
+	statuser.Success(fmt.Sprintf("Got metadata for %v/%v", owner, name))
 	return repo
 }
 
@@ -104,7 +109,6 @@ func getData(secrets configure.SecretsOutline, query string, owner string, name 
 	if err != nil {
 		statuser.Error("Failed to binary data from response", err, 1)
 	}
-	fmt.Println(string(binaryData))
 	var data struct {
 		Data struct {
 			Repository struct {
