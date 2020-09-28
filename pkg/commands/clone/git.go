@@ -7,18 +7,22 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/atotto/clipboard"
 	"github.com/briandowns/spinner"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
-func Clone(secrets configure.SecretsOutline, repo Repository, path string) {
-	spin := spinner.New(spinner.CharSets[13], 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf(" ☁️  Cloning %v/%v", repo.Owner, repo.Name)
+func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo Repository, path string) {
+	spin := spinner.New(spinner.CharSets[4], 40*time.Millisecond)
+	spin.Suffix = fmt.Sprintf("  ☁️  Cloning %v/%v", repo.Owner, repo.Name)
 	spin.Start()
 	rawClone(secrets, repo, path)
 	spin.Stop()
-	statuser.Success(fmt.Sprintf("Cloned %v/%v to:\n\t%v", repo.Owner, repo.Name, path))
+	statuser.Success(fmt.Sprintf("Cloned %v/%v to:\n\t%v\n", repo.Owner, repo.Name, path))
+	if config.CloneClipboard {
+		copyPathToClipboard(path)
+	}
 }
 
 // Raw function for cloning the repo
@@ -38,5 +42,13 @@ func rawClone(secrets configure.SecretsOutline, repo Repository, path string) {
 	})
 	if err != nil {
 		statuser.Error("Failed to clone repo", err, 1)
+	}
+}
+
+// Copy the path to clipboard
+func copyPathToClipboard(path string) {
+	err := clipboard.WriteAll(path)
+	if err != nil {
+		statuser.Error("Failed to copy path to clipboard", err, 1)
 	}
 }

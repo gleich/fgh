@@ -9,11 +9,16 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
-const SecretsFileName = "secrets.yaml"
+const (
+	RegularFileName = "config.yaml"
+	SecretsFileName = "secrets.yaml"
+)
 
-func WriteConfiguration(secrets SecretsOutline) {
+func WriteConfiguration(secrets SecretsOutline, config RegularOutline) {
 	configFolder := createFolders()
+	writeConfig(configFolder, config)
 	writeSecrets(configFolder, secrets)
+	statuser.Success("Wrote to config")
 }
 
 // Get the folder path for where the configuration should live
@@ -47,6 +52,14 @@ func createFolders() string {
 		statuser.Error("Failed to create the configuration folder", err, 1)
 	}
 	return folderPath
+}
+
+func writeConfig(folder string, config RegularOutline) {
+	filePath := filepath.Join(folder, RegularFileName)
+	err := utils.WriteYAML(config, filePath)
+	if err != nil {
+		statuser.Error("Failed to write config secrets", err, 1)
+	}
 }
 
 // Write the secret configuration for the program

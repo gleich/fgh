@@ -13,9 +13,10 @@ var addCmd = &cobra.Command{
 	Args:                  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		secrets := configuration.GetSecrets()
+		config := configuration.GetConfig()
 		repo := clone.GetRepository(secrets, args)
 		path := clone.Location(repo)
-		clone.Clone(secrets, repo, path)
+		clone.Clone(config, secrets, repo, path)
 	},
 }
 

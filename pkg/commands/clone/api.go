@@ -30,12 +30,12 @@ type Repository struct {
 
 func GetRepository(secrets configure.SecretsOutline, args []string) Repository {
 	query, owner, name := fillQuery(secrets, args)
-	spin := spinner.New(spinner.CharSets[13], 40*time.Millisecond)
+	spin := spinner.New(spinner.CharSets[4], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf(" ℹ️  Getting metadata for %v/%v", owner, name)
 	spin.Start()
 	repo := getData(secrets, query, owner, name)
 	spin.Stop()
-	statuser.Success(fmt.Sprintf("Got metadata for %v/%v", owner, name))
+	statuser.Success(fmt.Sprintf("Got metadata for %v/%v\n", owner, name))
 	return repo
 }
 
@@ -138,10 +138,14 @@ func getData(secrets configure.SecretsOutline, query string, owner string, name 
 	}
 
 	// Mapping data to Repository struct
+	language := "None"
+	if len(data.Data.Repository.Languages.Nodes) != 0 {
+		language = data.Data.Repository.Languages.Nodes[0].Name
+	}
 	return Repository{
 		Owner:        owner,
 		Name:         name,
-		MainLanguage: data.Data.Repository.Languages.Nodes[0].Name,
+		MainLanguage: language,
 		Private:      data.Data.Repository.IsPrivate,
 		Archived:     data.Data.Repository.IsArchived,
 		Template:     data.Data.Repository.IsTemplate,

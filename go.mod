@@ -6,6 +6,7 @@ require (
 	github.com/AlecAivazis/survey/v2 v2.1.1
 	github.com/Matt-Gleich/statuser/v2 v2.3.1
 	github.com/Netflix/go-expect v0.0.0-20200312175327-da48e75238e2 // indirect
+	github.com/atotto/clipboard v0.1.2
 	github.com/briandowns/spinner v1.11.1
 	github.com/creack/pty v1.1.11 // indirect
 	github.com/go-git/go-git/v5 v5.1.0

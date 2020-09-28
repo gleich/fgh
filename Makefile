@@ -11,7 +11,6 @@ build-docker-dev-lint:
 build-go:
 	go get -v -t -d ./...
 	go build -v .
-	# rm fgh
 
 #########
 # Linting
@@ -54,3 +53,6 @@ local-lint: lint-golangci lint-goreleaser lint-hadolint lint-gomod
 docker-lint: lint-in-docker
 # Build
 local-build: build-docker-prod build-docker-dev build-docker-dev-lint
+# Deploy
+local-deploy: build-go
+	mv ./fgh /usr/local/bin
