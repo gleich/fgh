@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/atotto/clipboard"
@@ -13,7 +14,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
-func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo Repository, path string) {
+func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) {
 	spin := spinner.New(spinner.CharSets[4], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf("  ☁️  Cloning %v/%v", repo.Owner, repo.Name)
 	spin.Start()
@@ -26,7 +27,7 @@ func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, re
 }
 
 // Raw function for cloning the repo
-func rawClone(secrets configure.SecretsOutline, repo Repository, path string) {
+func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
 	// Creating folder location:
 	err := os.MkdirAll(path, 0777)
 	if err != nil {

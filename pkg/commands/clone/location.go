@@ -4,11 +4,12 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Get the location to clone the repo
-func Location(repo Repository) string {
+func Location(repo api.Repo) string {
 	var path string
 	path, err := os.UserHomeDir()
 	if err != nil {
