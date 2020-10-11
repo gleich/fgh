@@ -39,10 +39,14 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 		return Repo{}, err
 	}
 
+	language := "Other"
+	if len(query.Repository.Languages.Nodes) != 0 {
+		language = query.Repository.Languages.Nodes[0].Name
+	}
 	return Repo{
 		Owner:        query.Repository.Owner.User.Login,
 		Name:         query.Repository.Name,
-		MainLanguage: query.Repository.Languages.Nodes[0].Name,
+		MainLanguage: language,
 		Private:      query.Repository.IsPrivate,
 		Archived:     query.Repository.IsArchived,
 		Template:     query.Repository.IsTemplate,
