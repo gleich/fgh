@@ -23,5 +23,6 @@ require (
 	golang.org/x/net v0.0.0-20201009032441-dbdefad45b89 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
+	gopkg.in/djherbis/times.v1 v1.2.0
 	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776
 )
