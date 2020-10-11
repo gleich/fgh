@@ -1,21 +1,14 @@
-package clone
+package location
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Get the location to clone the repo
-func Location(repo api.Repo) string {
-	var path string
-	path, err := os.UserHomeDir()
-	if err != nil {
-		statuser.Error("Failed to get home directory", err, 1)
-	}
-	path = filepath.Join(path, "github", repo.Owner)
+func RepoLocation(repo api.Repo) string {
+	path := filepath.Join(GitHubFolder(), repo.Owner)
 	if repo.Template {
 		path = filepath.Join(path, "template")
 	} else if repo.Disabled {
