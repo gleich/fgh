@@ -29,12 +29,8 @@ func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 }
 
 // Get the name of the repo and the of the owner
-func ownerAndName(secrets configure.SecretsOutline, args []string) (string, string) {
+func ownerAndName(secrets configure.SecretsOutline, args []string) (owner string, name string) {
 	// Getting repo name and owner
-	var (
-		owner string
-		name  string
-	)
 	if strings.Contains(args[0], "/") {
 		parts := strings.Split(args[0], "/")
 		owner = parts[0]

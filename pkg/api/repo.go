@@ -23,9 +23,7 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 			} `graphql:"languages(first: 1, orderBy: {field: SIZE, direction: DESC})"`
 			Name  string
 			Owner struct {
-				User struct {
-					Login string
-				} `graphql:"... on User"`
+				Login string
 			}
 		} `graphql:"repository(owner: $owner, name: $name)"`
 	}{}
@@ -44,7 +42,7 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 		language = query.Repository.Languages.Nodes[0].Name
 	}
 	return Repo{
-		Owner:        query.Repository.Owner.User.Login,
+		Owner:        query.Repository.Owner.Login,
 		Name:         query.Repository.Name,
 		MainLanguage: language,
 		Private:      query.Repository.IsPrivate,
