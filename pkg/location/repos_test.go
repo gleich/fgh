@@ -1,6 +1,7 @@
 package location
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -46,7 +47,8 @@ func TestDirs(t *testing.T) {
 		for _, file := range tt.files {
 			err := os.MkdirAll(filepath.Dir(file), 0777)
 			assert.NoError(t, err)
-			_, err = os.Create(file)
+			cFile, err := os.Create(file)
+			cFile.Close()
 			assert.NoError(t, err)
 		}
 
@@ -54,6 +56,7 @@ func TestDirs(t *testing.T) {
 
 		// Removeing files and folders
 		for _, folder := range append(tt.folders, tt.files...) {
+			fmt.Println(string(filepath.Separator))
 			for _, childFolder := range strings.Split(folder, string(filepath.Separator)) {
 				err := os.RemoveAll(childFolder)
 				assert.NoError(t, err)
