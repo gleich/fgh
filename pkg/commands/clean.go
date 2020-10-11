@@ -9,8 +9,8 @@ import (
 )
 
 var cleanCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Remove all repos not updated after a certain amount of time",
+	Use:   "clean",
+	Short: "Ask user if they want to remove old repos",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()
