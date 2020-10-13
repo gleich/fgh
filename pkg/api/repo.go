@@ -10,17 +10,15 @@ import (
 func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) {
 	query := struct {
 		Repository struct {
-			IsPrivate  bool
-			IsTemplate bool
-			IsMirror   bool
-			IsFork     bool
-			IsArchived bool
-			IsDisabled bool
-			Languages  struct {
-				Nodes []struct {
-					Name string
-				}
-			} `graphql:"languages(first: 1, orderBy: {field: SIZE, direction: DESC})"`
+			IsPrivate       bool
+			IsTemplate      bool
+			IsMirror        bool
+			IsFork          bool
+			IsArchived      bool
+			IsDisabled      bool
+			PrimaryLanguage struct {
+				Name string
+			}
 			Name  string
 			Owner struct {
 				Login string
@@ -37,14 +35,13 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 		return Repo{}, err
 	}
 
-	language := "Other"
-	if len(query.Repository.Languages.Nodes) != 0 {
-		language = query.Repository.Languages.Nodes[0].Name
+	if query.Repository.PrimaryLanguage.Name == "" {
+		query.Repository.PrimaryLanguage.Name = "Other"
 	}
 	return Repo{
 		Owner:        query.Repository.Owner.Login,
 		Name:         query.Repository.Name,
-		MainLanguage: language,
+		MainLanguage: query.Repository.PrimaryLanguage.Name,
 		Private:      query.Repository.IsPrivate,
 		Archived:     query.Repository.IsArchived,
 		Template:     query.Repository.IsTemplate,
