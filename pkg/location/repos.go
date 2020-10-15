@@ -9,6 +9,15 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
+// A repo already cloned locally
+type LocalRepo struct {
+	Owner    string
+	Name     string
+	Type     string
+	Language string
+	Path     string
+}
+
 // Get the root GitHub folder
 func GitHubFolder() string {
 	var path string
@@ -20,23 +29,29 @@ func GitHubFolder() string {
 }
 
 // Get all repos downloaded
-func Repos() (repos []string) {
+func Repos() (repos []LocalRepo) {
 	ghFolder := GitHubFolder()
 	chdir(ghFolder, ghFolder)
 	var cwd string
-	for _, user := range dirs() {
-		cwd = filepath.Join(ghFolder, user)
+	for _, owner := range dirs() {
+		cwd = filepath.Join(ghFolder, owner)
 		chdir(ghFolder, cwd)
 		for _, repoType := range dirs() {
-			cwd = filepath.Join(ghFolder, user, repoType)
+			cwd = filepath.Join(ghFolder, owner, repoType)
 			chdir(ghFolder, cwd)
 			for _, language := range dirs() {
-				cwd = filepath.Join(ghFolder, user, repoType, language)
+				cwd = filepath.Join(ghFolder, owner, repoType, language)
 				chdir(ghFolder, cwd)
 				for _, repoName := range dirs() {
-					cwd = filepath.Join(ghFolder, user, repoType, language, repoName)
+					cwd = filepath.Join(ghFolder, owner, repoType, language, repoName)
 					chdir(ghFolder, cwd)
-					repos = append(repos, cwd)
+					repos = append(repos, LocalRepo{
+						Owner:    owner,
+						Name:     repoName,
+						Type:     repoType,
+						Language: language,
+						Path:     cwd,
+					})
 				}
 			}
 		}

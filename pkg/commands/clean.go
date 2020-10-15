@@ -1,12 +1,13 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/location"
 	"github.com/spf13/cobra"
 )
+
+// TODO:
+// Fix outdated as it gets the modified time for the folder and not the contents
 
 var cleanCmd = &cobra.Command{
 	Use:   "clean",
@@ -15,7 +16,7 @@ var cleanCmd = &cobra.Command{
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()
 		outdated := clean.Outdated(repos, flags.Years, flags.Months, flags.Days)
-		fmt.Println(outdated)
+		clean.AskToRemove(outdated)
 	},
 }
 

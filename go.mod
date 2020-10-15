@@ -9,8 +9,10 @@ require (
 	github.com/atotto/clipboard v0.1.2
 	github.com/briandowns/spinner v1.11.1
 	github.com/creack/pty v1.1.11 // indirect
+	github.com/dustin/go-humanize v1.0.0
 	github.com/go-git/go-git/v5 v5.1.0
 	github.com/google/go-cmp v0.5.2 // indirect
+	github.com/hepsiburada/time-formatter v1.0.1
 	github.com/hinshun/vt10x v0.0.0-20180809195222-d55458df857c // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
