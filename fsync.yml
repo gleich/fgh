@@ -3,7 +3,7 @@ replace:
   - before: project_name
     after: fgh
   - before: project_description
-    after: 📁 Manage your GitHub project locally
+    after: 📁 Manage your GitHub projects locally
   - before: github_username
     after: Matt-Gleich
   - before: project_author_email

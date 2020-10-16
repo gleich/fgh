@@ -10,7 +10,7 @@ var rootCmd = &cobra.Command{
 	Use:   "fgh",
 	Short: "📁 Manage your GitHub project locally",
 	Long: `
-📁 Manage your GitHub project locally
+📁 Manage your GitHub projects locally
 
 🐙 Repository: https://github.com/Matt-Gleich/fgh
 📟 Authors:
