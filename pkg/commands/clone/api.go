@@ -13,7 +13,7 @@ import (
 
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 	owner, name := ownerAndName(secrets, args)
-	spin := spinner.New(spinner.CharSets[4], 40*time.Millisecond)
+	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf(" ℹ️  Getting metadata for %v/%v", owner, name)
 	spin.Start()
 

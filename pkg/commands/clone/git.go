@@ -15,7 +15,7 @@ import (
 )
 
 func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) {
-	spin := spinner.New(spinner.CharSets[4], 40*time.Millisecond)
+	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf("  ☁️  Cloning %v/%v", repo.Owner, repo.Name)
 	spin.Start()
 	rawClone(secrets, repo, path)
