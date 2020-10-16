@@ -1,6 +1,7 @@
 package clean
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"time"
@@ -44,5 +45,6 @@ func Outdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld i
 			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
 		}
 	}
+	statuser.Success(fmt.Sprintf("Got %v outdated repos after %v", len(outdated), formatDate(timeThreshold)))
 	return outdated
 }
