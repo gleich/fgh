@@ -1,6 +1,8 @@
 package clean
 
 import (
+	"os"
+	"path/filepath"
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/location"
@@ -15,18 +17,31 @@ type OutdatedRepo struct {
 
 // Get the repos that haven't been modified locally in a certain amount of time
 func Outdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
-	twoMonthsAgo := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
+	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 	for _, repo := range repos {
-		t, err := times.Stat(repo.Path)
+		var updatedTime time.Time
+		err := filepath.Walk(
+			repo.Path,
+			func(path string, _ os.FileInfo, err error) error {
+				if err != nil {
+					return err
+				}
+				info, err := times.Stat(path)
+				if err != nil {
+					return err
+				}
+				modTime := info.ModTime()
+				if modTime.Unix() > updatedTime.Unix() {
+					updatedTime = modTime
+				}
+				return nil
+			},
+		)
 		if err != nil {
-			statuser.Error("Failed to get modified time for "+repo.Path, err, 1)
+			statuser.Error("Failed to get updated time for "+repo.Path, err, 1)
 		}
-		mod := t.ModTime()
-		if mod.Unix() < twoMonthsAgo.Unix() {
-			outdated = append(outdated, OutdatedRepo{
-				Repo:    repo,
-				ModTime: mod,
-			})
+		if updatedTime.Unix() < timeThreshold.Unix() {
+			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
 		}
 	}
 	return outdated

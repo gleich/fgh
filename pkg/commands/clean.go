@@ -6,9 +6,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// TODO:
-// Fix outdated as it gets the modified time for the folder and not the contents
-
 var cleanCmd = &cobra.Command{
 	Use:   "clean",
 	Short: "Ask user if they want to remove old repos",
