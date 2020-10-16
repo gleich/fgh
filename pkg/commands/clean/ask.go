@@ -2,6 +2,8 @@ package clean
 
 import (
 	"fmt"
+	"strings"
+	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/location"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
@@ -11,22 +13,42 @@ import (
 
 func AskToRemove(outdatedRepos []OutdatedRepo) (toRemove []location.LocalRepo) {
 	for _, repo := range outdatedRepos {
-		formatter := tf.New()
-		time := formatter.To(repo.ModTime, fmt.Sprintf(
-			"%s %s %s",
-			tf.MMMM,
-			humanize.Ordinal(repo.ModTime.Day()),
-			tf.YYYY,
-		))
+		time := formatDate(repo.ModTime)
 		remove := utils.Confirm(fmt.Sprintf(
-			"%v/%v hasn't been updated since %v\n  Would you like to remove it?",
+			`Path:     %v
+  Owner:    %v
+  Name:     %v
+  Language: %v
+  Type:     %v
+  Last Local Update: %v
+
+  Would you like to remove this repo?`,
+			repo.Repo.Path,
 			repo.Repo.Owner,
 			repo.Repo.Name,
+			repo.Repo.Language,
+			strings.Title(repo.Repo.Type),
 			time,
 		))
+		fmt.Println()
 		if remove {
 			toRemove = append(toRemove, repo.Repo)
 		}
 	}
 	return toRemove
+}
+
+// Format date in the following format:
+// December 25th, 2020 at 12:00PM
+func formatDate(date time.Time) string {
+	formatter := tf.New()
+	return formatter.To(date, fmt.Sprintf(
+		"%s %s, %s at %v:%v%s",
+		tf.MMMM,
+		humanize.Ordinal(date.Day()),
+		tf.YYYY,
+		date.Hour(),
+		date.Minute(),
+		tf.A,
+	))
 }
