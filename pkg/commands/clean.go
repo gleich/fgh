@@ -13,7 +13,8 @@ var cleanCmd = &cobra.Command{
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()
 		outdated := clean.Outdated(repos, flags.Years, flags.Months, flags.Days)
-		clean.AskToRemove(outdated)
+		toRemove := clean.AskToRemove(outdated)
+		clean.Remove(toRemove)
 	},
 }
 
