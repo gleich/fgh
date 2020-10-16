@@ -2,7 +2,7 @@ FROM golang:1.15-alpine3.12 AS builder
 
 # Meta data:
 LABEL maintainer="matthewgleich@gmail.com"
-LABEL description="📁 Manage your GitHub project locally"
+LABEL description="📁 Manage your GitHub projects locally"
 
 # Copying over all the files:
 COPY . /usr/src/app

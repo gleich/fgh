@@ -2,7 +2,7 @@ FROM golangci/golangci-lint:v1.30.0
 
 # Meta data
 LABEL maintainer="matthewgleich@gmail.com"
-LABEL description="📁 Manage your GitHub project locally"
+LABEL description="📁 Manage your GitHub projects locally"
 
 # Copying over files
 COPY . /usr/src/app
