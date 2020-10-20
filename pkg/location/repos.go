@@ -28,39 +28,39 @@ func GitHubFolder() string {
 	return filepath.Join(path, "github")
 }
 
-// Get all repos downloaded
+// Get all cloned repos in fgh's file structure
 func Repos() (repos []LocalRepo) {
 	ghFolder := GitHubFolder()
-	chdir(ghFolder, ghFolder)
-	var cwd string
-	for _, owner := range dirs() {
-		cwd = filepath.Join(ghFolder, owner)
-		chdir(ghFolder, cwd)
-		for _, repoType := range dirs() {
-			cwd = filepath.Join(ghFolder, owner, repoType)
-			chdir(ghFolder, cwd)
-			for _, language := range dirs() {
-				cwd = filepath.Join(ghFolder, owner, repoType, language)
-				chdir(ghFolder, cwd)
-				for _, repoName := range dirs() {
-					cwd = filepath.Join(ghFolder, owner, repoType, language, repoName)
-					chdir(ghFolder, cwd)
-					repos = append(repos, LocalRepo{
-						Owner:    owner,
-						Name:     repoName,
-						Type:     repoType,
-						Language: language,
-						Path:     cwd,
-					})
-				}
+
+	err := filepath.Walk(
+		ghFolder,
+		func(path string, info os.FileInfo, err error) error {
+			trimmedPath := strings.TrimPrefix(path, ghFolder)
+			parts := strings.Split(trimmedPath, string(filepath.Separator))
+			if len(parts) > 5 {
+				return filepath.SkipDir
 			}
-		}
+			if len(parts) == 5 && info.IsDir() && isGitRepo(path) {
+				repos = append(repos, LocalRepo{
+					Owner:    parts[1],
+					Name:     parts[2],
+					Type:     parts[3],
+					Language: parts[4],
+					Path:     path,
+				})
+			}
+			return nil
+		})
+
+	if err != nil {
+		statuser.Error("Failed to get list cloned of repos", err, 1)
 	}
 	return repos
 }
 
-func dirs() (folders []string) {
-	files, err := ioutil.ReadDir(".")
+// Checks to make sure the given folder has a .git folder inside
+func isGitRepo(path string) bool {
+	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		cwd, err1 := os.Getwd()
 		if err1 != nil {
@@ -70,19 +70,9 @@ func dirs() (folders []string) {
 	}
 
 	for _, f := range files {
-		if f.IsDir() {
-			folders = append(folders, f.Name())
+		if f.IsDir() && f.Name() == ".git" {
+			return true
 		}
 	}
-	return folders
-}
-
-func chdir(ghFolder string, folder string) {
-	if !strings.HasPrefix(folder, ghFolder) {
-		folder = filepath.Join(ghFolder, folder)
-	}
-	err := os.Chdir(folder)
-	if err != nil {
-		statuser.Error("Failed to change directory to "+folder, err, 1)
-	}
+	return false
 }
