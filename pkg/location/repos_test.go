@@ -1,7 +1,6 @@
 package location
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -10,53 +9,26 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestDirs(t *testing.T) {
+func TestIsGitRepo(t *testing.T) {
 	tests := []struct {
-		folders       []string
-		files         []string
-		valid_folders []string
+		extraFolders []string
 	}{
-		{
-			folders:       []string{"folder-1"},
-			files:         []string{"file1.txt"},
-			valid_folders: []string{"folder-1"},
-		},
-		{
-			folders:       []string{"folder-1", "folder-2"},
-			files:         []string{"file1.txt"},
-			valid_folders: []string{"folder-1", "folder-2"},
-		},
-		{
-			folders:       []string{filepath.Join("folder-1", "child-folder"), "folder-2"},
-			files:         []string{filepath.Join("folder-2", "file1.txt")},
-			valid_folders: []string{"folder-1", "folder-2"},
-		},
-		{
-			folders:       []string{},
-			files:         []string{},
-			valid_folders: []string(nil),
-		},
+		{extraFolders: []string{"folder-1/.git", "folder-1/other_folder"}},
+		{extraFolders: []string{"folder-1/.git", "folder-2/.git"}},
+		{extraFolders: []string{"folder-1/child-folder", "folder-1/.git", "folder-2"}},
 	}
 
 	for _, tt := range tests {
 		// Creating folders & files
-		for _, folder := range tt.folders {
-			err := os.MkdirAll(folder, 0777)
-			assert.NoError(t, err)
-		}
-		for _, file := range tt.files {
-			err := os.MkdirAll(filepath.Dir(file), 0777)
-			assert.NoError(t, err)
-			cFile, err := os.Create(file)
-			cFile.Close()
+		for _, folder := range tt.extraFolders {
+			err := os.MkdirAll(filepath.FromSlash(folder), 0777)
 			assert.NoError(t, err)
 		}
 
-		assert.Equal(t, tt.valid_folders, dirs())
+		assert.True(t, isGitRepo("folder-1"))
 
 		// Removeing files and folders
-		for _, folder := range append(tt.folders, tt.files...) {
-			fmt.Println(string(filepath.Separator))
+		for _, folder := range tt.extraFolders {
 			for _, childFolder := range strings.Split(folder, string(filepath.Separator)) {
 				err := os.RemoveAll(childFolder)
 				assert.NoError(t, err)
