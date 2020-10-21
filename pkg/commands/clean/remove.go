@@ -29,7 +29,7 @@ func CleanUp() (removed []string) {
 		func(path string, info os.FileInfo, err error) error {
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
-			if len(parts) > 5 {
+			if len(parts) > 4 {
 				return filepath.SkipDir
 			} else if info.IsDir() {
 				f, err := ioutil.ReadDir(path)
