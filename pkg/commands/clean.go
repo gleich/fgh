@@ -12,8 +12,13 @@ var cleanCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()
-		outdated := clean.Outdated(repos, flags.Years, flags.Months, flags.Days)
-		toRemove := clean.AskToRemove(outdated)
+
+		outdated := clean.GetOutdated(repos, flags.Years, flags.Months, flags.Days)
+		toRemove := clean.AskToRemoveOutdated(outdated)
+
+		deleted := clean.GetDeleted(repos)
+		toRemove = clean.AskToRemoveDeleted(deleted)
+
 		clean.Remove(toRemove)
 		clean.CleanUp()
 	},

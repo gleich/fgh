@@ -17,7 +17,7 @@ type OutdatedRepo struct {
 }
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func Outdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
+func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 	for _, repo := range repos {
 		var updatedTime time.Time
@@ -45,6 +45,6 @@ func Outdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld i
 			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
 		}
 	}
-	statuser.Success(fmt.Sprintf("Got %v repos last updated before %v", len(outdated), formatDate(timeThreshold)))
+	statuser.Success(fmt.Sprintf("%v repos last updated locally before %v", len(outdated), formatDate(timeThreshold)))
 	return outdated
 }

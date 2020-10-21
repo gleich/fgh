@@ -43,9 +43,9 @@ func Repos() (repos []LocalRepo) {
 			if len(parts) == 5 && info.IsDir() && isGitRepo(path) {
 				repos = append(repos, LocalRepo{
 					Owner:    parts[1],
-					Name:     parts[2],
-					Type:     parts[3],
-					Language: parts[4],
+					Name:     parts[4],
+					Type:     parts[2],
+					Language: parts[3],
 					Path:     path,
 				})
 			}

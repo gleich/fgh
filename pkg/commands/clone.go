@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var addCmd = &cobra.Command{
+var cloneCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Use:                   "clone <OWNER/REPO>",
 	Short:                 "Clone a repository",
@@ -24,5 +24,5 @@ var addCmd = &cobra.Command{
 }
 
 func init() {
-	rootCmd.AddCommand(addCmd)
+	rootCmd.AddCommand(cloneCmd)
 }
