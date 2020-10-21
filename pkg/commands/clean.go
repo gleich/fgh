@@ -17,7 +17,7 @@ var cleanCmd = &cobra.Command{
 		toRemove := clean.AskToRemoveOutdated(outdated)
 
 		deleted := clean.GetDeleted(repos)
-		toRemove = clean.AskToRemoveDeleted(deleted)
+		toRemove = append(toRemove, clean.AskToRemoveDeleted(deleted)...)
 
 		clean.Remove(toRemove)
 		clean.CleanUp()
