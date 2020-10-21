@@ -8,6 +8,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/location"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/dustin/go-humanize"
+	"github.com/fatih/color"
 	tf "github.com/hepsiburada/time-formatter"
 )
 
@@ -28,7 +29,7 @@ func AskToRemove(outdatedRepos []OutdatedRepo) (toRemove []location.LocalRepo) {
 			repo.Repo.Name,
 			repo.Repo.Language,
 			strings.Title(repo.Repo.Type),
-			time,
+			color.GreenString(time),
 		))
 		fmt.Println()
 		if remove {

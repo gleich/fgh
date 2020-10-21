@@ -50,7 +50,8 @@ func Repos() (repos []LocalRepo) {
 				})
 			}
 			return nil
-		})
+		},
+	)
 
 	if err != nil {
 		statuser.Error("Failed to get list cloned of repos", err, 1)

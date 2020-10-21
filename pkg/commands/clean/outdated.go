@@ -45,6 +45,6 @@ func Outdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld i
 			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
 		}
 	}
-	statuser.Success(fmt.Sprintf("Got %v outdated repos after %v", len(outdated), formatDate(timeThreshold)))
+	statuser.Success(fmt.Sprintf("Got %v repos last updated before %v", len(outdated), formatDate(timeThreshold)))
 	return outdated
 }
