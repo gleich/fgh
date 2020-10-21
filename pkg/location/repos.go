@@ -35,11 +35,16 @@ func Repos() (repos []LocalRepo) {
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
 			if len(parts) > 5 {
 				return filepath.SkipDir
 			}
+
 			if len(parts) == 5 && info.IsDir() && isGitRepo(path) {
 				repos = append(repos, LocalRepo{
 					Owner:    parts[1],

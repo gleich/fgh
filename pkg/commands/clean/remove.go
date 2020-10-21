@@ -27,6 +27,10 @@ func CleanUp() (removed []string) {
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {
+			if err != nil {
+				return err
+			}
+
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
 			if len(parts) > 4 {
