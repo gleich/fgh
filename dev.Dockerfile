@@ -1,8 +1,8 @@
 FROM golang:1.15
 
 # Meta data:
-LABEL maintainer="matthewgleich@gmail.com"
-LABEL description="📁 Manage your GitHub projects locally"
+LABEL maintainer="email@mattglei.ch"
+LABEL description="📁 Automate your local GitHub workspace"
 
 # Copying over all the files:
 COPY . /usr/src/app
