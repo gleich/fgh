@@ -39,8 +39,7 @@ func Repos() (repos []LocalRepo) {
 				return err
 			}
 
-			trimmedPath := strings.TrimPrefix(path, ghFolder)
-			parts := strings.Split(trimmedPath, string(filepath.Separator))
+			parts := strings.Split((strings.TrimPrefix(path, ghFolder)), string(filepath.Separator))
 			if len(parts) > 5 {
 				return filepath.SkipDir
 			}
