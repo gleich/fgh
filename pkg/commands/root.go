@@ -3,6 +3,7 @@ package commands
 import (
 	"fmt"
 
+	"github.com/Matt-Gleich/release"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
@@ -19,12 +20,24 @@ var rootCmd = &cobra.Command{
 %v Authors:
 	- Matthew Gleich (@Matt-Gleich)
 
-________       ______
-___  __/______ ___  /_
-__  /_ __  __  /_  __ \
-_  __/ _  /_/ /_  / / /
-/_/    _\__, / /_/ /_/
-       /____/`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
+   ___       __
+ /'___\     /\ \
+/\ \__/   __\ \ \___
+\ \ ,__\/ _  \ \  _  \
+ \ \ \_/\ \L\ \ \ \ \ \
+  \ \_\\ \____ \ \_\ \_\
+   \/_/ \/___L\ \/_/\/_/
+          /\____/
+          \_/__/`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
+	Run: func(cmd *cobra.Command, args []string) {
+		isOutdated, version, _ := release.Check("v1.0.0", "https://github.com/Matt-Gleich/fgh")
+		if isOutdated {
+			statuser.Warning(fmt.Sprintf(
+				"Version %v of fgh is now available! Please update at your convenience.",
+				version,
+			))
+		}
+	},
 }
 
 func Execute() {
