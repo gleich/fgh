@@ -10,6 +10,7 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/atotto/clipboard"
 	"github.com/briandowns/spinner"
+	"github.com/enescakir/emoji"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
@@ -17,7 +18,7 @@ import (
 // Clone the repo
 func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) {
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf("  ☁️  Cloning %v/%v", repo.Owner, repo.Name)
+	spin.Suffix = fmt.Sprintf("  %v  Cloning %v/%v", emoji.Cloud, repo.Owner, repo.Name)
 	spin.Start()
 	rawClone(secrets, repo, path)
 	spin.Stop()

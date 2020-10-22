@@ -10,13 +10,14 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
+	"github.com/enescakir/emoji"
 )
 
 // Get the meta data about the repo
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 	owner, name := ownerAndName(secrets, args)
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf(" ℹ️  Getting metadata for %v/%v", owner, name)
+	spin.Suffix = fmt.Sprintf(" %v  Getting metadata for %v/%v", emoji.Information, owner, name)
 	spin.Start()
 
 	client := api.GenerateClient()
