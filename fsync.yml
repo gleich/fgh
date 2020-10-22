@@ -3,7 +3,7 @@ replace:
   - before: project_name
     after: fgh
   - before: project_description
-    after: 📁 Automate your local GitHub workspace
+    after: 📁 Automate your the organization of your cloned GitHub repos
   - before: github_username
     after: Matt-Gleich
   - before: project_author_email

@@ -14,7 +14,7 @@ var rootCmd = &cobra.Command{
 	Use:   "fgh",
 	Short: fmt.Sprintf("%v Manage your GitHub project locally", emoji.FileFolder),
 	Long: fmt.Sprintf(`
-%v Automate your local GitHub workspace
+%v Automate your the organization of your cloned GitHub repos
 
 %v Repository: https://github.com/Matt-Gleich/fgh
 %v Authors:

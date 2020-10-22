@@ -9,18 +9,6 @@
 ![lint](https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg)
 ![release](https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg)
 
-- [🚀 Install](#---install)
-  - [🍎 macOS](#---macos)
-  - [🐧 Linux and 🖥 Windows](#---linux-and----windows)
-- [📖 Documentation](#---documentation)
-  - [⚙️ fgh configure](#----fgh-configure-)
-  - [☁️ fgh clone](#----fgh-clone-)
-  - [☝️ fgh update](#----fgh-update-)
-  - [🧼 fgh clean](#----fgh-clean-)
-- [🛣 Road Map](#---road-map)
-- [🙌 Contributing](#---contributing)
-- [👥 Contributors](#---contributors)
-
 ## 🚀 Install
 
 ### 🍎 macOS
