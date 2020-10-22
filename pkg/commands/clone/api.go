@@ -2,7 +2,6 @@ package clone
 
 import (
 	"fmt"
-	"path/filepath"
 	"strings"
 	"time"
 
@@ -33,13 +32,21 @@ func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 
 // Get the name of the repo and the of the owner
 func ownerAndName(secrets configure.SecretsOutline, args []string) (owner string, name string) {
-	if strings.Contains(args[0], string(filepath.Separator)) {
-		parts := strings.Split(args[0], string(filepath.Separator))
+	if strings.Contains(args[0], "/") {
+		parts := strings.Split(args[0], "/")
 		owner = parts[0]
 		name = parts[1]
 	} else {
 		owner = secrets.Username
 		name = args[0]
 	}
+
+	if owner == "" {
+		statuser.ErrorMsg("No owner provided", 1)
+	}
+	if name == "" {
+		statuser.ErrorMsg("No repository name provided", 1)
+	}
+
 	return owner, name
 }
