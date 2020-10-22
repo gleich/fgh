@@ -3,11 +3,11 @@ replace:
   - before: project_name
     after: fgh
   - before: project_description
-    after: 📁 Manage your GitHub projects locally
+    after: 📁 Automate your local GitHub workspace
   - before: github_username
     after: Matt-Gleich
   - before: project_author_email
-    after: matthewgleich@gmail.com
+    after: email@mattglei.ch
   - before: docker_username
     after: mattgleich
   - before: project_author_full_name

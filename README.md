@@ -2,7 +2,7 @@
 
 # fgh
 
-📁 Manage your GitHub projects locally
+📁 Automate your local GitHub workspace
 
 ![build](https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg)
 ![test](https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg)
