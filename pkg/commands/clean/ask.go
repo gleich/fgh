@@ -41,7 +41,7 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []location.LocalRepo {
 	return toRemove
 }
 
-// Confirm with the user that they want to remove a certain
+// Confirm with the user that they want to remove a deleted repo
 func AskToRemoveDeleted(deletedRepos []location.LocalRepo) []location.LocalRepo {
 	if len(deletedRepos) != 0 {
 		fmt.Println("\n----------------------")

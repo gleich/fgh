@@ -11,7 +11,7 @@ import (
 	"github.com/briandowns/spinner"
 )
 
-// Get all the repos locally that have been deleted
+// Get all the repos locally that have been deleted on GitHub
 func GetDeleted(repos []location.LocalRepo) (deleted []location.LocalRepo) {
 	if !utils.HasInternetConnection() {
 		statuser.Warning("Failed to establish an internet connection")

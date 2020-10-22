@@ -19,6 +19,7 @@ type OutdatedRepo struct {
 // Get the repos that haven't been modified locally in a certain amount of time
 func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
+
 	for _, repo := range repos {
 		var updatedTime time.Time
 		err := filepath.Walk(
@@ -38,6 +39,7 @@ func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOl
 				return nil
 			},
 		)
+
 		if err != nil {
 			statuser.Error("Failed to get updated time for "+repo.Path, err, 1)
 		}
@@ -45,6 +47,7 @@ func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOl
 			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
 		}
 	}
+
 	statuser.Success(fmt.Sprintf("%v repos last updated locally before %v", len(outdated), formatDate(timeThreshold)))
 	return outdated
 }

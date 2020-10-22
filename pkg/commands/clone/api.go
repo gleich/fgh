@@ -2,6 +2,7 @@ package clone
 
 import (
 	"fmt"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -11,6 +12,7 @@ import (
 	"github.com/briandowns/spinner"
 )
 
+// Get the meta data about the repo
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 	owner, name := ownerAndName(secrets, args)
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
@@ -30,9 +32,8 @@ func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 
 // Get the name of the repo and the of the owner
 func ownerAndName(secrets configure.SecretsOutline, args []string) (owner string, name string) {
-	// Getting repo name and owner
-	if strings.Contains(args[0], "/") {
-		parts := strings.Split(args[0], "/")
+	if strings.Contains(args[0], string(filepath.Separator)) {
+		parts := strings.Split(args[0], string(filepath.Separator))
 		owner = parts[0]
 		name = parts[1]
 	} else {

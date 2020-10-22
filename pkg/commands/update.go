@@ -13,7 +13,7 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		repos := location.Repos()
 		changedRepos := update.GetChanged(repos)
-		toMove := update.ConfirmMove(changedRepos)
+		toMove := update.AskMove(changedRepos)
 		update.MoveRepos(toMove)
 		clean.CleanUp()
 	},

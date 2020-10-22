@@ -5,6 +5,7 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
+// Confirm with a user
 func Confirm(q string) bool {
 	var confirmation bool
 	prompt := &survey.Confirm{Message: q}

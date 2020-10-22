@@ -8,7 +8,7 @@ import (
 
 var cleanCmd = &cobra.Command{
 	Use:   "clean",
-	Short: "Ask user if they want to remove repos not updated in a while",
+	Short: "Ask user if they want to remove repos not updated in a while or were deleted from GitHub",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()

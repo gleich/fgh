@@ -9,7 +9,8 @@ import (
 	"github.com/fatih/color"
 )
 
-func ConfirmMove(updated map[location.LocalRepo]api.Repo) map[string]string {
+// Ask the user if they want to move each repo
+func AskMove(updated map[location.LocalRepo]api.Repo) map[string]string {
 	toMove := map[string]string{}
 	for localRepo, repoAPIData := range updated {
 		newPath := location.RepoLocation(repoAPIData)

@@ -14,6 +14,7 @@ import (
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
+// Clone the repo
 func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) {
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf("  ☁️  Cloning %v/%v", repo.Owner, repo.Name)
@@ -22,13 +23,15 @@ func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, re
 	spin.Stop()
 	statuser.Success(fmt.Sprintf("Cloned %v/%v to:\n\t%v\n", repo.Owner, repo.Name, path))
 	if config.CloneClipboard {
-		copyPathToClipboard(path)
+		err := clipboard.WriteAll(path)
+		if err != nil {
+			statuser.Error("Failed to copy path to clipboard", err, 1)
+		}
 	}
 }
 
 // Raw function for cloning the repo
 func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
-	// Creating folder location:
 	err := os.MkdirAll(path, 0777)
 	if err != nil {
 		statuser.Error("Failed to create folder at "+path, err, 1)
@@ -43,13 +46,5 @@ func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
 	})
 	if err != nil {
 		statuser.Error("Failed to clone repo", err, 1)
-	}
-}
-
-// Copy the path to clipboard
-func copyPathToClipboard(path string) {
-	err := clipboard.WriteAll(path)
-	if err != nil {
-		statuser.Error("Failed to copy path to clipboard", err, 1)
 	}
 }

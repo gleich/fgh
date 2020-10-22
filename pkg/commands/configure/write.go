@@ -14,6 +14,7 @@ const (
 	SecretsFileName = "secrets.yaml"
 )
 
+// Write the configuration
 func WriteConfiguration(secrets SecretsOutline, config RegularOutline) {
 	configFolder := createFolders()
 	writeConfig(configFolder, config)
@@ -29,7 +30,7 @@ func GetFolderPath() string {
 	}
 	var folderPath string
 	if runtime.GOOS == "darwin" || runtime.GOOS == "linux" {
-		folderPath = filepath.Join(homePath, ".config/fgh/")
+		folderPath = filepath.Join(homePath, ".config", "fgh")
 	} else {
 		folderPath = filepath.Join(homePath, ".fgh")
 	}
@@ -54,6 +55,7 @@ func createFolders() string {
 	return folderPath
 }
 
+// Write the regular configuration for the program
 func writeConfig(folder string, config RegularOutline) {
 	filePath := filepath.Join(folder, RegularFileName)
 	err := utils.WriteYAML(config, filePath)

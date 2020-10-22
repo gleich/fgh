@@ -9,13 +9,12 @@ type RegularOutline struct {
 	CloneClipboard bool `yaml:"clone_clipboard"`
 }
 
-// Outline for the answers
 type SecretsOutline struct {
 	PAT      string `yaml:"pat"`
 	Username string `yaml:"username"`
 }
 
-// Ask questions to fill in configuration files
+// Ask questions to fill in reglar config
 func AskQuestions() RegularOutline {
 	questions := []*survey.Question{
 		{
@@ -31,7 +30,7 @@ func AskQuestions() RegularOutline {
 	return answers
 }
 
-// Ask questions to fill in configuration files
+// Ask questions to fill in the secret config
 func AskSecretQuestions() SecretsOutline {
 	questions := []*survey.Question{
 		{

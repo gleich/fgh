@@ -11,7 +11,7 @@ import (
 // Move all repos
 func MoveRepos(repos map[string]string) {
 	for oldPath, newPath := range repos {
-		// Making folder
+		// Making base folder
 		parts := strings.Split(newPath, string(filepath.Separator))
 		baseFolder := strings.Join(parts[:len(parts)-1], string(filepath.Separator))
 		err := os.MkdirAll(baseFolder, 0777)
@@ -19,6 +19,7 @@ func MoveRepos(repos map[string]string) {
 			statuser.Error("Failed to make "+baseFolder, err, 1)
 		}
 
+		// Renaming folder to new path
 		err = os.Rename(oldPath, newPath)
 		if err != nil {
 			statuser.Error("Failed to move "+oldPath+" to "+newPath, err, 1)
