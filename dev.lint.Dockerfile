@@ -2,7 +2,7 @@ FROM golangci/golangci-lint:v1.30.0
 
 # Meta data
 LABEL maintainer="email@mattglei.ch"
-LABEL description="📁 Automate your local GitHub workspace"
+LABEL description="📁 Automate your the organization of your cloned GitHub repos"
 
 # Copying over files
 COPY . /usr/src/app

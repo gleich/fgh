@@ -2,7 +2,7 @@ FROM golang:1.15
 
 # Meta data:
 LABEL maintainer="email@mattglei.ch"
-LABEL description="📁 Automate your local GitHub workspace"
+LABEL description="📁 Automate your the organization of your cloned GitHub repos"
 
 # Copying over all the files:
 COPY . /usr/src/app
