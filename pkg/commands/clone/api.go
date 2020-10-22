@@ -14,7 +14,7 @@ import (
 
 // Get the meta data about the repo
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
-	owner, name := ownerAndName(secrets, args)
+	owner, name := OwnerAndName(secrets, args)
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf(" %v  Getting metadata for %v/%v", emoji.Information, owner, name)
 	spin.Start()
@@ -31,7 +31,7 @@ func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 }
 
 // Get the name of the repo and the of the owner
-func ownerAndName(secrets configure.SecretsOutline, args []string) (owner string, name string) {
+func OwnerAndName(secrets configure.SecretsOutline, args []string) (owner string, name string) {
 	if strings.Contains(args[0], "/") {
 		parts := strings.Split(args[0], "/")
 		owner = parts[0]

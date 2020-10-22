@@ -2,7 +2,7 @@
 
 # fgh
 
-📁 Automate your local GitHub workspace
+📁 Automate your the organization of your cloned GitHub repos
 
 ![build](https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg)
 ![test](https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg)
@@ -72,6 +72,10 @@ When you run this command fgh will check every single repo for two things:
 2. If the repo has been deleted on GitHub.
 
 If either of those conditions are met fgh will ask you if you would like to remove it and shows you some information about the repo. **This only removes the repo locally**.
+
+### 🗑 `fgh remove`
+
+Remove a repository cloned locally.
 
 ## 🛣 Road Map
 
