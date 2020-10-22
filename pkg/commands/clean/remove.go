@@ -48,7 +48,7 @@ func CleanUp() (removed []string) {
 		},
 	)
 	if err != nil {
-		statuser.Error("Failed to get list of folders in github folder located at root", err, 1)
+		statuser.Error("Failed to remove empty folders >3 diretories deep from ~/github", err, 1)
 	}
 
 	for _, folder := range removed {

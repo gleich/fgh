@@ -7,7 +7,8 @@ import (
 
 var configureCmd = &cobra.Command{
 	Use:   "configure",
-	Short: "Configure fgh with an interactive prompt",
+	Short: "Configure fgh with an interactive prompt.",
+	Long:  "Before using fgh you need to configure it by running fgh configure. When it asks you for the GitHub PAT (personal access token) just go to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new) and create a new token with the repo box check off.",
 	Run: func(cmd *cobra.Command, args []string) {
 		regularConfig := configure.AskQuestions()
 		secretConfig := configure.AskSecretQuestions()

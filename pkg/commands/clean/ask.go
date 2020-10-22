@@ -25,7 +25,7 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []location.LocalRepo {
   Type:     %v
   Last Local Update: %v
 
-  Would you like to remove this repo?`,
+  Would you like to remove this repo locally?`,
 			repo.Repo.Path,
 			repo.Repo.Owner,
 			repo.Repo.Name,
@@ -52,7 +52,7 @@ func AskToRemoveDeleted(deletedRepos []location.LocalRepo) []location.LocalRepo 
 	toRemove := []location.LocalRepo{}
 	for _, repo := range deletedRepos {
 		remove := utils.Confirm(fmt.Sprintf(
-			"It seems as though %v has been deleted on GitHub.\n  Would you like to remove it locally?",
+			"It seems as though %v has been deleted on GitHub.\n  Would you like to remove it?",
 			color.GreenString(repo.Path),
 		))
 		fmt.Println()
