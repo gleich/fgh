@@ -19,7 +19,7 @@ func AskQuestions() RegularOutline {
 	questions := []*survey.Question{
 		{
 			Name:   "CloneClipboard",
-			Prompt: &survey.Confirm{Message: "Do you want to copy the path of a cloned repo after clone?"},
+			Prompt: &survey.Confirm{Message: "Do you want to copy the path of a cloned repo after clone to your clipboard?"},
 		},
 	}
 	var answers RegularOutline
@@ -34,8 +34,11 @@ func AskQuestions() RegularOutline {
 func AskSecretQuestions() SecretsOutline {
 	questions := []*survey.Question{
 		{
-			Name:   "PAT",
-			Prompt: &survey.Password{Message: "What is your GitHub PAT?"},
+			Name: "PAT",
+			Prompt: &survey.Input{
+				Message: "What is your GitHub PAT?",
+				Help:    "Get a token from https://github.com/settings/tokens/new with the repo box checked",
+			},
 		},
 		{
 			Name:   "Username",
