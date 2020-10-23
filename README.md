@@ -18,27 +18,21 @@
 
 ## 📜 Table of Contents
 
-- [🚀 Install](#---install)
-
-  - [🍎 macOS](#---macos)
-  - [🐧 Linux and 🖥 Windows](#---linux-and----windows)
-
-- [📖 Documentation](#---documentation)
-
-- [📚 Usage](#---usage)
-
-  - [⚙️ `fgh configure`](#----fgh-configure-)
-  - [☁️ `fgh clone`](#----fgh-clone-)
-
-- [💡 Example](#---example)
-
-  - [☝️ `fgh update`](#----fgh-update-)
-  - [🧼 `fgh clean`](#----fgh-clean-)
-  - [🗑 `fgh remove`](#----fgh-remove-)
-
-  * [🛣 Roadmap](#---roadmap)
-  * [🙌 Contributing](#---contributing)
-  * [👥 Contributors](#---contributors)
+- [📜 Table of Contents](#-table-of-contents)
+- [🚀 Install](#-install)
+  - [🍎 macOS](#-macos)
+  - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
+- [📖 Documentation](#-documentation)
+- [📚 Usage](#-usage)
+  - [⚙️ `fgh configure`](#️-fgh-configure)
+  - [☁️ `fgh clone`](#️-fgh-clone)
+- [💡 Example](#-example)
+  - [🆙 `fgh update`](#-fgh-update)
+  - [🧼 `fgh clean`](#-fgh-clean)
+  - [🗑 `fgh remove`](#-fgh-remove)
+- [🛣 Roadmap](#-roadmap)
+- [🙌 Contributing](#-contributing)
+- [👥 Contributors](#-contributors)
 
 ## 🚀 Install
 
@@ -64,7 +58,7 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 Before using `fgh`, you'll need to set a GitHub PAT (personal access token) in order to make requests to GitHub's API. In order to do this:
 
 - Head over to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
-- Ccreate a new token with the `repo` scope.
+- Create a new token with the `repo` scope.
 
 ### ☁️ `fgh clone`
 
@@ -105,7 +99,7 @@ These names correspond to the following:
 - `MAIN LANGUAGE` is The main language that the repository contains. If no language is detected, `fgh` will map it to `Other`
 - `NAME` is the name of the repository
 
-# 💡 Example
+## 💡 Example
 
 ```bash
 fgh clone Matt-Gleich/fgh
@@ -117,7 +111,7 @@ Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cl
 
 This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. I suggest TUI-based filesystem navigators such as [ranger](https://github.com/ranger/ranger) to help speed up the process.
 
-### ☝️ `fgh update`
+### 🆙 `fgh update`
 
 If any of a repository's fields are changed, such as its type, main language, owner, or name, the path to your local repository won't match.
 
