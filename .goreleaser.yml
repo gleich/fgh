@@ -24,7 +24,7 @@ brews:
       name: homebrew-taps
     folder: Formula
     homepage: 'https://github.com/Matt-Gleich/fgh'
-    description: '📁 Automate your the organization of your cloned GitHub repos'
+    description: '📁 Automate the organization of your cloned GitHub repositories'
     commit_author:
       name: Matt-Gleich
       email: email@mattglei.ch
