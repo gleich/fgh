@@ -18,3 +18,13 @@ builds:
     goarm:
       - 6
       - 7
+brews:
+  - tap:
+      owner: Matt-Gleich
+      name: homebrew-taps
+    folder: Formula
+    homepage: 'https://github.com/Matt-Gleich/fgh'
+    description: '📁 Automate your the organization of your cloned GitHub repos'
+    commit_author:
+      name: Matt-Gleich
+      email: email@mattglei.ch
