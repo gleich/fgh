@@ -141,6 +141,7 @@ fgh remove <owner/name>
 
 ## 🛣 Roadmap
 
+- Allow custom structures
 - Inform the user of a dirty working tree before removing a repository
 - Add `pull` subcommand to pull the latest changes for each repository
 
