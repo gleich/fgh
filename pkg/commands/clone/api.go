@@ -23,6 +23,7 @@ func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 	client := api.GenerateClient()
 	repo, err := api.RepoData(client, owner, name)
 	if err != nil {
+		fmt.Println()
 		statuser.Error("Failed to get repo information", err, 1)
 	}
 
