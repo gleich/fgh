@@ -10,8 +10,7 @@ type RegularOutline struct {
 }
 
 type SecretsOutline struct {
-	PAT      string `yaml:"pat"`
-	Username string `yaml:"username"`
+	PAT string `yaml:"pat"`
 }
 
 // Ask questions to fill in reglar config
@@ -39,10 +38,6 @@ func AskSecretQuestions() SecretsOutline {
 				Message: "What is your GitHub PAT?",
 				Help:    "Get a token from https://github.com/settings/tokens/new with the repo box checked",
 			},
-		},
-		{
-			Name:   "Username",
-			Prompt: &survey.Input{Message: "What is your GitHub username?"},
 		},
 	}
 	var answers SecretsOutline

@@ -3,7 +3,6 @@ package remove
 import (
 	"testing"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/location"
 	"github.com/stretchr/testify/assert"
 )
@@ -52,12 +51,12 @@ func TestFilterRepos(t *testing.T) {
 	}
 
 	for _, test := range tt {
-		secrets := configure.SecretsOutline{Username: "Matt-Gleich"}
+		username := "Matt-Gleich"
 
 		assert.Equal(t,
 			test.expectedResult,
 			FilterRepos(
-				secrets,
+				username,
 				test.repos,
 				[]string{"Matt-Gleich/dots"},
 			),
@@ -66,7 +65,7 @@ func TestFilterRepos(t *testing.T) {
 		assert.Equal(t,
 			test.expectedResult,
 			FilterRepos(
-				secrets,
+				username,
 				test.repos,
 				[]string{"dots"},
 			),
@@ -75,7 +74,7 @@ func TestFilterRepos(t *testing.T) {
 		assert.Equal(t,
 			test.expectedResult,
 			FilterRepos(
-				secrets,
+				username,
 				test.repos,
 				[]string{"Matt-Gleich/dots", ""},
 			),

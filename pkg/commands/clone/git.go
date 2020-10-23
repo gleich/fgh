@@ -41,7 +41,7 @@ func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
 	_, err = git.PlainClone(path, false, &git.CloneOptions{
 		URL: fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
 		Auth: &http.BasicAuth{
-			Username: secrets.Username,
+			Username: api.Username(),
 			Password: secrets.PAT,
 		},
 	})
