@@ -10,7 +10,7 @@ import (
 )
 
 // Starter for all long form docs
-const longDocStart = "Documentation for this subcommand: "
+const longDocStart = "\nDocumentation for this subcommand: "
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -25,7 +25,7 @@ var rootCmd = &cobra.Command{
   \ \_\\ \____ \ \_\ \_\
    \/_/ \/___L\ \/_/\/_/
           /\____/
-		  \_/__/
+	  \_/__/
 
 %v Automate the organization of your cloned GitHub repositories
 
