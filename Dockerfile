@@ -2,7 +2,7 @@ FROM golang:1.15-alpine3.12 AS builder
 
 # Meta data:
 LABEL maintainer="email@mattglei.ch"
-LABEL description="📁 Automate your the organization of your cloned GitHub repos"
+LABEL description="📁 Automate the organization of your cloned GitHub repositories"
 
 # Copying over all the files:
 COPY . /usr/src/app
