@@ -79,10 +79,10 @@ All repositories are cloned into the following structure:
 ```
 ~
 └─ github
-    └─ OWNER
-        └─ TYPE
-            └─ MAIN LANGUAGE
-                └─ NAME
+   └─ OWNER
+      └─ TYPE
+         └─ MAIN LANGUAGE
+            └─ NAME
 ```
 
 These names correspond to the following:
