@@ -7,6 +7,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/atotto/clipboard"
 	"github.com/briandowns/spinner"
@@ -17,7 +18,7 @@ import (
 
 // Clone the repo
 func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) {
-	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
+	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf("  %v  Cloning %v/%v", emoji.DownArrow, repo.Owner, repo.Name)
 	spin.Start()
 	rawClone(secrets, repo, path)

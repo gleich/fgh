@@ -1,20 +1,18 @@
 package commands
 
 import (
+	"fmt"
+
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
 
 var cleanCmd = &cobra.Command{
 	Use:   "clean",
-	Short: "Ask if you want to remove repos not updated in awhile or were deleted from GitHub.",
-	Long: `When you run this command fgh will check every single repo for two things:
-
-1. If it hasn't been modified locally in a certain amount of time. The default amount of time is 2 months but this can be changed with flags. See fgh clean --help for more info.
-2. If the repo has been deleted on GitHub.
-
-If either of those conditions are met fgh will ask you if you would like to remove it and shows you some information about the repo. This only removes the repo locally.`,
+	Short: fmt.Sprintf("%v Ask to remove old or deleted cloned repos", emoji.Soap),
+	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
 		repos := location.Repos()

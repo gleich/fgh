@@ -18,7 +18,7 @@ func GetDeleted(repos []location.LocalRepo) (deleted []location.LocalRepo) {
 		statuser.Warning("Failed to establish an internet connection")
 	}
 
-	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
+	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf("  %v  Checking if any local repos have been deleted from GitHub", emoji.Information)
 	spin.Start()
 

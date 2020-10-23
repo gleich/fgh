@@ -27,7 +27,7 @@
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
 - [💡 Example](#-example)
-  - [🆙 `fgh update`](#-fgh-update)
+  - [⬆️ `fgh update`](#️-fgh-update)
   - [🧼 `fgh clean`](#-fgh-clean)
   - [🗑 `fgh remove`](#-fgh-remove)
 - [🛣 Roadmap](#-roadmap)
@@ -105,13 +105,13 @@ These names correspond to the following:
 fgh clone Matt-Gleich/fgh
 ```
 
-Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cloned, this path will be copied to your clipboard automatically.
+Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cloned, this path will can be copied to your clipboard automatically.
 
 > NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
 This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. I suggest TUI-based filesystem navigators such as [ranger](https://github.com/ranger/ranger) to help speed up the process.
 
-### 🆙 `fgh update`
+### ⬆️ `fgh update`
 
 If any of a repository's fields are changed, such as its type, main language, owner, or name, the path to your local repository won't match.
 

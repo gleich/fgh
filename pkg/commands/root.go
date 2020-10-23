@@ -9,16 +9,20 @@ import (
 	"github.com/spf13/cobra"
 )
 
+// Starter for all long form docs
+const longDocStart = "Documentation for this subcommand: "
+
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fgh",
-	Short: fmt.Sprintf("%v Manage your GitHub project locally", emoji.FileFolder),
+	Short: fmt.Sprintf("%v Automate the organization of your cloned GitHub repositories", emoji.FileFolder),
 	Long: fmt.Sprintf(`
 %v Automate the organization of your cloned GitHub repositories
 
 %v Repository: https://github.com/Matt-Gleich/fgh
 %v Authors:
 	- Matthew Gleich (@Matt-Gleich)
+	- Safin Singh (@safinsingh)
 
    ___       __
  /'___\     /\ \
