@@ -113,7 +113,7 @@ fgh clone Matt-Gleich/fgh
 
 Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cloned, this path will be copied to your clipboard automatically.
 
-> NOTE: On Linux machines running the X Window System, this requires the `xclip` or `xsel` packages.
+> NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
 This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. I suggest TUI-based filesystem navigators such as [ranger](https://github.com/ranger/ranger) to help speed up the process.
 
