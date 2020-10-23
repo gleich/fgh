@@ -8,7 +8,7 @@
 <img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
 <img alt="lint" src="https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg" />
 <img alt="release" src="https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg" />
-
+<br />
 <i>📁 Automate the organization of your cloned GitHub repositories</i>
 
 </p>
