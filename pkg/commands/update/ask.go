@@ -33,6 +33,10 @@ func AskMove(updated map[location.LocalRepo]api.Repo) map[string]string {
 			toMove[localRepo.Path] = newPath
 		}
 	}
-	fmt.Println()
+
+	if len(updated) != 0 {
+		fmt.Println()
+	}
+
 	return toMove
 }

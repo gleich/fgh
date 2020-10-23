@@ -8,6 +8,8 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/location"
 	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/briandowns/spinner"
+	"github.com/enescakir/emoji"
 	"gopkg.in/djherbis/times.v1"
 )
 
@@ -19,6 +21,15 @@ type OutdatedRepo struct {
 // Get the repos that haven't been modified locally in a certain amount of time
 func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
+	formattedDate := formatDate(timeThreshold)
+
+	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
+	spin.Suffix = fmt.Sprintf(
+		"  %v  Checking for any repos last updated before %v",
+		emoji.Information,
+		formattedDate,
+	)
+	spin.Start()
 
 	for _, repo := range repos {
 		var updatedTime time.Time
@@ -48,6 +59,7 @@ func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOl
 		}
 	}
 
-	statuser.Success(fmt.Sprintf("%v repos last updated locally before %v", len(outdated), formatDate(timeThreshold)))
+	spin.Stop()
+	statuser.Success(fmt.Sprintf("%v repos last updated locally before %v", len(outdated), formattedDate))
 	return outdated
 }

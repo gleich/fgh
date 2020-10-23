@@ -21,7 +21,7 @@ func Remove(repos []location.LocalRepo) {
 	}
 }
 
-// Remove all fgh folders that don't have anything in them
+// Remove empty folders >3 diretories deep from ~/github
 func CleanUp() (removed []string) {
 	ghFolder := location.GitHubFolder()
 	err := filepath.Walk(

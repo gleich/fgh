@@ -19,7 +19,7 @@ func GetDeleted(repos []location.LocalRepo) (deleted []location.LocalRepo) {
 	}
 
 	spin := spinner.New(spinner.CharSets[1], 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf(" %v  Checking if any local repos have been deleted from GitHub", emoji.Information)
+	spin.Suffix = fmt.Sprintf("  %v  Checking if any local repos have been deleted from GitHub", emoji.Information)
 	spin.Start()
 
 	for _, localRepo := range repos {
