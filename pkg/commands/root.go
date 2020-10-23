@@ -17,13 +17,6 @@ var rootCmd = &cobra.Command{
 	Use:   "fgh",
 	Short: fmt.Sprintf("%v Automate the organization of your cloned GitHub repositories", emoji.FileFolder),
 	Long: fmt.Sprintf(`
-%v Automate the organization of your cloned GitHub repositories
-
-%v Repository: https://github.com/Matt-Gleich/fgh
-%v Authors:
-	- Matthew Gleich (@Matt-Gleich)
-	- Safin Singh (@safinsingh)
-
    ___       __
  /'___\     /\ \
 /\ \__/   __\ \ \___
@@ -32,7 +25,14 @@ var rootCmd = &cobra.Command{
   \ \_\\ \____ \ \_\ \_\
    \/_/ \/___L\ \/_/\/_/
           /\____/
-          \_/__/`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
+		  \_/__/
+
+%v Automate the organization of your cloned GitHub repositories
+
+%v Repository: https://github.com/Matt-Gleich/fgh
+%v Authors:
+	- Matthew Gleich (@Matt-Gleich)
+	- Safin Singh (@safinsingh)`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
 	Run: func(cmd *cobra.Command, args []string) {
 		isOutdated, version, _ := release.Check("v1.0.0", "https://github.com/Matt-Gleich/fgh")
 		if isOutdated {
