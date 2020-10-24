@@ -7,6 +7,7 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
+// Get the access token
 func GetToken(port string) string {
 	// Create a channel to carry the token
 	c := make(chan string)
@@ -37,7 +38,7 @@ func GetToken(port string) string {
 		c <- token
 
 		// Tell the user the good news!
-		_, err = w.Write([]byte("<style>body{background:black;color:#eee;font-family:sans-serif;text-align:center;}</style><h1>You're almost there!</h1><h2>Please head on back to your terminal.</h2>"))
+		_, err = w.Write([]byte("<style>body{margin:0;position:absolute;top:50%;left:50%;-ms-transform:translate(-50%, -50%);transform:translate(-50%, -50%);background:black;color:#eee;font-family:sans-serif}</style><h1>You are all logged in! 🎉</h1>"))
 		if err != nil {
 			statuser.Error("Failed to send the HTTP response", err, 1)
 		}
