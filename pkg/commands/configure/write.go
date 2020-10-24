@@ -15,10 +15,9 @@ const (
 )
 
 // Write the configuration
-func WriteConfiguration(secrets SecretsOutline, config RegularOutline) {
+func WriteConfiguration(config RegularOutline) {
 	configFolder := CreateFolders()
 	WriteConfig(configFolder, config)
-	WriteSecrets(configFolder, secrets)
 	statuser.Success("Wrote to config")
 }
 

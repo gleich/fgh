@@ -14,8 +14,7 @@ var configureCmd = &cobra.Command{
 	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#%EF%B8%8F-fgh-configure",
 	Run: func(cmd *cobra.Command, args []string) {
 		regularConfig := configure.AskQuestions()
-		secretConfig := configure.AskSecretQuestions()
-		configure.WriteConfiguration(secretConfig, regularConfig)
+		configure.WriteConfiguration(regularConfig)
 	},
 }
 
