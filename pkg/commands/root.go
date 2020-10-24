@@ -32,6 +32,7 @@ var rootCmd = &cobra.Command{
 %v Repository: https://github.com/Matt-Gleich/fgh
 %v Authors:
 	- Matthew Gleich (@Matt-Gleich)
+	- Caleb Denio (@cjdenio)
 	- Safin Singh (@safinsingh)`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
 	Run: func(cmd *cobra.Command, args []string) {
 		isOutdated, version, _ := release.Check("v1.0.0", "https://github.com/Matt-Gleich/fgh")
