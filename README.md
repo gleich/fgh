@@ -24,6 +24,7 @@
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [📖 Documentation](#-documentation)
 - [📚 Usage](#-usage)
+  - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
 - [💡 Example](#-example)
