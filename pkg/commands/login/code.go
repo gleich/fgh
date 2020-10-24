@@ -19,7 +19,10 @@ func GetToken(port string) string {
 		code := (r.URL.Query().Get("code"))
 		if code == "" {
 			w.WriteHeader(400)
-			w.Write([]byte("Error: no code parameter"))
+			_, err := w.Write([]byte("Error: no code parameter"))
+			if err != nil {
+				statuser.Error("Failed to send the HTTP response", err, 1)
+			}
 			return
 		}
 
@@ -34,7 +37,7 @@ func GetToken(port string) string {
 		c <- token
 
 		// Tell the user the good news!
-		_, err = w.Write([]byte("<h1>You've been successfully logged in!</h1><h2>Please head on back to your terminal.</h2>"))
+		_, err = w.Write([]byte("<style>body{background:black;color:#eee;font-family:sans-serif;text-align:center;}</style><h1>You're almost there!</h1><h2>Please head on back to your terminal.</h2>"))
 		if err != nil {
 			statuser.Error("Failed to send the HTTP response", err, 1)
 		}
@@ -51,7 +54,9 @@ func GetToken(port string) string {
 	// Start the server in a goroutine so we can listen on the channel in the main thread
 	go func() {
 		err := server.ListenAndServe()
-		if err != nil {
+
+		// ErrServerClosed is expected here, so let's not throw an error
+		if err != nil && err != http.ErrServerClosed {
 			statuser.Error("Failed to start the OAuth code server", err, 1)
 		}
 	}()
