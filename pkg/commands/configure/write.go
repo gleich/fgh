@@ -15,10 +15,9 @@ const (
 )
 
 // Write the configuration
-func WriteConfiguration(secrets SecretsOutline, config RegularOutline) {
-	configFolder := createFolders()
-	writeConfig(configFolder, config)
-	writeSecrets(configFolder, secrets)
+func WriteConfiguration(config RegularOutline) {
+	configFolder := CreateFolders()
+	WriteConfig(configFolder, config)
 	statuser.Success("Wrote to config")
 }
 
@@ -39,7 +38,7 @@ func GetFolderPath() string {
 
 // Create the folder where the configuration should live
 // Returns the folder path created
-func createFolders() string {
+func CreateFolders() string {
 	folderPath := GetFolderPath()
 	_, err := os.Stat(folderPath)
 	if !os.IsNotExist(err) {
@@ -56,7 +55,7 @@ func createFolders() string {
 }
 
 // Write the regular configuration for the program
-func writeConfig(folder string, config RegularOutline) {
+func WriteConfig(folder string, config RegularOutline) {
 	filePath := filepath.Join(folder, RegularFileName)
 	err := utils.WriteYAML(config, filePath)
 	if err != nil {
@@ -65,7 +64,7 @@ func writeConfig(folder string, config RegularOutline) {
 }
 
 // Write the secret configuration for the program
-func writeSecrets(folder string, secrets SecretsOutline) {
+func WriteSecrets(folder string, secrets SecretsOutline) {
 	filePath := filepath.Join(folder, SecretsFileName)
 	err := utils.WriteYAML(secrets, filePath)
 	if err != nil {

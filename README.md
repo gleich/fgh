@@ -26,6 +26,7 @@
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [📖 Documentation](#-documentation)
 - [📚 Usage](#-usage)
+  - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
 - [💡 Example](#-example)
@@ -55,12 +56,19 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 
 ## 📚 Usage
 
+### 🔒 `fgh login`
+
+Before using `fgh`, you'll need to give it access to your GitHub account. Simply run `fgh login` to quickly get set up!
+
+If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. On Windows it is located in `~/.fgh/secrets.yml` and `~/.config/fgh/secrets.yml` on Linux and Darwin (macOS) systems. You should change/add the `pat` as seen below:
+
+```yaml
+pat: <your token here>
+```
+
 ### ⚙️ `fgh configure`
 
-Before using `fgh`, you'll need to set a GitHub PAT (personal access token) in order to make requests to GitHub's API. In order to do this:
-
-- Head over to [https://github.com/settings/tokens/new](https://github.com/settings/tokens/new)
-- Create a new token with the `repo` scope.
+To configure other settings, run `fgh configure` for an interactive configuration experience.
 
 ### ☁️ `fgh clone`
 
@@ -152,8 +160,8 @@ fgh remove <owner/name>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-## 👥 Contributors
 
+## 👥 Contributors
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
