@@ -1,8 +1,10 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "safinsingh"]:end -->
 
-<h1 align="center">fgh</h1>
+<div align="center">
 
-<p align="center">
+<img alt="logo" src="./images/Entire%20Logo.png" height="250px">
+
+<h1>fgh</h1>
 
 <img alt="build" src="https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg" />
 <img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
@@ -12,7 +14,7 @@
 <br />
 <i>📁 Automate the organization of your cloned GitHub repositories</i>
 
-</p>
+</div>
 
 <hr />
 
