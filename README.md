@@ -58,9 +58,15 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 
 Before using `fgh`, you'll need to give it access to your GitHub account. Simply run `fgh login` to quickly get set up!
 
+If you need to use a GitHub custom access token, like a PAT, edit the `.config/fgh/secrets.yaml` file like so:
+
+```yaml
+pat: <your token here>
+```
+
 ### ⚙️ `fgh configure`
 
-To configure other settings (and optionally set your own personal GitHub access token), run `fgh configure` for an interactive configuration experience.
+To configure other settings, run `fgh configure` for an interactive configuration experience.
 
 ### ☁️ `fgh clone`
 
