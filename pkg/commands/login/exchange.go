@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Exchange an OAuth authorization code for an access token
 func Exchange(code string) (string, error) {
 	// Time out after 20 seconds
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
