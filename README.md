@@ -1,4 +1,4 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "safinsingh", "imgbot[bot]"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "cjdenio", "safinsingh", "imgbot[bot]"]:end -->
 
 <div align="center">
 
@@ -160,10 +160,12 @@ fgh remove <owner/name>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-
 ## 👥 Contributors
 
+
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
+
+- **[@cjdenio](https://github.com/cjdenio)**
 
 - **[@safinsingh](https://github.com/safinsingh)**
 
