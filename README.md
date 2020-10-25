@@ -1,4 +1,4 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "safinsingh"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "safinsingh", "imgbot[bot]"]:end -->
 
 <div align="center">
 
@@ -158,5 +158,7 @@ Thank you for considering contributing to `fgh`! Before contributing, make sure 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
 - **[@safinsingh](https://github.com/safinsingh)**
+
+- **[@imgbot[bot]](https://github.com/apps/imgbot)**
 
 <!-- DO NOT REMOVE - contributor_list:end -->
