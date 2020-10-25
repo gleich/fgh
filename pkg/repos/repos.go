@@ -1,4 +1,4 @@
-package location
+package repos
 
 import (
 	"io/ioutil"

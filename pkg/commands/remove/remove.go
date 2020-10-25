@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Ask to remove each repo and then remove it
-func RemoveRepos(repos []location.LocalRepo) {
+func RemoveRepos(repos []repos.LocalRepo) {
 	for _, repo := range repos {
 		remove := utils.Confirm(fmt.Sprintf(
 			"Are you sure you want to permanently remove %v from your computer?", repo.Path,

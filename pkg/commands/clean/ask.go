@@ -5,7 +5,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/dustin/go-humanize"
 	"github.com/fatih/color"
@@ -13,8 +13,8 @@ import (
 )
 
 // Confirm with the user that they want to remove an outdated repo
-func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []location.LocalRepo {
-	toRemove := []location.LocalRepo{}
+func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
+	toRemove := []repos.LocalRepo{}
 	for _, repo := range outdatedRepos {
 		time := formatDate(repo.ModTime)
 		remove := utils.Confirm(fmt.Sprintf(
@@ -42,14 +42,14 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []location.LocalRepo {
 }
 
 // Confirm with the user that they want to remove a deleted repo
-func AskToRemoveDeleted(deletedRepos []location.LocalRepo) []location.LocalRepo {
+func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) []repos.LocalRepo {
 	if len(deletedRepos) != 0 {
 		fmt.Println("\n----------------------")
 		fmt.Println(" Deleted Repositories ")
 		fmt.Println("----------------------")
 	}
 
-	toRemove := []location.LocalRepo{}
+	toRemove := []repos.LocalRepo{}
 	for _, repo := range deletedRepos {
 		remove := utils.Confirm(fmt.Sprintf(
 			"It seems as though %v has been deleted on GitHub.\n  Would you like to remove it?",

@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
@@ -15,12 +15,12 @@ var cleanCmd = &cobra.Command{
 	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
-		repos := location.Repos()
+		clonedRepos := repos.Repos()
 
-		outdated := clean.GetOutdated(repos, flags.Years, flags.Months, flags.Days)
+		outdated := clean.GetOutdated(clonedRepos, flags.Years, flags.Months, flags.Days)
 		toRemove := clean.AskToRemoveOutdated(outdated)
 
-		deleted := clean.GetDeleted(repos)
+		deleted := clean.GetDeleted(clonedRepos)
 		toRemove = append(toRemove, clean.AskToRemoveDeleted(deleted)...)
 
 		clean.Remove(toRemove)

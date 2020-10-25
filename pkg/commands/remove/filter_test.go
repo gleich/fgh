@@ -3,47 +3,47 @@ package remove
 import (
 	"testing"
 
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestFilterRepos(t *testing.T) {
 	tt := []struct {
-		repos          []location.LocalRepo
-		expectedResult []location.LocalRepo
+		repos          []repos.LocalRepo
+		expectedResult []repos.LocalRepo
 	}{
 		{
-			repos: []location.LocalRepo{
+			repos: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},
-			expectedResult: []location.LocalRepo{
+			expectedResult: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},
 		},
 		{
-			repos: []location.LocalRepo{
+			repos: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 				{Owner: "cli", Name: "cli"},
 			},
-			expectedResult: []location.LocalRepo{
+			expectedResult: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},
 		},
 		{
-			repos: []location.LocalRepo{
+			repos: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 				{Owner: "Matt-Gleich", Name: "nuke"},
 			},
-			expectedResult: []location.LocalRepo{
+			expectedResult: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},
 		},
 		{
-			repos: []location.LocalRepo{
+			repos: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},
-			expectedResult: []location.LocalRepo{
+			expectedResult: []repos.LocalRepo{
 				{Owner: "Matt-Gleich", Name: "dots"},
 				{Owner: "Matt-Gleich", Name: "dots"},
 			},

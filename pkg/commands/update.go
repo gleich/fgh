@@ -5,7 +5,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/commands/update"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
@@ -15,7 +15,7 @@ var updateCmd = &cobra.Command{
 	Short: fmt.Sprintf("%v  Ask if you want to update the path of any repos with updated fields", emoji.UpArrow),
 	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-update",
 	Run: func(cmd *cobra.Command, args []string) {
-		repos := location.Repos()
+		repos := repos.Repos()
 		changedRepos := update.GetChanged(repos)
 		toMove := update.AskMove(changedRepos)
 		update.MoveRepos(toMove)

@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
@@ -14,14 +14,14 @@ import (
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
-func GetChanged(repos []location.LocalRepo) map[location.LocalRepo]api.Repo {
+func GetChanged(clonedRepos []repos.LocalRepo) map[repos.LocalRepo]api.Repo {
 	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf(" %v  Getting latest repo information for all cloned all repos", emoji.Information)
 	spin.Start()
 
-	updated := map[location.LocalRepo]api.Repo{}
+	updated := map[repos.LocalRepo]api.Repo{}
 	client := api.GenerateClient()
-	for _, localRepo := range repos {
+	for _, localRepo := range clonedRepos {
 		updatedData, err := api.RepoData(client, localRepo.Owner, localRepo.Name)
 		if err != nil {
 			statuser.Error(
@@ -32,7 +32,7 @@ func GetChanged(repos []location.LocalRepo) map[location.LocalRepo]api.Repo {
 				err, 1,
 			)
 		}
-		if location.RepoLocation(updatedData) != localRepo.Path {
+		if repos.RepoLocation(updatedData) != localRepo.Path {
 			updated[localRepo] = updatedData
 		}
 	}

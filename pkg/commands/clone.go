@@ -5,7 +5,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
@@ -21,7 +21,7 @@ var cloneCmd = &cobra.Command{
 			secrets = configuration.GetSecrets()
 			config  = configuration.GetConfig()
 			repo    = clone.GetRepository(secrets, args)
-			path    = location.RepoLocation(repo)
+			path    = repos.RepoLocation(repo)
 		)
 		clone.Clone(config, secrets, repo, path)
 	},

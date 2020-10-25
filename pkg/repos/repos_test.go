@@ -1,4 +1,4 @@
-package location
+package repos
 
 import (
 	"os"
@@ -27,7 +27,7 @@ func TestIsGitRepo(t *testing.T) {
 
 		assert.True(t, isGitRepo("folder-1"))
 
-		// Removeing files and folders
+		// Removing files and folders
 		for _, folder := range tt.extraFolders {
 			for _, childFolder := range strings.Split(folder, string(filepath.Separator)) {
 				err := os.RemoveAll(childFolder)

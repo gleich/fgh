@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
@@ -15,12 +15,12 @@ import (
 )
 
 type OutdatedRepo struct {
-	Repo    location.LocalRepo
+	Repo    repos.LocalRepo
 	ModTime time.Time
 }
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func GetOutdated(repos []location.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
+func GetOutdated(repos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 	formattedDate := formatDate(timeThreshold)
 

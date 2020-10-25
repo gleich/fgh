@@ -6,12 +6,12 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Remove the repos
-func Remove(repos []location.LocalRepo) {
+func Remove(repos []repos.LocalRepo) {
 	for _, repo := range repos {
 		err := os.RemoveAll(repo.Path)
 		if err != nil {
@@ -23,7 +23,7 @@ func Remove(repos []location.LocalRepo) {
 
 // Remove empty folders >3 diretories deep from ~/github
 func CleanUp() (removed []string) {
-	ghFolder := location.GitHubFolder()
+	ghFolder := repos.GitHubFolder()
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {

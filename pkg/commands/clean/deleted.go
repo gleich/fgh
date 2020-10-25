@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
@@ -13,7 +13,7 @@ import (
 )
 
 // Get all the repos locally that have been deleted on GitHub
-func GetDeleted(repos []location.LocalRepo) (deleted []location.LocalRepo) {
+func GetDeleted(repos []repos.LocalRepo) (deleted []repos.LocalRepo) {
 	if !utils.HasInternetConnection() {
 		statuser.Warning("Failed to establish an internet connection")
 	}

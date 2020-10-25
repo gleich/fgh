@@ -4,16 +4,16 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/location"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/fatih/color"
 )
 
 // Ask the user if they want to move each repo
-func AskMove(updated map[location.LocalRepo]api.Repo) map[string]string {
+func AskMove(updated map[repos.LocalRepo]api.Repo) map[string]string {
 	toMove := map[string]string{}
 	for localRepo, repoAPIData := range updated {
-		newPath := location.RepoLocation(repoAPIData)
+		newPath := repos.RepoLocation(repoAPIData)
 		fmt.Println()
 		move := utils.Confirm(fmt.Sprintf(
 			`Current Path: %v
