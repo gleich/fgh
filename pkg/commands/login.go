@@ -4,7 +4,6 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-
 	"github.com/Matt-Gleich/fgh/pkg/commands/login"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
@@ -13,7 +12,7 @@ import (
 var loginCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Use:                   "login",
-	Short:                 fmt.Sprintf("%v  Log in to GitHub via OAuth", emoji.Locked),
+	Short:                 fmt.Sprintf("%v Login to GitHub via OAuth", emoji.Locked),
 	Args:                  cobra.NoArgs,
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
 	Run: func(cmd *cobra.Command, args []string) {
