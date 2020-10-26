@@ -1,19 +1,17 @@
 <!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "cjdenio", "safinsingh", "imgbot[bot]"]:end -->
 
 <div align="center">
+  <img alt="logo" src="./images/Entire%20Logo.png" height="250px">
 
-<img alt="logo" src="./images/Entire%20Logo.png" height="250px">
+  <h1>fgh</h1>
 
-<h1>fgh</h1>
-
-<img alt="build" src="https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg" />
-<img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
-<img alt="lint" src="https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg" />
-<img alt="release" src="https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg" />
-<br />
-<br />
-<i>📁 Automate the organization of your cloned GitHub repositories</i>
-
+  <img alt="build" src="https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg" />
+  <img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
+  <img alt="lint" src="https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg" />
+  <img alt="release" src="https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg" />
+  <br />
+  <br />
+  <i>📁 Automate the organization of your cloned GitHub repositories</i>
 </div>
 
 <hr />
@@ -25,7 +23,7 @@
   - [🍎 macOS](#-macos)
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [📖 Documentation](#-documentation)
-- [📚 Usage](#-usage)
+- [📚 Basic Usage](#-basic-usage)
   - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
@@ -54,7 +52,7 @@ You can grab the binary from the [latest release](https://github.com/Matt-Gleich
 
 As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to manage this entire process, saving you time _and_ helping you scale!
 
-## 📚 Usage
+## 📚 Basic Usage
 
 ### 🔒 `fgh login`
 
@@ -72,7 +70,7 @@ To configure other settings, run `fgh configure` for an interactive configuratio
 
 ### ☁️ `fgh clone`
 
-To actually begin using `fgh`, you'll need to clone a repository, which you can do by running the following in a terminal window:
+To begin using `fgh`, you'll need to clone a repository, which you can do by running the following in a terminal window:
 
 ```bash
 fgh clone <owner/name>
