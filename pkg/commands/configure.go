@@ -9,9 +9,11 @@ import (
 )
 
 var configureCmd = &cobra.Command{
-	Use:   "configure",
-	Short: fmt.Sprintf("%v  Configure fgh with an interactive prompt", emoji.Gear),
-	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#%EF%B8%8F-fgh-configure",
+	DisableFlagsInUseLine: true,
+	Args:                  cobra.NoArgs,
+	Use:                   "configure",
+	Short:                 fmt.Sprintf("%v  Configure fgh with an interactive prompt", emoji.Gear),
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#%EF%B8%8F-fgh-configure",
 	Run: func(cmd *cobra.Command, args []string) {
 		regularConfig := configure.AskQuestions()
 		configure.WriteConfiguration(regularConfig)

@@ -10,9 +10,11 @@ import (
 )
 
 var cleanCmd = &cobra.Command{
-	Use:   "clean",
-	Short: fmt.Sprintf("%v Ask to remove old or deleted cloned repos", emoji.Soap),
-	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
+	DisableFlagsInUseLine: true,
+	Args:                  cobra.NoArgs,
+	Use:                   "clean",
+	Short:                 fmt.Sprintf("%v Ask to remove old or deleted cloned repos", emoji.Soap),
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags := clean.ParseFlags(cmd)
 		clonedRepos := repos.Repos()

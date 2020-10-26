@@ -11,9 +11,11 @@ import (
 )
 
 var updateCmd = &cobra.Command{
-	Use:   "update",
-	Short: fmt.Sprintf("%v  Ask if you want to update the path of any repos with updated fields", emoji.UpArrow),
-	Long:  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-update",
+	DisableFlagsInUseLine: true,
+	Args:                  cobra.NoArgs,
+	Use:                   "update",
+	Short:                 fmt.Sprintf("%v  Ask if you want to update the path of any repos with updated fields", emoji.UpArrow),
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-update",
 	Run: func(cmd *cobra.Command, args []string) {
 		repos := repos.Repos()
 		changedRepos := update.GetChanged(repos)
