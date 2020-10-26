@@ -35,7 +35,7 @@ var rootCmd = &cobra.Command{
 	- Caleb Denio (@cjdenio)
 	- Safin Singh (@safinsingh)`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
 	Run: func(cmd *cobra.Command, args []string) {
-		isOutdated, version, _ := release.Check("v1.0.0", "https://github.com/Matt-Gleich/fgh")
+		isOutdated, version, _ := release.Check("v1.2.0", "https://github.com/Matt-Gleich/fgh")
 		if isOutdated {
 			statuser.Warning(fmt.Sprintf(
 				"Version %v of fgh is now available! Please update at your convenience.",
