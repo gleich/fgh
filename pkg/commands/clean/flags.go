@@ -1,9 +1,7 @@
 package clean
 
 import (
-	"fmt"
-
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -18,34 +16,10 @@ type Flags struct {
 // Parse arguments
 func ParseFlags(cmd *cobra.Command) Flags {
 	return Flags{
-		Years:        getInt("years", cmd),
-		Months:       getInt("months", cmd),
-		Days:         getInt("days", cmd),
-		SkipOutdated: getBool("skipOutdated", cmd),
-		SkipDeleted:  getBool("skipDeleted", cmd),
-	}
-}
-
-// Get an flag with type int
-func getInt(name string, cmd *cobra.Command) int {
-	v, err := cmd.Flags().GetInt(name)
-	checkErr(err, name)
-	return v
-}
-
-// Get a flag with type bool
-func getBool(name string, cmd *cobra.Command) bool {
-	v, err := cmd.Flags().GetBool(name)
-	checkErr(err, name)
-	return v
-}
-
-// Check for an error when getting a flag
-func checkErr(err error, name string) {
-	if err != nil {
-		statuser.Error(
-			fmt.Sprintf("Failed to get %v flag", name),
-			err, 1,
-		)
+		Years:        utils.GetInt("years", cmd),
+		Months:       utils.GetInt("months", cmd),
+		Days:         utils.GetInt("days", cmd),
+		SkipOutdated: utils.GetBool("skipOutdated", cmd),
+		SkipDeleted:  utils.GetBool("skipDeleted", cmd),
 	}
 }
