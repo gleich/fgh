@@ -22,12 +22,12 @@ var cleanCmd = &cobra.Command{
 			toRemove    = []repos.LocalRepo{}
 		)
 
-		if flags.SkipOutdated {
+		if !flags.SkipOutdated {
 			outdated := clean.GetOutdated(clonedRepos, flags.Years, flags.Months, flags.Days)
 			toRemove = append(toRemove, clean.AskToRemoveOutdated(outdated)...)
 		}
 
-		if flags.SkipDeleted {
+		if !flags.SkipDeleted {
 			deleted := clean.GetDeleted(clonedRepos)
 			toRemove = append(toRemove, clean.AskToRemoveDeleted(deleted)...)
 		}
@@ -42,6 +42,6 @@ func init() {
 	cleanCmd.Flags().IntP("years", "y", 0, "Counts as outdated repo if it isn't modified locally in given number of years (default 0)")
 	cleanCmd.Flags().IntP("months", "m", 2, "Counts as outdated repo if it isn't modified locally in given number of months")
 	cleanCmd.Flags().IntP("days", "d", 0, "Counts as outdated repo if it isn't modified locally in given number of days (default 0)")
-	cleanCmd.Flags().Bool("skipOutdated", true, "Don't check for outdated repos")
-	cleanCmd.Flags().Bool("skipDeleted", true, "Don't check for deleted repos")
+	cleanCmd.Flags().Bool("skipOutdated", false, "Don't check for outdated repos")
+	cleanCmd.Flags().Bool("skipDeleted", false, "Don't check for deleted repos")
 }
