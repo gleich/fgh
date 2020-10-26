@@ -15,12 +15,14 @@ import (
 )
 
 type OutdatedRepo struct {
-	Repo    repos.LocalRepo
-	ModTime time.Time
+	Repo        repos.LocalRepo
+	ModTime     time.Time
+	Uncommitted bool
+	NotPushed   bool
 }
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func GetOutdated(repos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
+func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []OutdatedRepo) {
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 	formattedDate := formatDate(timeThreshold)
 
@@ -32,7 +34,7 @@ func GetOutdated(repos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld i
 	)
 	spin.Start()
 
-	for _, repo := range repos {
+	for _, repo := range clonedRepos {
 		var updatedTime time.Time
 		err := filepath.Walk(
 			repo.Path,
@@ -51,12 +53,18 @@ func GetOutdated(repos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld i
 				return nil
 			},
 		)
-
 		if err != nil {
 			statuser.Error("Failed to get updated time for "+repo.Path, err, 1)
 		}
+
+		committed, pushed := repos.WorkingState(repo.Path)
 		if updatedTime.Unix() < timeThreshold.Unix() {
-			outdated = append(outdated, OutdatedRepo{Repo: repo, ModTime: updatedTime})
+			outdated = append(outdated, OutdatedRepo{
+				Repo:        repo,
+				ModTime:     updatedTime,
+				Uncommitted: committed,
+				NotPushed:   pushed,
+			})
 		}
 	}
 

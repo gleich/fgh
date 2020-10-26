@@ -1,7 +1,6 @@
 package repos
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -61,23 +60,4 @@ func Repos() (repos []LocalRepo) {
 		statuser.Error("Failed to get list cloned of repos", err, 1)
 	}
 	return repos
-}
-
-// Checks to make sure the given folder has a .git folder inside
-func isGitRepo(path string) bool {
-	files, err := ioutil.ReadDir(path)
-	if err != nil {
-		cwd, err1 := os.Getwd()
-		if err1 != nil {
-			statuser.Error("Failed to get current working directory", err, 1)
-		}
-		statuser.Error("Failed to list "+cwd, err, 1)
-	}
-
-	for _, f := range files {
-		if f.IsDir() && f.Name() == ".git" {
-			return true
-		}
-	}
-	return false
 }

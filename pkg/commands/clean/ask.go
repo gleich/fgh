@@ -17,13 +17,27 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range outdatedRepos {
 		time := formatDate(repo.ModTime)
+
+		var (
+			uncommittedMsg = color.GreenString("None")
+			notPushedMsg   = color.GreenString("None")
+		)
+		if !repo.Uncommitted {
+			uncommittedMsg = color.RedString("Yes")
+		}
+		if !repo.NotPushed {
+			notPushedMsg = color.RedString("Yes")
+		}
+
 		remove := utils.Confirm(fmt.Sprintf(
 			`Path:     %v
   Owner:    %v
   Name:     %v
   Language: %v
   Type:     %v
-  Last Local Update: %v
+  Last Local Update:   %v
+  Uncommitted changes: %v
+  Changes not pushed:  %v
 
   Would you like to remove this repo locally?`,
 			repo.Repo.Path,
@@ -32,6 +46,8 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
 			repo.Repo.Language,
 			strings.Title(repo.Repo.Type),
 			color.GreenString(time),
+			uncommittedMsg,
+			notPushedMsg,
 		))
 		fmt.Println()
 		if remove {

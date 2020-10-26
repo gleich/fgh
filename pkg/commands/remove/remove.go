@@ -10,8 +10,19 @@ import (
 )
 
 // Ask to remove each repo and then remove it
-func RemoveRepos(repos []repos.LocalRepo) {
-	for _, repo := range repos {
+func RemoveRepos(clonedRepos []repos.LocalRepo) {
+	for _, repo := range clonedRepos {
+		committed, pushed := repos.WorkingState(repo.Path)
+		if !committed {
+			statuser.Warning(
+				fmt.Sprintf("Repository located at %v has uncommitted changes", repo.Path),
+			)
+		}
+		if !pushed {
+			statuser.Warning(
+				fmt.Sprintf("Repository located at %v has changes not pushed to a remote", repo.Path),
+			)
+		}
 		remove := utils.Confirm(fmt.Sprintf(
 			"Are you sure you want to permanently remove %v from your computer?", repo.Path,
 		))
