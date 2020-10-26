@@ -3,11 +3,11 @@
 ##########
 
 build-docker-prod:
-	docker build -t mattgleich/fgh:latest .
+	docker build -f docker/Dockerfile -t mattgleich/fgh:latest .
 build-docker-dev:
-	docker build -f dev.Dockerfile -t mattgleich/fgh:test .
+	docker build -f docker/dev.Dockerfile -t mattgleich/fgh:test .
 build-docker-dev-lint:
-	docker build -f dev.lint.Dockerfile -t mattgleich/fgh:lint .
+	docker build -f docker/dev.lint.Dockerfile -t mattgleich/fgh:lint .
 build-go:
 	go get -v -t -d ./...
 	go build -v .
@@ -25,9 +25,9 @@ lint-gomod:
 lint-goreleaser:
 	goreleaser check
 lint-hadolint:
-	hadolint Dockerfile
-	hadolint dev.Dockerfile
-	hadolint dev.lint.Dockerfile
+	hadolint docker/Dockerfile
+	hadolint docker/dev.Dockerfile
+	hadolint docker/dev.lint.Dockerfile
 lint-in-docker: build-docker-dev-lint
 	docker run mattgleich/fgh:lint
 

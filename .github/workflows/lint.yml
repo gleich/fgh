@@ -40,15 +40,15 @@ jobs:
       - name: Linting Dockerfile
         uses: brpaz/hadolint-action@master
         with:
-          dockerfile: 'Dockerfile'
+          dockerfile: 'docker/Dockerfile'
       - name: Linting dev.Dockerfile
         uses: brpaz/hadolint-action@master
         with:
-          dockerfile: 'dev.Dockerfile'
+          dockerfile: 'docker/dev.Dockerfile'
       - name: Linting dev.lint.Dockerfile
         uses: brpaz/hadolint-action@master
         with:
-          dockerfile: 'dev.lint.Dockerfile'
+          dockerfile: 'docker/dev.lint.Dockerfile'
   in-docker:
     runs-on: ubuntu-latest
     steps:
