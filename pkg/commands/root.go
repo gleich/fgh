@@ -3,7 +3,6 @@ package commands
 import (
 	"fmt"
 
-	"github.com/Matt-Gleich/release"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
@@ -34,15 +33,6 @@ var rootCmd = &cobra.Command{
 	- Matthew Gleich (@Matt-Gleich)
 	- Caleb Denio (@cjdenio)
 	- Safin Singh (@safinsingh)`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
-	Run: func(cmd *cobra.Command, args []string) {
-		isOutdated, version, _ := release.Check("v1.2.0", "https://github.com/Matt-Gleich/fgh")
-		if isOutdated {
-			statuser.Warning(fmt.Sprintf(
-				"Version %v of fgh is now available! Please update at your convenience.",
-				version,
-			))
-		}
-	},
 }
 
 func Execute() {
