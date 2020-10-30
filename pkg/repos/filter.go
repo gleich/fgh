@@ -1,13 +1,12 @@
-package remove
+package repos
 
 import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Filter out repos that don't have the owner and name passed in via args
-func FilterRepos(username string, repos []repos.LocalRepo, args []string) (filtered []repos.LocalRepo) {
+func FilterRepos(username string, repos []LocalRepo, args []string) (filtered []LocalRepo) {
 	owner, name := clone.OwnerAndName(username, args)
 	for _, repo := range repos {
 		if (repo.Owner == owner) && (repo.Name == name) {

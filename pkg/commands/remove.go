@@ -18,7 +18,7 @@ var removeCmd = &cobra.Command{
 	Args:                  cobra.ExactArgs(1),
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
 	Run: func(cmd *cobra.Command, args []string) {
-		filtered := remove.FilterRepos(api.Username(), repos.Repos(), args)
+		filtered := repos.FilterRepos(api.Username(), repos.Repos(), args)
 		remove.RemoveRepos(filtered)
 		clean.CleanUp()
 	},
