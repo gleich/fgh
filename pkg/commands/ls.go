@@ -14,7 +14,7 @@ var lsCmd = &cobra.Command{
 	Use:                   "ls <OWNER/NAME>",
 	Short:                 fmt.Sprintf("%v Get the path for cloned repo", emoji.Compass),
 	Args:                  cobra.ExactArgs(1),
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
 	Run: func(cmd *cobra.Command, args []string) {
 		filtered := repos.FilterRepos(configuration.GetSecrets().Username, repos.Repos(), args)
 		fmt.Println(filtered[0].Path)

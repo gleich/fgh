@@ -5,6 +5,10 @@
 
   <h1>fgh</h1>
 
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Matt-Gleich/fgh">
+  <img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/Matt-Gleich/fgh">
+  <img alt="Golang report card" src ="https://goreportcard.com/badge/github.com/Matt-Gleich/fgh">
+  <br>
   <img alt="build" src="https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg" />
   <img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
   <img alt="lint" src="https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg" />

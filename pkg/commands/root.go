@@ -38,7 +38,7 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
-			version := "v1.3.0"
+			version := "v1.4.0"
 			outdated, v, err := release.Check(version, "https://github.com/Matt-Gleich/fgh")
 			if err != nil {
 				statuser.Error("Failed to get latest version of fgh", err, 1)
