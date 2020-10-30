@@ -5,6 +5,7 @@ go 1.15
 require (
 	github.com/AlecAivazis/survey/v2 v2.1.1
 	github.com/Matt-Gleich/release v0.0.0-20200923181836-9c0204a7039e
+	github.com/Matt-Gleich/statuser v1.0.1
 	github.com/Matt-Gleich/statuser/v2 v2.4.0
 	github.com/Netflix/go-expect v0.0.0-20200312175327-da48e75238e2 // indirect
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be // indirect

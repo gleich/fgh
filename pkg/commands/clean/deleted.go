@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
@@ -23,7 +24,7 @@ func GetDeleted(repos []repos.LocalRepo) (deleted []repos.LocalRepo) {
 	spin.Start()
 
 	for _, localRepo := range repos {
-		_, err := api.RepoData(api.GenerateClient(), localRepo.Owner, localRepo.Name)
+		_, err := api.RepoData(api.GenerateClient(configuration.GetSecrets().PAT), localRepo.Owner, localRepo.Name)
 		if err != nil {
 			deleted = append(deleted, localRepo)
 		}

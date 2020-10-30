@@ -6,6 +6,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/atotto/clipboard"
 	"github.com/go-git/go-git/v5"
@@ -34,7 +35,7 @@ func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
 	_, err = git.PlainClone(path, false, &git.CloneOptions{
 		URL: fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
 		Auth: &http.BasicAuth{
-			Username: api.Username(),
+			Username: configuration.GetSecrets().Username,
 			Password: secrets.PAT,
 		},
 		Progress: os.Stdout,

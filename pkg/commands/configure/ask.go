@@ -10,7 +10,8 @@ type RegularOutline struct {
 }
 
 type SecretsOutline struct {
-	PAT string `yaml:"pat"`
+	PAT      string `yaml:"pat"`
+	Username string `yaml:"username"`
 }
 
 // Ask questions to fill in reglar config

@@ -10,8 +10,7 @@ import (
 
 // Get the regular config configuration
 func GetConfig() configure.RegularOutline {
-	folderPath := configure.GetFolderPath()
-	filePath := filepath.Join(folderPath, configure.RegularFileName)
+	filePath := filepath.Join(configure.GetFolderPath(), configure.RegularFileName)
 	var config configure.RegularOutline
 	err := utils.ReadYAML(filePath, &config)
 	if err != nil {

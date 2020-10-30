@@ -21,8 +21,9 @@ var loginCmd = &cobra.Command{
 			fmt.Printf("Please open the following page in your browser: %s", login.AuthPageURL())
 		}
 		token := login.GetToken("9000")
-		configure.WriteSecrets(configure.CreateFolders(), configure.SecretsOutline{
-			PAT: token,
+		configure.WriteSecrets(configure.SecretsOutline{
+			PAT:      token,
+			Username: login.Username(token),
 		})
 	},
 }

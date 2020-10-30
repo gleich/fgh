@@ -7,6 +7,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
@@ -15,12 +16,12 @@ import (
 
 // Get the meta data about the repo
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
-	owner, name := OwnerAndName(api.Username(), args)
+	owner, name := OwnerAndName(configuration.GetSecrets().Username, args)
 	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
 	spin.Suffix = fmt.Sprintf(" %v  Getting metadata for %v/%v", emoji.Information, owner, name)
 	spin.Start()
 
-	client := api.GenerateClient()
+	client := api.GenerateClient(configuration.GetSecrets().PAT)
 	repo, err := api.RepoData(client, owner, name)
 	if err != nil {
 		fmt.Println()

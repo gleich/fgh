@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
@@ -20,7 +21,7 @@ func GetChanged(clonedRepos []repos.LocalRepo) map[repos.LocalRepo]api.Repo {
 	spin.Start()
 
 	updated := map[repos.LocalRepo]api.Repo{}
-	client := api.GenerateClient()
+	client := api.GenerateClient(configuration.GetSecrets().PAT)
 	for _, localRepo := range clonedRepos {
 		updatedData, err := api.RepoData(client, localRepo.Owner, localRepo.Name)
 		if err != nil {
