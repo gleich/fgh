@@ -45,6 +45,8 @@ var rootCmd = &cobra.Command{
 			}
 			if outdated {
 				statuser.Warning(fmt.Sprintf("%v of fgh is out! Please upgrade.", v))
+			} else {
+				fmt.Println("You are on the latest version.")
 			}
 			fmt.Println(version)
 		}
