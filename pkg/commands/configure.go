@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/statuser"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
