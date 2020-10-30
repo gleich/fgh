@@ -23,14 +23,14 @@
   - [🍎 macOS](#-macos)
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [📖 Documentation](#-documentation)
-- [📚 Basic Usage](#-basic-usage)
   - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
-- [💡 Example](#-example)
   - [⬆️ `fgh update`](#️-fgh-update)
   - [🧼 `fgh clean`](#-fgh-clean)
   - [🗑 `fgh remove`](#-fgh-remove)
+  - [🧭 `fgh ls`](#-fgh-ls)
+  - [💡 Tips](#-tips)
 - [🛣 Roadmap](#-roadmap)
 - [🙌 Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
@@ -51,8 +51,6 @@ You can grab the binary from the [latest release](https://github.com/Matt-Gleich
 ## 📖 Documentation
 
 As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to manage this entire process, saving you time _and_ helping you scale!
-
-## 📚 Basic Usage
 
 ### 🔒 `fgh login`
 
@@ -107,10 +105,10 @@ These names correspond to the following:
 - `MAIN LANGUAGE` is The main language that the repository contains. If no language is detected, `fgh` will map it to `Other`
 - `NAME` is the name of the repository
 
-## 💡 Example
+Usage is as follows:
 
 ```bash
-fgh clone Matt-Gleich/fgh
+fgh clone <owner/name>
 ```
 
 Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cloned, this path will can be copied to your clipboard automatically.
@@ -141,11 +139,46 @@ If either of those conditions are met, `fgh` will ask you if you would like to r
 
 ### 🗑 `fgh remove`
 
-Remove a selected repository cloned locally. Usage is as follows:
+Remove a selected cloned repository. Usage is as follows:
 
 ```bash
 fgh remove <owner/name>
 ```
+
+### 🧭 `fgh ls`
+
+Get the path of a cloned repository. Usage is as follows:
+
+```bash
+fgh ls <owner/name>
+```
+
+### 💡 Tips
+
+#### <owner/name> Shorthand
+
+Any command that takes `<owner/name>` as an argument allows you to leave off the `owner` if the repo is under your account. For example, I own this repo so I can just do
+
+```bash
+fgh clone fgh
+```
+
+instead of
+
+```bash
+fgh clone Matt-Gleich/fgh
+```
+
+#### `fgh ls` for `cd`
+
+If you would like to easily use the output of `fgh ls <owner/name>` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
+
+```bash
+# cd with fgh (https://github.com/Matt-Gleich/fgh)
+function fcd() { cd $(fgh ls "$@") }
+```
+
+Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output.
 
 ## 🛣 Roadmap
 
