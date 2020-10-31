@@ -1,14 +1,94 @@
 package repos
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"os/exec"
 	"strings"
 
+	"github.com/AlecAivazis/survey/v2"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/go-git/go-git/v5"
 )
+
+// Get the owner and name of the repo just from the default remote
+func OwnerAndNameFromRemote(path string) (owner string, name string) {
+	repo, err := git.PlainOpen(path)
+	if err != nil {
+		statuser.Error("Failed to read from git repo located in "+path, err, 1)
+	}
+	remotes, err := repo.Remotes()
+	if err != nil {
+		statuser.Error("Failed to get remotes for git repo located in "+path, err, 1)
+	}
+
+	// If origin isn't a remote then ask the user to see which one is
+	var (
+		foundOrigin = false
+		url         string
+	)
+	for _, remote := range remotes {
+		if remote.Config().Name == "origin" {
+			foundOrigin = true
+			url = getDefaultURL(remote, path)
+		}
+	}
+	if !foundOrigin {
+		var (
+			remoteOptionMap = map[string]*git.Remote{}
+			remoteOptions   = []string{}
+		)
+		for _, remote := range remotes {
+			strRemote := fmt.Sprint(remote)
+			remoteOptionMap[strRemote] = remote
+			remoteOptions = append(remoteOptions, strRemote)
+		}
+
+		// Asking the user
+		var defaultRemoteStr string
+		prompt := &survey.Select{
+			Message: fmt.Sprintf("Which remote is the default remote for %v?", path),
+			Options: remoteOptions,
+		}
+		err := survey.AskOne(prompt, &defaultRemoteStr)
+		if err != nil {
+			statuser.Error("Failed to ask for the default remote", err, 1)
+		}
+		url = getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
+	}
+
+	// Getting name and owner
+	parts := strings.Split(url, "/")
+	owner = parts[len(parts)-2]
+	name = strings.TrimSuffix(parts[len(parts)-1], ".git")
+
+	return owner, name
+}
+
+// If the number of urls for a remote is over 1 then ask the user
+// which one to use. If not, just return the first url.
+func getDefaultURL(remote *git.Remote, path string) string {
+	urls := remote.Config().URLs
+	if len(urls) > 1 {
+		var chosenURL string
+		prompt := &survey.Select{
+			Message: fmt.Sprintf(
+				"What is the default url for %v in %v?",
+				remote.Config().Name,
+				path,
+			),
+			Options: urls,
+		}
+
+		err := survey.AskOne(prompt, &chosenURL)
+		if err != nil {
+			statuser.Error("Failed to ask for the default url of the remote", err, 1)
+		}
+		return chosenURL
+	}
+	return urls[0]
+}
 
 // Check so see if a repo has a dirty working tree or any commits that haven't been pushed
 // Returns if all changes have been committed and pushed
