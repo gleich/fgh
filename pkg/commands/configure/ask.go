@@ -5,15 +5,6 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
-type RegularOutline struct {
-	CloneClipboard bool `yaml:"clone_clipboard"`
-}
-
-type SecretsOutline struct {
-	PAT      string `yaml:"pat"`
-	Username string `yaml:"username"`
-}
-
 // Ask questions to fill in reglar config
 func AskQuestions() RegularOutline {
 	questions := []*survey.Question{
