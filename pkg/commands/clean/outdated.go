@@ -10,7 +10,6 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
-	"github.com/enescakir/emoji"
 	"gopkg.in/djherbis/times.v1"
 )
 
@@ -26,10 +25,9 @@ func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, day
 	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 	formattedDate := formatDate(timeThreshold)
 
-	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = fmt.Sprintf(
-		"  %v  Checking for any repos last updated before %v",
-		emoji.Information,
+		" Checking for any repos last updated before %v",
 		formattedDate,
 	)
 	spin.Start()

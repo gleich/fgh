@@ -2,7 +2,6 @@ package commands
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/release"
@@ -42,8 +41,8 @@ var rootCmd = &cobra.Command{
 		if versionFlag {
 			version := "v1.4.0"
 
-			spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
-			spin.Suffix = fmt.Sprintf(" %v  Checking for update", emoji.Information)
+			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+			spin.Suffix = " Checking for update"
 			spin.Start()
 			outdated, v, err := release.Check(version, "https://github.com/Matt-Gleich/fgh")
 			spin.Stop()

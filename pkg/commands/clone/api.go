@@ -3,7 +3,6 @@ package clone
 import (
 	"fmt"
 	"strings"
-	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
@@ -11,14 +10,13 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
-	"github.com/enescakir/emoji"
 )
 
 // Get the meta data about the repo
 func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
 	owner, name := OwnerAndName(configuration.GetSecrets().Username, args)
-	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf(" %v  Getting metadata for %v/%v", emoji.Information, owner, name)
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+	spin.Suffix = fmt.Sprintf(" Getting metadata for %v/%v", owner, name)
 	spin.Start()
 
 	client := api.GenerateClient(configuration.GetSecrets().PAT)

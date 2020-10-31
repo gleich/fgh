@@ -2,7 +2,6 @@ package clean
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
@@ -10,7 +9,6 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
-	"github.com/enescakir/emoji"
 )
 
 // Get all the repos locally that have been deleted on GitHub
@@ -19,8 +17,8 @@ func GetDeleted(repos []repos.LocalRepo) (deleted []repos.LocalRepo) {
 		statuser.Warning("Failed to establish an internet connection")
 	}
 
-	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf("  %v  Checking if any local repos have been deleted from GitHub", emoji.Information)
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+	spin.Suffix = " Checking if any local repos have been deleted from GitHub"
 	spin.Start()
 
 	for _, localRepo := range repos {

@@ -2,7 +2,6 @@ package update
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
@@ -10,14 +9,13 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
-	"github.com/enescakir/emoji"
 	"github.com/fatih/color"
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
 func GetChanged(clonedRepos []repos.LocalRepo) map[repos.LocalRepo]api.Repo {
-	spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
-	spin.Suffix = fmt.Sprintf(" %v  Getting latest repo information for all cloned all repos", emoji.Information)
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+	spin.Suffix = " Getting latest repo information for all cloned all repos"
 	spin.Start()
 
 	updated := map[repos.LocalRepo]api.Repo{}

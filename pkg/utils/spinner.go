@@ -1,6 +1,14 @@
 package utils
 
-import "github.com/briandowns/spinner"
+import (
+	"time"
 
-// Character set used for all spinners
-var SpinnerCharSet = spinner.CharSets[1]
+	"github.com/briandowns/spinner"
+)
+
+var (
+	// Character set used for all spinners
+	SpinnerCharSet = spinner.CharSets[14]
+	// Speed user for all spinners
+	SpinnerSpeed = 30 * time.Millisecond
+)
