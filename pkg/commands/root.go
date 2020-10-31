@@ -2,10 +2,12 @@ package commands
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/release"
 	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/briandowns/spinner"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
@@ -39,14 +41,20 @@ var rootCmd = &cobra.Command{
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
 			version := "v1.4.0"
+
+			spin := spinner.New(utils.SpinnerCharSet, 40*time.Millisecond)
+			spin.Suffix = fmt.Sprintf(" %v  Checking for update", emoji.Information)
+			spin.Start()
 			outdated, v, err := release.Check(version, "https://github.com/Matt-Gleich/fgh")
+			spin.Stop()
+
 			if err != nil {
 				statuser.Error("Failed to get latest version of fgh", err, 1)
 			}
 			if outdated {
 				statuser.Warning(fmt.Sprintf("%v of fgh is out! Please upgrade.", v))
 			} else {
-				fmt.Println("You are on the latest version.")
+				fmt.Println("You are on the latest version of fgh")
 			}
 			fmt.Println(version)
 		}
