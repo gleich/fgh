@@ -1,6 +1,8 @@
 package repos
 
 import (
+	"fmt"
+
 	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
 	"github.com/Matt-Gleich/statuser/v2"
 )
@@ -14,7 +16,7 @@ func FilterRepos(username string, repos []LocalRepo, args []string) (filtered []
 		}
 	}
 	if len(filtered) == 0 {
-		statuser.ErrorMsg("Failed to find repo", 1)
+		statuser.ErrorMsg(fmt.Sprintf("Failed to find %v/%v", owner, name), 1)
 	}
 	return filtered
 }

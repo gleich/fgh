@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
@@ -22,9 +23,11 @@ func Remove(repos []repos.LocalRepo) {
 	}
 }
 
-// Remove empty folders >3 diretories deep from ~/github
-func CleanUp(config configure.RegularOutline) (removed []string) {
+// Remove empty folders in the structure (NOT EMPTY REPOS)
+func CleanUp(config configure.RegularOutline) []string {
 	ghFolder := repos.GitHubFolder(config.StructureRoot)
+
+	foldersToCheck := []string{}
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {
@@ -34,30 +37,34 @@ func CleanUp(config configure.RegularOutline) (removed []string) {
 
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
-			if len(parts) > len(config.Structure)+2 {
+			if len(parts) > len(config.Structure)+1 {
 				return filepath.SkipDir
 			} else if info.IsDir() {
-				f, err := ioutil.ReadDir(path)
-				if err != nil {
-					statuser.Error("Failed to list directory: "+path, err, 1)
-				}
-				if len(f) == 0 {
-					removed = append(removed, path)
-				}
+				foldersToCheck = append(foldersToCheck, path)
 			}
 			return nil
 		},
 	)
 	if err != nil {
-		statuser.Error("Failed to remove empty folders >3 diretories deep from "+config.StructureRoot, err, 1)
+		statuser.Error("Failed to get list of folders in structure", err, 1)
 	}
 
-	for _, folder := range removed {
-		err = os.Remove(folder)
+	// Sorting paths by length
+	sort.Slice(foldersToCheck, func(i, j int) bool {
+		return len(foldersToCheck[j]) < len(foldersToCheck[i])
+	})
+
+	for _, path := range foldersToCheck {
+		content, err := ioutil.ReadDir(path)
 		if err != nil {
-			statuser.Error("Failed to remove "+folder, err, 1)
+			statuser.Error("Failed to get contents of "+path, err, 1)
+		}
+		if len(content) == 0 {
+			err = os.Remove(path)
+			if err != nil {
+				statuser.Error("Failed to remove "+path, err, 1)
+			}
 		}
 	}
-
-	return removed
+	return foldersToCheck
 }
