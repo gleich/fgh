@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/release"
@@ -37,6 +38,14 @@ var rootCmd = &cobra.Command{
 	- Caleb Denio (@cjdenio)
 	- Safin Singh (@safinsingh)`, emoji.FileFolder, emoji.Octopus, emoji.Pager),
 	Run: func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			err := cmd.Help()
+			if err != nil {
+				statuser.Error("Failed to display help", err, 1)
+			}
+			os.Exit(0)
+		}
+
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
 			version := "v2.0.0"
