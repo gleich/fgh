@@ -55,7 +55,7 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 
 ### 🔒 `fgh login`
 
-Before using `fgh`, you'll need to give it access to your GitHub account. Simply run `fgh login` to quickly get set up!
+Before using `fgh`, you'll need to give it access to your GitHub repos. Simply run `fgh login` to quickly get set up! fgh only uses this access to get metadata about the repo (e.g. main language, if private) and to clone the repo. fgh needs the full `repo` scope to access private repos.
 
 If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. On Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` on Linux and Darwin (macOS) systems. You should change/add the `pat` as seen below:
 
@@ -199,7 +199,7 @@ If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above i
 
 ### 🗂 `structure`
 
-This is the structure used inside of the [`structure_root`](#-structure_root) If you use the [keywords shown in the clone structure](#-keywords) it will automatically be replaced by the value for the repo. Below is an example of what you would put in the general config file:
+This is the structure used inside of the [`structure_root`](#-structure_root) If you use the [keywords shown in the clone structure](#-keywords) it will automatically be replaced by the value for the repo and add the name of the repo to the end. Below is an example of what you would put in the general config file:
 
 ```yaml
 structure:
