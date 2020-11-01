@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	OwnerRep             = "REPO_OWNER"
-	TypeRep              = "REPO_TYPE"
-	LangRep              = "REPO_MAIN_LANGUAGE"
+	OwnerRep             = "OWNER"
+	TypeRep              = "TYPE"
+	LangRep              = "MAIN_LANGUAGE"
 	DefaultStructureRoot = "github"
 )
 

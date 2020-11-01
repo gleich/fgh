@@ -1,7 +1,6 @@
 package repos
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -35,7 +34,6 @@ func Repos(config configure.RegularOutline) (repos []LocalRepo) {
 
 			if len(parts) == len(config.Structure)+2 && info.IsDir() && isGitRepo(path) {
 				owner, name := OwnerAndNameFromRemote(path)
-				fmt.Println(path)
 				repos = append(repos, LocalRepo{
 					Owner: owner,
 					Name:  name,

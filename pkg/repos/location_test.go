@@ -11,8 +11,6 @@ import (
 )
 
 func TestRepoLocation(t *testing.T) {
-	// TODO REFACTOR TO USE TESTING TABLE
-
 	result1 := RepoLocation(
 		api.Repo{
 			Owner:        "Testing-Owner",

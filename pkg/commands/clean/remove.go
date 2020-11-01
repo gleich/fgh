@@ -1,7 +1,6 @@
 package clean
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -38,7 +37,6 @@ func CleanUp(config configure.RegularOutline) (removed []string) {
 			if len(parts) > len(config.Structure)+2 {
 				return filepath.SkipDir
 			} else if info.IsDir() {
-				fmt.Println(path)
 				f, err := ioutil.ReadDir(path)
 				if err != nil {
 					statuser.Error("Failed to list directory: "+path, err, 1)

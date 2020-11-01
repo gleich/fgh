@@ -23,38 +23,36 @@
 ## 📜 Table of Contents
 
 - [📜 Table of Contents](#-table-of-contents)
-- [🚀 Install](#-install)
-  - [🍎 macOS](#-macos)
-  - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
-- [📖 Documentation](#-documentation)
+- [❓ What is `fgh`](#-what-is-fgh)
+- [📟 Commands](#-commands)
   - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
+    - [🔠 Keywords](#-keywords)
   - [⬆️ `fgh update`](#️-fgh-update)
   - [🧼 `fgh clean`](#-fgh-clean)
   - [🗑 `fgh remove`](#-fgh-remove)
   - [🧭 `fgh ls`](#-fgh-ls)
-  - [💡 Tips](#-tips)
+- [💡 Tips](#-tips)
+  - [<owner/name> shorthand](#ownername-shorthand)
+  - [`fgh ls` for `cd`](#fgh-ls-for-cd)
+- [🗂 Custom Structures](#-custom-structures)
+  - [📁 `structure_root`](#-structure_root)
+  - [🗂 `structure`](#-structure)
+  - [💡 Example](#-example)
+- [🚀 Install](#-install)
+  - [🍎 macOS](#-macos)
+  - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [🛣 Roadmap](#-roadmap)
 - [🙌 Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
 
-## 🚀 Install
-
-### 🍎 macOS
-
-```bash
-brew tap Matt-Gleich/homebrew-taps
-brew install fgh
-```
-
-### 🐧 Linux and 🖥 Windows
-
-You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
-
-## 📖 Documentation
+## ❓ What is `fgh`
 
 As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to manage this entire process, saving you time _and_ helping you scale!
+
+<!-- <details> -->
+## 📟 Commands
 
 ### 🔒 `fgh login`
 
@@ -84,18 +82,20 @@ fgh clone <owner/name>
 fgh clone <name> # if the repo is under your account
 ```
 
-All repositories are cloned into the following structure:
+All repositories are cloned into the following structure by default:
 
 ```
 ~
 └─ github
    └─ OWNER
       └─ TYPE
-         └─ MAIN LANGUAGE
+         └─ MAIN_LANGUAGE
             └─ NAME
 ```
 
-These names correspond to the following:
+#### 🔠 Keywords
+
+These names correspond to the following **keywords**:
 
 - `OWNER` is the owner of the repository
 - `TYPE` is the type of the repository; one of the following:
@@ -106,16 +106,16 @@ These names correspond to the following:
   - `disabled`
   - `mirror`
   - `fork`
-- `MAIN LANGUAGE` is The main language that the repository contains. If no language is detected, `fgh` will map it to `Other`
+- `MAIN_LANGUAGE` is The main language that the repository contains. If no language is detected, `fgh` will just set it to `Other`
 - `NAME` is the name of the repository
 
-Usage is as follows:
+If you would like to use a custom structure see the [custom structures documentation](#-custom-structures). Usage of this command is as follows:
 
 ```bash
 fgh clone <owner/name>
 ```
 
-Would clone to `~/github/Matt-Gleich/public/Go/fgh/`, `~` being `$HOME`. Once cloned, this path will can be copied to your clipboard automatically.
+Would clone to `~/github/Matt-Gleich/public/Go/fgh/` by default, `~` being `$HOME`. Once cloned, this path will be copied to your clipboard automatically (this can be turned off with [`fgh configure`](#️-fgh-configure) or just by editing the config file directly).
 
 > NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
@@ -157,9 +157,9 @@ Get the path of a cloned repository. Usage is as follows:
 fgh ls <owner/name>
 ```
 
-### 💡 Tips
+## 💡 Tips
 
-#### <owner/name> Shorthand
+### <owner/name> shorthand
 
 Any command that takes `<owner/name>` as an argument allows you to leave off the `owner` if the repo is under your account. For example, I own this repo so I can just do
 
@@ -173,7 +173,7 @@ instead of
 fgh clone Matt-Gleich/fgh
 ```
 
-#### `fgh ls` for `cd`
+### `fgh ls` for `cd`
 
 If you would like to easily use the output of `fgh ls <owner/name>` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
 
@@ -182,11 +182,62 @@ If you would like to easily use the output of `fgh ls <owner/name>` for `cd` jus
 function fcd() { cd $(fgh ls "$@") }
 ```
 
-Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output.
+Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output. Much easier!
+
+## 🗂 Custom Structures
+
+Not a fan of the default structure used by fgh? Don't worry, you can change it without losing any of fgh's automation. Configuring custom structures takes place in the general configuration file. This file is located in `~/.config/fgh/config.yaml` on Linux or macOS and `~\.fgh\config.yaml` on Windows (`~` is your home directory). There are two parts to creating custom structures:
+
+### 📁 `structure_root`
+
+This is where the structure starts relative to your home folder. Make sure you use `\` if you are on Windows. By default, the `structure_root` is `github`. Below is an example of what you would put in the general config file:
+
+```yaml
+structure_root: 'Documents/code/'
+```
+
+If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`
+
+### 🗂 `structure`
+
+This is the structure used inside of the [`structure_root`](#-structure_root) If you use the [keywords shown in the clone structure](#-keywords) it will automatically be replaced by the value for the repo. Below is an example of what you would put in the general config file:
+
+```yaml
+structure:
+  - OWNER
+  - repos
+  - LANGUAGE
+```
+
+If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/github/Matt-Gleich/repos/Go/fgh`.
+
+### 💡 Example
+
+Say we have the following config:
+
+```yaml
+structure: 'code'
+structure:
+  - OWNER
+```
+
+If we were to run `fgh clone Matt-Gleich/fgh` it would clone the repo to `~/code/Matt-Gleich/fgh`.
+
+## 🚀 Install
+
+### 🍎 macOS
+
+```bash
+brew tap Matt-Gleich/homebrew-taps
+brew install fgh
+```
+
+### 🐧 Linux and 🖥 Windows
+
+You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
 
 ## 🛣 Roadmap
 
-- Allow custom structures
 - Add `pull` subcommand to pull the latest changes for each repository
 
 ## 🙌 Contributing
