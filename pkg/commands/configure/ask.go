@@ -18,7 +18,7 @@ func AskQuestions() RegularOutline {
 		{
 			Name: "StructureRoot",
 			Prompt: &survey.Input{
-				Message: "Where should the structure start relative to your home folder? (default is github/; enter nothing to skip)",
+				Message: "Where should the structure start relative to your home folder? (default is github/ enter nothing to use default)",
 				Help:    "See https://github.com/Matt-Gleich/fgh#-structure_root for more info.",
 			},
 		},
@@ -31,6 +31,12 @@ func AskQuestions() RegularOutline {
 					filepath.FromSlash("~/github/Matt-Gleich/public/Go/fgh"),
 					filepath.FromSlash("~/github/Matt-Gleich/public/go/fgh"),
 				),
+			},
+		},
+		{
+			Name: "SpaceChar",
+			Prompt: &survey.Input{
+				Message: "If a language name has a space in it what should the space be replaced with? (default is - enter nothing to use default)",
 			},
 		},
 	}

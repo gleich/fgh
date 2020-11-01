@@ -5,6 +5,7 @@ type RegularOutline struct {
 	Structure      []string `yaml:"structure"`
 	StructureRoot  string   `yaml:"structure_root"`
 	LowercaseLang  bool     `yaml:"lowercase_lang"`
+	SpaceChar      string   `yaml:"space_character"`
 }
 
 type SecretsOutline struct {

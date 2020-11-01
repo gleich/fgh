@@ -48,6 +48,7 @@ func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
 	if config.LowercaseLang {
 		repo.MainLanguage = strings.ToLower(repo.MainLanguage)
 	}
+	repo.MainLanguage = strings.ReplaceAll(repo.MainLanguage, " ", config.SpaceChar)
 	path = strings.ReplaceAll(path, configuration.LangRep, repo.MainLanguage)
 
 	return filepath.Join(path, repo.Name)

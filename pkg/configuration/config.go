@@ -35,6 +35,9 @@ func GetConfig() configure.RegularOutline {
 	if config.StructureRoot == "" {
 		config.StructureRoot = DefaultStructureRoot
 	}
+	if config.SpaceChar == "" {
+		config.SpaceChar = "-"
+	}
 
 	return config
 }
