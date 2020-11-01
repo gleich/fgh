@@ -7,8 +7,10 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/atotto/clipboard"
+	"github.com/briandowns/spinner"
 	"github.com/go-git/go-git/v5"
 	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
@@ -32,14 +34,19 @@ func rawClone(secrets configure.SecretsOutline, repo api.Repo, path string) {
 		statuser.Error("Failed to create folder at "+path, err, 1)
 	}
 
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+	spin.Suffix = fmt.Sprintf(" Cloning %v/%v", repo.Owner, repo.Name)
+	spin.Start()
+
 	_, err = git.PlainClone(path, false, &git.CloneOptions{
 		URL: fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
 		Auth: &http.BasicAuth{
 			Username: configuration.GetSecrets().Username,
 			Password: secrets.PAT,
 		},
-		Progress: os.Stdout,
 	})
+
+	spin.Stop()
 	if err != nil {
 		statuser.Error("Failed to clone repo", err, 1)
 	}
