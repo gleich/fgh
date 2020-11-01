@@ -1,7 +1,6 @@
 package configuration
 
 import (
-	"os"
 	"path/filepath"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
@@ -33,12 +32,8 @@ func GetConfig() configure.RegularOutline {
 			LangRep,
 		}
 	}
-	if config.StructureRoot == "" { // If not defined in the config; default
-		homePath, err := os.UserHomeDir()
-		if err != nil {
-			statuser.Error("Failed to get home directory", err, 1)
-		}
-		config.StructureRoot = filepath.Join(homePath, DefaultStructureRoot)
+	if config.StructureRoot == "" {
+		config.StructureRoot = DefaultStructureRoot
 	}
 
 	return config

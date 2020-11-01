@@ -17,10 +17,6 @@ func GitHubFolder(structureRoot string) string {
 	if err != nil {
 		statuser.Error("Failed to get home directory", err, 1)
 	}
-
-	if structureRoot == filepath.Join(homeDir, configuration.DefaultStructureRoot) {
-		return structureRoot
-	}
 	return filepath.Join(homeDir, structureRoot)
 }
 
@@ -49,6 +45,9 @@ func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
 	}
 
 	// Replacing lang
+	if config.LowercaseLang {
+		repo.MainLanguage = strings.ToLower(repo.MainLanguage)
+	}
 	path = strings.ReplaceAll(path, configuration.LangRep, repo.MainLanguage)
 
 	return filepath.Join(path, repo.Name)
