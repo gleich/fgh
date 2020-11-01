@@ -37,14 +37,6 @@ Authors:
   - Caleb Denio (@cjdenio)
   - Safin Singh (@safinsingh)`,
 	Run: func(cmd *cobra.Command, args []string) {
-		if len(args) == 0 {
-			err := cmd.Help()
-			if err != nil {
-				statuser.Error("Failed to display help", err, 1)
-			}
-			os.Exit(0)
-		}
-
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
 			version := "v2.0.0"
@@ -61,9 +53,15 @@ Authors:
 			if outdated {
 				statuser.Warning(fmt.Sprintf("%v of fgh is out! Please upgrade.", v))
 			} else {
-				fmt.Println("You are on the latest version of fgh")
+				fmt.Println("You are on the latest version of fgh.")
 			}
 			fmt.Println(version)
+		} else {
+			err := cmd.Help()
+			if err != nil {
+				statuser.Error("Failed to display help", err, 1)
+			}
+			os.Exit(0)
 		}
 	},
 }
