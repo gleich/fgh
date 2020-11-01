@@ -1,12 +1,9 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +11,7 @@ var cleanCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Args:                  cobra.NoArgs,
 	Use:                   "clean",
-	Short:                 fmt.Sprintf("%v Ask to remove old or deleted cloned repos", emoji.Soap),
+	Short:                 "Ask to remove old or deleted cloned repos",
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
 		var (

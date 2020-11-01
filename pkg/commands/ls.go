@@ -5,14 +5,13 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
 )
 
 var lsCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Use:                   "ls <OWNER/NAME>",
-	Short:                 fmt.Sprintf("%v Get the path for cloned repo", emoji.Compass),
+	Short:                 "Get the path for cloned repo",
 	Args:                  cobra.ExactArgs(1),
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
 	Run: func(cmd *cobra.Command, args []string) {

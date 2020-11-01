@@ -12,7 +12,6 @@ require (
 	github.com/briandowns/spinner v1.11.1
 	github.com/creack/pty v1.1.11 // indirect
 	github.com/dustin/go-humanize v1.0.0
-	github.com/enescakir/emoji v1.0.0
 	github.com/fatih/color v1.9.0
 	github.com/gliderlabs/ssh v0.3.1 // indirect
 	github.com/go-git/go-git/v5 v5.2.0
