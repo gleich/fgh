@@ -49,7 +49,7 @@
 
 ## ❓ What is `fgh`
 
-As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle for your cloned repos, saving you time _and_ helping you scale!
+As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle of your cloned repos, saving you time _and_ helping you scale!
 
 ## 📟 Commands
 
@@ -205,7 +205,7 @@ This is the structure used inside of the [`structure_root`](#-structure_root) If
 structure:
   - OWNER
   - repos
-  - LANGUAGE
+  - MAIN_LANGUAGE
 ```
 
 If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/github/Matt-Gleich/repos/Go/fgh`.
