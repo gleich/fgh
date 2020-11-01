@@ -52,7 +52,7 @@ func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, day
 			},
 		)
 		if err != nil {
-			statuser.Error("Failed to get updated time for "+repo.Path, err, 1)
+			statuser.Error("Failed to get last updated time for "+repo.Path, err, 1)
 		}
 
 		committed, pushed := repos.WorkingState(repo.Path)

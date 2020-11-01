@@ -1,6 +1,7 @@
 package clean
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -34,9 +35,10 @@ func CleanUp(config configure.RegularOutline) (removed []string) {
 
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
-			if len(parts) > len(config.Structure) {
+			if len(parts) > len(config.Structure)+2 {
 				return filepath.SkipDir
 			} else if info.IsDir() {
+				fmt.Println(path)
 				f, err := ioutil.ReadDir(path)
 				if err != nil {
 					statuser.Error("Failed to list directory: "+path, err, 1)
@@ -49,7 +51,7 @@ func CleanUp(config configure.RegularOutline) (removed []string) {
 		},
 	)
 	if err != nil {
-		statuser.Error("Failed to remove empty folders >3 diretories deep from ~/github", err, 1)
+		statuser.Error("Failed to remove empty folders >3 diretories deep from "+config.StructureRoot, err, 1)
 	}
 
 	for _, folder := range removed {
