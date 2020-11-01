@@ -49,16 +49,15 @@
 
 ## ❓ What is `fgh`
 
-As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to manage this entire process, saving you time _and_ helping you scale!
+As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to clone and organize them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle for your cloned repos, saving you time _and_ helping you scale!
 
-<!-- <details> -->
 ## 📟 Commands
 
 ### 🔒 `fgh login`
 
 Before using `fgh`, you'll need to give it access to your GitHub account. Simply run `fgh login` to quickly get set up!
 
-If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. On Windows it is located in `~/.fgh/secrets.yml` and `~/.config/fgh/secrets.yml` on Linux and Darwin (macOS) systems. You should change/add the `pat` as seen below:
+If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. On Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` on Linux and Darwin (macOS) systems. You should change/add the `pat` as seen below:
 
 ```yaml
 pat: <your token here>
@@ -115,11 +114,11 @@ If you would like to use a custom structure see the [custom structures documenta
 fgh clone <owner/name>
 ```
 
-Would clone to `~/github/Matt-Gleich/public/Go/fgh/` by default, `~` being `$HOME`. Once cloned, this path will be copied to your clipboard automatically (this can be turned off with [`fgh configure`](#️-fgh-configure) or just by editing the config file directly).
+If we were to run `fgh clone Matt-Gleich/fgh` it would be cloned to `~/github/Matt-Gleich/public/Go/fgh/` by default (`~` being your home directory). Once cloned, this path will be copied to your clipboard automatically (this can be turned off with [`fgh configure`](#️-fgh-configure) or just by editing the config file directly).
 
 > NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
-This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. I suggest TUI-based filesystem navigators such as [ranger](https://github.com/ranger/ranger) to help speed up the process.
+This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. Because of this, we created the [`fgh ls` command](#-fgh-ls) and a way to [use it with cd](#fgh-ls-for-cd).
 
 ### ⬆️ `fgh update`
 
@@ -127,7 +126,7 @@ If any of a repository's fields are changed, such as its type, main language, ow
 
 Running `fgh update` will iterate over your local repositories and checks if any of them need updates. If they do, `fgh` will ask you if you want to move the entire repository to that new path.
 
-For example: If I had this repository cloned and later decided to archive it, its path would change from `~/github/Matt-Gleich/public/Go/fgh/` to `~/github/Matt-Gleich/archived/Go/fgh/`.
+For example, If I had this repository cloned and later decided to archive it, its path would change from `~/github/Matt-Gleich/public/Go/fgh/` to `~/github/Matt-Gleich/archived/Go/fgh/`.
 
 ### 🧼 `fgh clean`
 
@@ -135,7 +134,7 @@ When you run this subcommand, `fgh` will check for the following on each reposit
 
 1. Has it modified locally in a certain amount of time?
    > By default, this "amount of time" is 2 months. However, it can be changed with a flag! See `fgh clean --help` for more info.
-2. Has the repository been deleted permanently on GitHub?
+2. Has the repository been deleted on GitHub?
 
 If either of those conditions are met, `fgh` will ask you if you would like to remove the aforementioned repository. It'll additionally show you some information about the repository itself.
 
@@ -175,7 +174,7 @@ fgh clone Matt-Gleich/fgh
 
 ### `fgh ls` for `cd`
 
-If you would like to easily use the output of `fgh ls <owner/name>` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
+If you would like to easily use the output of `fgh ls` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
 
 ```bash
 # cd with fgh (https://github.com/Matt-Gleich/fgh)
@@ -186,7 +185,7 @@ Once you add that and reload your terminal you can simply run `fcd <owner/name>`
 
 ## 🗂 Custom Structures
 
-Not a fan of the default structure used by fgh? Don't worry, you can change it without losing any of fgh's automation. Configuring custom structures takes place in the general configuration file. This file is located in `~/.config/fgh/config.yaml` on Linux or macOS and `~\.fgh\config.yaml` on Windows (`~` is your home directory). There are two parts to creating custom structures:
+Not a fan of the default structure used by fgh? Don't worry, you can change it without losing any of fgh's automation! Configuring custom structures takes place in the general configuration file. This file is located in `~/.config/fgh/config.yaml` on Linux or macOS and `~\.fgh\config.yaml` on Windows (`~` is your home directory). There are two parts to creating custom structures:
 
 ### 📁 `structure_root`
 
@@ -216,7 +215,7 @@ If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above i
 Say we have the following config:
 
 ```yaml
-structure: 'code'
+structure_root: 'code'
 structure:
   - OWNER
 ```
