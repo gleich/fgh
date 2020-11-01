@@ -18,14 +18,7 @@ const (
 // Returns the folder path created
 func CreateFolders() string {
 	folderPath := GetFolderPath()
-	_, err := os.Stat(folderPath)
-	if !os.IsNotExist(err) {
-		override := utils.Confirm("Configuration already exists. Do you want to override it?")
-		if !override {
-			os.Exit(0)
-		}
-	}
-	err = os.MkdirAll(folderPath, 0777)
+	err := os.MkdirAll(folderPath, 0777)
 	if err != nil {
 		statuser.Error("Failed to create the configuration folder", err, 1)
 	}
