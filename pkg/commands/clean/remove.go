@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/statuser/v2"
 )
@@ -22,8 +23,8 @@ func Remove(repos []repos.LocalRepo) {
 }
 
 // Remove empty folders >3 diretories deep from ~/github
-func CleanUp() (removed []string) {
-	ghFolder := repos.GitHubFolder()
+func CleanUp(config configure.RegularOutline) (removed []string) {
+	ghFolder := repos.GitHubFolder(config.StructureRoot)
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {
@@ -33,7 +34,7 @@ func CleanUp() (removed []string) {
 
 			trimmedPath := strings.TrimPrefix(path, ghFolder)
 			parts := strings.Split(trimmedPath, string(filepath.Separator))
-			if len(parts) > 4 {
+			if len(parts) > len(config.Structure) {
 				return filepath.SkipDir
 			} else if info.IsDir() {
 				f, err := ioutil.ReadDir(path)

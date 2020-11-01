@@ -2,7 +2,6 @@ package clean
 
 import (
 	"fmt"
-	"strings"
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/repos"
@@ -33,8 +32,6 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
 			`Path:     %v
   Owner:    %v
   Name:     %v
-  Language: %v
-  Type:     %v
   Last Local Update:   %v
   Uncommitted changes: %v
   Changes not pushed:  %v
@@ -43,8 +40,6 @@ func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
 			repo.Repo.Path,
 			repo.Repo.Owner,
 			repo.Repo.Name,
-			repo.Repo.Language,
-			strings.Title(repo.Repo.Type),
 			color.GreenString(time),
 			uncommittedMsg,
 			notPushedMsg,

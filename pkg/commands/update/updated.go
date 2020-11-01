@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
+	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
@@ -13,7 +14,7 @@ import (
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
-func GetChanged(clonedRepos []repos.LocalRepo) map[repos.LocalRepo]api.Repo {
+func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) map[repos.LocalRepo]api.Repo {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = " Getting latest repo information for all cloned all repos"
 	spin.Start()
@@ -31,7 +32,7 @@ func GetChanged(clonedRepos []repos.LocalRepo) map[repos.LocalRepo]api.Repo {
 				err, 1,
 			)
 		}
-		if repos.RepoLocation(updatedData) != localRepo.Path {
+		if repos.RepoLocation(updatedData, config) != localRepo.Path {
 			updated[localRepo] = updatedData
 		}
 	}

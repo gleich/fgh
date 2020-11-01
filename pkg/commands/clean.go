@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/enescakir/emoji"
 	"github.com/spf13/cobra"
@@ -18,7 +19,8 @@ var cleanCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			flags       = clean.ParseFlags(cmd)
-			clonedRepos = repos.Repos()
+			config      = configuration.GetConfig()
+			clonedRepos = repos.Repos(config)
 			toRemove    = []repos.LocalRepo{}
 		)
 
@@ -33,7 +35,7 @@ var cleanCmd = &cobra.Command{
 		}
 
 		clean.Remove(toRemove)
-		clean.CleanUp()
+		clean.CleanUp(config)
 	},
 }
 

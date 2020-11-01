@@ -18,9 +18,14 @@ var removeCmd = &cobra.Command{
 	Args:                  cobra.ExactArgs(1),
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
 	Run: func(cmd *cobra.Command, args []string) {
-		filtered := repos.FilterRepos(configuration.GetSecrets().Username, repos.Repos(), args)
+		var (
+			secrets     = configuration.GetSecrets()
+			config      = configuration.GetConfig()
+			clonedRepos = repos.Repos(config)
+		)
+		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
 		remove.RemoveRepos(filtered)
-		clean.CleanUp()
+		clean.CleanUp(config)
 	},
 }
 

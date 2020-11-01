@@ -16,7 +16,12 @@ var lsCmd = &cobra.Command{
 	Args:                  cobra.ExactArgs(1),
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
 	Run: func(cmd *cobra.Command, args []string) {
-		filtered := repos.FilterRepos(configuration.GetSecrets().Username, repos.Repos(), args)
+		var (
+			secrets     = configuration.GetSecrets()
+			config      = configuration.GetConfig()
+			clonedRepos = repos.Repos(config)
+		)
+		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
 		fmt.Println(filtered[0].Path)
 	},
 }

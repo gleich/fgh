@@ -21,7 +21,7 @@ var cloneCmd = &cobra.Command{
 			secrets = configuration.GetSecrets()
 			config  = configuration.GetConfig()
 			repo    = clone.GetRepository(secrets, args)
-			path    = repos.RepoLocation(repo)
+			path    = repos.RepoLocation(repo, config)
 		)
 		clone.Clone(config, secrets, repo, path)
 	},

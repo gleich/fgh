@@ -1,35 +1,25 @@
 package repos
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
+	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // A repo already cloned locally
 type LocalRepo struct {
-	Owner    string
-	Name     string
-	Type     string
-	Language string
-	Path     string
-}
-
-// Get the root GitHub folder
-func GitHubFolder() string {
-	var path string
-	path, err := os.UserHomeDir()
-	if err != nil {
-		statuser.Error("Failed to get home directory", err, 1)
-	}
-	return filepath.Join(path, "github")
+	Owner string
+	Name  string
+	Path  string
 }
 
 // Get all cloned repos in fgh's file structure
-func Repos() (repos []LocalRepo) {
-	ghFolder := GitHubFolder()
+func Repos(config configure.RegularOutline) (repos []LocalRepo) {
+	ghFolder := GitHubFolder(config.StructureRoot)
 
 	err := filepath.Walk(
 		ghFolder,
@@ -39,18 +29,17 @@ func Repos() (repos []LocalRepo) {
 			}
 
 			parts := strings.Split((strings.TrimPrefix(path, ghFolder)), string(filepath.Separator))
-			if len(parts) > 5 {
+			if len(parts) > len(config.Structure)+2 {
 				return filepath.SkipDir
 			}
 
-			if len(parts) == 5 && info.IsDir() && isGitRepo(path) {
+			if len(parts) == len(config.Structure)+2 && info.IsDir() && isGitRepo(path) {
 				owner, name := OwnerAndNameFromRemote(path)
+				fmt.Println(path)
 				repos = append(repos, LocalRepo{
-					Owner:    owner,
-					Name:     name,
-					Type:     parts[2],
-					Language: parts[3],
-					Path:     path,
+					Owner: owner,
+					Name:  name,
+					Path:  path,
 				})
 			}
 			return nil
