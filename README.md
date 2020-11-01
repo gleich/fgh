@@ -174,11 +174,13 @@ fgh clone Matt-Gleich/fgh
 
 ### `fgh ls` for `cd`
 
+> NOTE: This only works in macOS and Linux
+
 If you would like to easily use the output of `fgh ls` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
 
 ```bash
 # cd with fgh (https://github.com/Matt-Gleich/fgh)
-function fcd() { cd $(fgh ls "$@") }
+fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" && return 1; ) }
 ```
 
 Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output. Much easier!
