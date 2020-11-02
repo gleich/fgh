@@ -18,7 +18,7 @@ var removeCmd = &cobra.Command{
 		var (
 			secrets     = configuration.GetSecrets()
 			config      = configuration.GetConfig()
-			clonedRepos = repos.Repos(config)
+			clonedRepos = repos.ReposInStructure(config)
 		)
 		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
 		remove.RemoveRepos(filtered)

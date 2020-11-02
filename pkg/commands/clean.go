@@ -17,7 +17,7 @@ var cleanCmd = &cobra.Command{
 		var (
 			flags       = clean.ParseFlags(cmd)
 			config      = configuration.GetConfig()
-			clonedRepos = repos.Repos(config)
+			clonedRepos = repos.ReposInStructure(config)
 			toRemove    = []repos.LocalRepo{}
 		)
 

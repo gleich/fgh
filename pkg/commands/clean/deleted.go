@@ -21,8 +21,9 @@ func GetDeleted(repos []repos.LocalRepo) (deleted []repos.LocalRepo) {
 	spin.Suffix = " Checking if any local repos have been deleted from GitHub"
 	spin.Start()
 
+	client := api.GenerateClient(configuration.GetSecrets().PAT)
 	for _, localRepo := range repos {
-		_, err := api.RepoData(api.GenerateClient(configuration.GetSecrets().PAT), localRepo.Owner, localRepo.Name)
+		_, err := api.RepoData(client, localRepo.Owner, localRepo.Name)
 		if err != nil {
 			deleted = append(deleted, localRepo)
 		}

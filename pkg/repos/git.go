@@ -132,7 +132,7 @@ func WorkingState(path string) (committed bool, pushed bool) {
 }
 
 // Checks to make sure the given folder has a .git folder inside
-func isGitRepo(path string) bool {
+func IsGitRepo(path string) bool {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		cwd, err1 := os.Getwd()

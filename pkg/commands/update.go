@@ -5,6 +5,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/update"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -17,11 +18,11 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			config       = configuration.GetConfig()
-			repos        = repos.Repos(config)
+			repos        = repos.ReposInStructure(config)
 			changedRepos = update.GetChanged(repos, config)
 			toMove       = update.AskMove(changedRepos, config)
 		)
-		update.MoveRepos(toMove)
+		utils.MoveRepos(toMove)
 		clean.CleanUp(config)
 	},
 }

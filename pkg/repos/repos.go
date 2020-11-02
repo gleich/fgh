@@ -17,7 +17,7 @@ type LocalRepo struct {
 }
 
 // Get all cloned repos in fgh's file structure
-func Repos(config configure.RegularOutline) (repos []LocalRepo) {
+func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
 	ghFolder := GitHubFolder(config.StructureRoot)
 
 	err := filepath.Walk(
@@ -32,7 +32,7 @@ func Repos(config configure.RegularOutline) (repos []LocalRepo) {
 				return filepath.SkipDir
 			}
 
-			if len(parts) == len(config.Structure)+2 && info.IsDir() && isGitRepo(path) {
+			if len(parts) == len(config.Structure)+2 && info.IsDir() && IsGitRepo(path) {
 				owner, name := OwnerAndNameFromRemote(path)
 				repos = append(repos, LocalRepo{
 					Owner: owner,
