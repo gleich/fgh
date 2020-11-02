@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
+	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
@@ -13,7 +14,7 @@ import (
 )
 
 // Get the new paths for all the repos
-func NewPaths(oldRepos []repos.LocalRepo) map[string]string {
+func NewPaths(oldRepos []repos.LocalRepo, config configure.RegularOutline) map[string]string {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = fmt.Sprintf(" Getting latest metadata for %v repos", len(oldRepos))
 	spin.Start()
@@ -21,7 +22,6 @@ func NewPaths(oldRepos []repos.LocalRepo) map[string]string {
 	var (
 		newPaths = map[string]string{}
 		client   = api.GenerateClient(configuration.GetSecrets().PAT)
-		config   = configuration.GetConfig()
 	)
 	for _, repo := range oldRepos {
 		metadata, err := api.RepoData(client, repo.Owner, repo.Name)

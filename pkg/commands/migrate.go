@@ -1,15 +1,17 @@
 package commands
 
 import (
+	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/commands/migrate"
+	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
 var mirgrateCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
-	Use:                   "migrate <OLD PROJECT ROOT>",
-	Short:                 "Migrate your existing repos or an old fgh structure",
+	Use:                   "migrate <FOLDER>",
+	Short:                 "Migrate all the repos in a directory and its subdirectories",
 	Args:                  cobra.ExactArgs(1),
 	// TODO: CHANGE LONG DOC
 	Long: longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
@@ -17,10 +19,12 @@ var mirgrateCmd = &cobra.Command{
 		var (
 			folder   = migrate.EnsureFolderExists(args)
 			oldRepos = migrate.Repos(folder)
-			newPaths = migrate.NewPaths(oldRepos)
+			config   = configuration.GetConfig()
+			newPaths = migrate.NewPaths(oldRepos, config)
 		)
 		migrate.ConfirmMove(newPaths)
 		utils.MoveRepos(newPaths)
+		clean.CleanUp(config)
 	},
 }
 
