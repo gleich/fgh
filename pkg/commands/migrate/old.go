@@ -13,6 +13,9 @@ import (
 
 // Get all repos in the directory and all subdirectories
 func Repos(path string) []repos.LocalRepo {
+	if !utils.HasInternetConnection() {
+		statuser.Warning("Failed to establish an internet connection")
+	}
 
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = " Getting list of repos"
