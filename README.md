@@ -45,8 +45,7 @@
 - [🚀 Install](#-install)
   - [🍎 macOS](#-macos)
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
-- [🛣 Roadmap](#-roadmap)
-- [🙌 Contributing](#-contributing)
+- [� Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
 
 ## ❓ What is `fgh`
@@ -262,10 +261,6 @@ brew install fgh
 ### 🐧 Linux and 🖥 Windows
 
 You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
-
-## 🛣 Roadmap
-
-- Add `pull` subcommand to pull the latest changes for each repository
 
 ## 🙌 Contributing
 
