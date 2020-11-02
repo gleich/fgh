@@ -13,8 +13,7 @@ var mirgrateCmd = &cobra.Command{
 	Use:                   "migrate <FOLDER>",
 	Short:                 "Migrate all the repos in a directory and its subdirectories",
 	Args:                  cobra.ExactArgs(1),
-	// TODO: CHANGE LONG DOC
-	Long: longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-migrate",
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			folder   = migrate.EnsureFolderExists(args)

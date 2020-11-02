@@ -29,6 +29,7 @@
   - [⚙️ `fgh configure`](#️-fgh-configure)
   - [☁️ `fgh clone`](#️-fgh-clone)
     - [🔠 Keywords](#-keywords)
+  - [🚚 `fgh migrate`](#-fgh-migrate)
   - [⬆️ `fgh update`](#️-fgh-update)
   - [🧼 `fgh clean`](#-fgh-clean)
   - [🗑 `fgh remove`](#-fgh-remove)
@@ -39,7 +40,8 @@
 - [🗂 Custom Structures](#-custom-structures)
   - [📁 `structure_root`](#-structure_root)
   - [🗂 `structure`](#-structure)
-  - [💡 Example](#-example)
+  - [💡 Example Config](#-example-config)
+  - [🚚 Moving Repos to New Structure](#-moving-repos-to-new-structure)
 - [🚀 Install](#-install)
   - [🍎 macOS](#-macos)
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
@@ -57,7 +59,7 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 
 Before using `fgh`, you'll need to give it access to your GitHub repos. Simply run `fgh login` to quickly get set up! fgh only uses this access to get metadata about the repo (e.g. main language, if private) and to clone the repo. fgh needs the full `repo` scope to access private repos.
 
-If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. On Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` on Linux and Darwin (macOS) systems. You should change/add the `pat` as seen below:
+If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. In Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` in Linux and  macOS. You should change/add the `pat` as seen below:
 
 ```yaml
 pat: <your token here>
@@ -119,6 +121,22 @@ If we were to run `fgh clone Matt-Gleich/fgh` it would be cloned to `~/github/Ma
 > NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
 This structure can be somewhat difficult to navigate in the terminal using conventional methods such as the use of the `cd` command. Because of this, we created the [`fgh ls` command](#-fgh-ls) and a way to [use it with cd](#fgh-ls-for-cd).
+
+### 🚚 `fgh migrate`
+
+Would you like to add your existing repositories to the fgh structure? All you have to do run the following command and it will move every single git repo in that directory and all subdirectories into the structure:
+
+```bash
+fgh migrate <folder>
+```
+
+An example would be:
+
+```
+fgh migrate code
+```
+
+This would migrate all git repos in the `./code` folder into fgh's structure.
 
 ### ⬆️ `fgh update`
 
@@ -212,7 +230,7 @@ structure:
 
 If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/github/Matt-Gleich/repos/Go/fgh`.
 
-### 💡 Example
+### 💡 Example Config
 
 Say we have the following config:
 
@@ -223,6 +241,14 @@ structure:
 ```
 
 If we were to run `fgh clone Matt-Gleich/fgh` it would clone the repo to `~/code/Matt-Gleich/fgh`.
+
+### 🚚 Moving Repos to New Structure
+
+Just run:
+
+```bash
+fgh migrate <old project root>
+```
 
 ## 🚀 Install
 
