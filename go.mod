@@ -3,10 +3,10 @@ module github.com/Matt-Gleich/fgh
 go 1.15
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.1.1
+	github.com/AlecAivazis/survey/v2 v2.2.0
 	github.com/Matt-Gleich/release v0.0.0-20201031213446-c4dd80460118
 	github.com/Matt-Gleich/statuser/v2 v2.4.0
-	github.com/Netflix/go-expect v0.0.0-20200312175327-da48e75238e2 // indirect
+	github.com/Netflix/go-expect v0.0.0-20201103021302-07164a2e4b01 // indirect
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be // indirect
 	github.com/atotto/clipboard v0.1.2
 	github.com/briandowns/spinner v1.11.1
