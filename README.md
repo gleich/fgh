@@ -45,7 +45,7 @@
 - [🚀 Install](#-install)
   - [🍎 macOS](#-macos)
   - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
-- [� Contributing](#-contributing)
+- [🙌 Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
 
 ## ❓ What is `fgh`
