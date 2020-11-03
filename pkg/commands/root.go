@@ -39,7 +39,7 @@ Authors:
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
-			version := "v2.0.0"
+			version := "v2.0.1"
 
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
