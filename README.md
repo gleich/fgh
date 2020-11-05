@@ -23,7 +23,7 @@
 ## 📜 Table of Contents
 
 - [📜 Table of Contents](#-table-of-contents)
-- [❓ What is `fgh`](#-what-is-fgh)
+- [👋 Getting started](#-getting-started)
 - [📟 Commands](#-commands)
   - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
@@ -48,9 +48,16 @@
 - [🙌 Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
 
-## ❓ What is `fgh`
+## 👋 Getting started
 
-As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to organize and maintain them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle of your cloned repos, saving you time _and_ helping you scale!
+As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to organize and maintain them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle of your cloned repos, saving you time _and_ helping you scale! Below is a list of the most useful automation commands:
+
+- [`fgh clone`](#️-fgh-clone)
+- [`fgh clean`](#-fgh-clean)
+- [`fgh update`](#️-fgh-update)
+- [`fgh ls`](#-fgh-ls)
+
+See [the install section](#-install) to install `fgh`
 
 ## 📟 Commands
 
