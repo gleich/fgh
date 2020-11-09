@@ -3,7 +3,7 @@ module github.com/Matt-Gleich/fgh
 go 1.15
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.2.1
+	github.com/AlecAivazis/survey/v2 v2.2.2
 	github.com/Matt-Gleich/release v0.0.0-20201031213446-c4dd80460118
 	github.com/Matt-Gleich/statuser/v2 v2.4.0
 	github.com/Microsoft/go-winio v0.4.15 // indirect
@@ -21,7 +21,7 @@ require (
 	github.com/hepsiburada/time-formatter v1.0.1
 	github.com/hinshun/vt10x v0.0.0-20180809195222-d55458df857c // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
-	github.com/kevinburke/ssh_config v0.0.0-20201106050612-5a772a75fa55 // indirect
+	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect
 	github.com/pkg/browser v0.0.0-20180916011732-0a3d74bf9ce4
@@ -34,7 +34,7 @@ require (
 	golang.org/x/crypto v0.0.0-20201016220609-9e8e0b390897 // indirect
 	golang.org/x/net v0.0.0-20201031054903-ff519b6c9102 // indirect
 	golang.org/x/oauth2 v0.0.0-20200902213428-5d25da1a8d43
-	golang.org/x/sys v0.0.0-20201106081118-db71ae66460a // indirect
+	golang.org/x/sys v0.0.0-20201107080550-4d91cf3a1aaf // indirect
 	golang.org/x/text v0.3.4 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
 	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
