@@ -84,7 +84,7 @@ func formatDate(date time.Time) string {
 		humanize.Ordinal(date.Day()),
 		tf.YYYY,
 		date.Hour(),
-		date.Minute(),
+		tf.MM,
 		tf.A,
 	))
 }
