@@ -9,15 +9,19 @@ import (
 )
 
 func TestRawEnsureFolderExists(t *testing.T) {
-	folderPath := filepath.Join(".", "testing", "testing")
-	err := os.MkdirAll(folderPath, 0777)
+	var (
+		baseFolder = filepath.Join(".", "testing")
+		folder     = filepath.Join(baseFolder, "testing")
+	)
+
+	err := os.MkdirAll(folder, 0777)
 	assert.NoError(t, err)
 
-	result, resultErr := rawEnsureFolderExists([]string{folderPath})
+	result, resultErr := rawEnsureFolderExists([]string{folder})
 
-	err = os.RemoveAll(folderPath)
+	err = os.RemoveAll(baseFolder)
 	assert.NoError(t, err)
 
-	assert.Equal(t, folderPath, result)
+	assert.Equal(t, folder, result)
 	assert.NoError(t, resultErr)
 }
