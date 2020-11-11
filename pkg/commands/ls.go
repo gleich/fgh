@@ -18,7 +18,7 @@ var lsCmd = &cobra.Command{
 		var (
 			secrets     = configuration.GetSecrets()
 			config      = configuration.GetConfig()
-			clonedRepos = repos.ReposInStructure(config)
+			clonedRepos = reposBasedOffCustomPath(cmd, config)
 		)
 		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
 		fmt.Println(filtered[0].Path)
@@ -27,4 +27,5 @@ var lsCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(lsCmd)
+	addCustomPathFlag(lsCmd)
 }

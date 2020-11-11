@@ -11,9 +11,6 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// Starter for all long form docs
-const longDocStart = "\nDocumentation for this subcommand: "
-
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fgh",

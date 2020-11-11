@@ -28,7 +28,7 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "github/",
 		},
 	)
-	assert.Equal(t, filepath.Join(GitHubFolder("github/"), "/Testing-Owner/private/Go/fgh"), result1)
+	assert.Equal(t, filepath.Join(StructureRootFolder("github/"), "/Testing-Owner/private/Go/fgh"), result1)
 
 	result2 := RepoLocation(
 		api.Repo{
@@ -47,7 +47,7 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(GitHubFolder("/code/stuff"), "/Matt-Gleich/JavaScript/archived/site-v2"), result2)
+	assert.Equal(t, filepath.Join(StructureRootFolder("/code/stuff"), "/Matt-Gleich/JavaScript/archived/site-v2"), result2)
 
 	result3 := RepoLocation(
 		api.Repo{
@@ -65,5 +65,5 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(GitHubFolder("/code/stuff"), "/Matt-Gleich/JavaScript/site-v2"), result3)
+	assert.Equal(t, filepath.Join(StructureRootFolder("/code/stuff"), "/Matt-Gleich/JavaScript/site-v2"), result3)
 }

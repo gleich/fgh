@@ -12,7 +12,7 @@ import (
 )
 
 // Get the root GitHub folder
-func GitHubFolder(structureRoot string) string {
+func StructureRootFolder(structureRoot string) string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		statuser.Error("Failed to get home directory", err, 1)
@@ -22,7 +22,7 @@ func GitHubFolder(structureRoot string) string {
 
 // Get the location to clone the repo
 func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
-	path := filepath.Join(GitHubFolder(config.StructureRoot), filepath.Join(config.Structure...))
+	path := filepath.Join(StructureRootFolder(config.StructureRoot), filepath.Join(config.Structure...))
 
 	// Replacing owner
 	path = strings.ReplaceAll(path, configuration.OwnerRep, repo.Owner)

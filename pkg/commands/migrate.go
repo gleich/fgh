@@ -4,6 +4,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/commands/migrate"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
+	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
@@ -17,7 +18,7 @@ var mirgrateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			folder   = migrate.EnsureFolderExists(args)
-			oldRepos = migrate.Repos(folder)
+			oldRepos = repos.Repos(folder)
 			config   = configuration.GetConfig()
 			newPaths = migrate.NewPaths(oldRepos, config)
 		)

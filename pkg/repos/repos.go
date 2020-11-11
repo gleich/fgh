@@ -3,49 +3,54 @@ package repos
 import (
 	"os"
 	"path/filepath"
-	"strings"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/briandowns/spinner"
 )
 
-// A repo already cloned locally
-type LocalRepo struct {
-	Owner string
-	Name  string
-	Path  string
-}
+// Get all repos in the directory and all subdirectories
+func Repos(rootPath string) []LocalRepo {
+	if !utils.HasInternetConnection() {
+		statuser.Warning("Failed to establish an internet connection")
+	}
 
-// Get all cloned repos in fgh's file structure
-func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
-	ghFolder := GitHubFolder(config.StructureRoot)
+	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
+	spin.Suffix = " Getting list of repos"
+	spin.Start()
 
+	oldRepos := []LocalRepo{}
 	err := filepath.Walk(
-		ghFolder,
+		rootPath,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
 			}
+			if info.IsDir() && IsGitRepo(path) {
 
-			parts := strings.Split((strings.TrimPrefix(path, ghFolder)), string(filepath.Separator))
-			if len(parts) > len(config.Structure)+2 {
-				return filepath.SkipDir
-			}
+				absPath, err := filepath.Abs(path)
+				if err != nil {
+					statuser.Error("Failed to get absolute path for "+path, err, 1)
+				}
 
-			if len(parts) == len(config.Structure)+2 && info.IsDir() && IsGitRepo(path) {
 				owner, name := OwnerAndNameFromRemote(path)
-				repos = append(repos, LocalRepo{
+				oldRepos = append(oldRepos, LocalRepo{
 					Owner: owner,
 					Name:  name,
-					Path:  path,
+					Path:  absPath,
 				})
 			}
 			return nil
 		},
 	)
 
+	spin.Stop()
 	if err != nil {
-		statuser.Error("Failed to get list cloned of repos", err, 1)
+		statuser.Error("Failed to get list of repos", err, 1)
 	}
-	return repos
+
+	if len(oldRepos) == 0 {
+		statuser.Warning("0 repos found inside " + rootPath)
+	}
+	return oldRepos
 }

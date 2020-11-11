@@ -17,7 +17,7 @@ var cleanCmd = &cobra.Command{
 		var (
 			flags       = clean.ParseFlags(cmd)
 			config      = configuration.GetConfig()
-			clonedRepos = repos.ReposInStructure(config)
+			clonedRepos = reposBasedOffCustomPath(cmd, config)
 			toRemove    = []repos.LocalRepo{}
 		)
 
@@ -43,4 +43,5 @@ func init() {
 	cleanCmd.Flags().IntP("days", "d", 0, "Counts as outdated repo if it isn't modified locally in given number of days (default 0)")
 	cleanCmd.Flags().Bool("skipOutdated", false, "Don't check for outdated repos")
 	cleanCmd.Flags().Bool("skipDeleted", false, "Don't check for deleted repos")
+	addCustomPathFlag(cleanCmd)
 }
