@@ -77,14 +77,25 @@ func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) []repos.LocalRepo {
 // Format date in the following format:
 // December 25th, 2020 at 12:00PM
 func formatDate(date time.Time) string {
-	formatter := tf.New()
+	var (
+		formatter     = tf.New()
+		hour          = date.Hour()
+		formattedHour string
+	)
+
+	if hour > 12 {
+		formattedHour = fmt.Sprint(hour - 12)
+	} else {
+		formattedHour = fmt.Sprint(hour)
+	}
+
 	return formatter.To(date, fmt.Sprintf(
-		"%s %s, %s at %v:%v%s",
+		"%s %s, %s at %v:%02v%s",
 		tf.MMMM,
 		humanize.Ordinal(date.Day()),
 		tf.YYYY,
-		date.Hour(),
-		tf.MM,
+		formattedHour,
+		date.Minute(),
 		tf.A,
 	))
 }
