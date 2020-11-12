@@ -24,6 +24,10 @@
 
 - [📜 Table of Contents](#-table-of-contents)
 - [👋 Getting started](#-getting-started)
+  - [🚀 Install](#-install)
+    - [🍎 macOS](#-macos)
+    - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
+  - [👀 Try out `fgh`'s automation](#-try-out-fghs-automation)
 - [📟 Commands](#-commands)
   - [🔒 `fgh login`](#-fgh-login)
   - [⚙️ `fgh configure`](#️-fgh-configure)
@@ -42,9 +46,6 @@
   - [🗂 `structure`](#-structure)
   - [💡 Example Config](#-example-config)
   - [🚚 Moving Repos to New Structure](#-moving-repos-to-new-structure)
-- [🚀 Install](#-install)
-  - [🍎 macOS](#-macos)
-  - [🐧 Linux and 🖥 Windows](#-linux-and--windows)
 - [🙌 Contributing](#-contributing)
 - [👥 Contributors](#-contributors)
 
@@ -57,7 +58,33 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 - [`fgh update`](#️-fgh-update)
 - [`fgh ls`](#-fgh-ls)
 
-See [the install section](#-install) to install `fgh`
+### 🚀 Install
+
+#### 🍎 macOS
+
+```bash
+brew tap Matt-Gleich/homebrew-taps
+brew install fgh
+```
+
+#### 🐧 Linux and 🖥 Windows
+
+You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
+
+### 👀 Try out `fgh`'s automation
+
+[`fgh remove`](#-fgh-remove), [`fgh clean`](#-fgh-clean), and [`fgh ls`](#-fgh-ls) can be tried out on your current repository structure with the addition of the `-p` flag. The value for this flag is the relative root path to the folder where all your git repos live. If we had the repo structure shown below and we were running `fgh` from `~` the root folder would be `./code/`. This root folder is then passed into the command: `fgh ls -p=./code/`.
+
+```
+~
+└─ code
+   ├─ fgh
+   ├─ dots
+   ├─ turtle-site
+   └─ work
+      ├─ super-secret-code
+      └─ website
+```
 
 ## 📟 Commands
 
@@ -255,19 +282,6 @@ Just run:
 ```bash
 fgh migrate <old project root>
 ```
-
-## 🚀 Install
-
-### 🍎 macOS
-
-```bash
-brew tap Matt-Gleich/homebrew-taps
-brew install fgh
-```
-
-### 🐧 Linux and 🖥 Windows
-
-You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
 
 ## 🙌 Contributing
 
