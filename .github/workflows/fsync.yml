@@ -5,7 +5,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: '*/30 * * * *' # Run every 30 minutes
+      - cron: '0 */1 * * *' # Run every hour
 
 jobs:
   gh_fsync:
