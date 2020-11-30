@@ -11,7 +11,7 @@ var pullCmd = &cobra.Command{
 	Use:                   "pull",
 	Short:                 "Pull all repos that don't have any not pushed changes",
 	Args:                  cobra.NoArgs,
-	Long:                  longDocStart + "FILL THIS IN",
+	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-pull",
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			secrets     = configuration.GetSecrets()
