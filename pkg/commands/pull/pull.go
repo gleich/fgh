@@ -54,11 +54,11 @@ func PullRepos(secrets configure.SecretsOutline, clonedRepos []repos.LocalRepo) 
 		})
 
 		// Outputting final message
-		if err != nil && err.Error() == "already up-to-date" {
-			fmt.Printf("%v/%v is already up to date\n", repo.Owner, repo.Name)
-			continue
-		}
 		if err != nil {
+			if err.Error() == "already up-to-date" {
+				fmt.Printf("%v/%v is already up to date\n", repo.Owner, repo.Name)
+				continue
+			}
 			statuser.Error("Failed to pull changes for "+repo.Path, err, 1)
 		}
 		statuser.Success(fmt.Sprintf("Pulled latest changes for %v/%v", repo.Owner, repo.Name))
