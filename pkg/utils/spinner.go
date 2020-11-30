@@ -10,5 +10,5 @@ var (
 	// Character set used for all spinners
 	SpinnerCharSet = spinner.CharSets[14]
 	// Speed user for all spinners
-	SpinnerSpeed = 35 * time.Millisecond
+	SpinnerSpeed = 100 * time.Millisecond
 )
