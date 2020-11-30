@@ -9,7 +9,7 @@ import (
 var pullCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Use:                   "pull",
-	Short:                 "Pull all repos that don't have any not pushed changes",
+	Short:                 "Pull all repos that don't have any non-pushed changes",
 	Args:                  cobra.NoArgs,
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-pull",
 	Run: func(cmd *cobra.Command, args []string) {

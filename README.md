@@ -38,7 +38,7 @@
   - [🧼 `fgh clean`](#-fgh-clean)
   - [🗑 `fgh remove`](#-fgh-remove)
   - [🧭 `fgh ls`](#-fgh-ls)
-  - [🧭 `fgh pull`](#-fgh-pull)
+  - [⬇️ `fgh pull`](#️-fgh-pull)
 - [💡 Tips](#-tips)
   - [<owner/name> shorthand](#ownername-shorthand)
   - [`fgh ls` for `cd`](#fgh-ls-for-cd)
@@ -208,9 +208,9 @@ Get the path of a cloned repository. Usage is as follows:
 fgh ls <owner/name>
 ```
 
-### 🧭 `fgh pull`
+### ⬇️ `fgh pull`
 
-Pull all repos that don't have any not pushed changes. Usage is as follows:
+Pull all repos that don't have any non-pushed changes. Usage is as follows:
 
 ```bash
 fgh pull
