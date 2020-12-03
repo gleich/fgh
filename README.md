@@ -243,6 +243,15 @@ If you would like to easily use the output of `fgh ls` for `cd` just add the fol
 fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" && return 1; ) }
 ```
 
+If you're using Fish, add the following to your `~/config/fish/config.fish`:
+```fish
+function fcd
+  if ! cd (fgh ls $argv) > /dev/null
+    echo "Failed to find repository"; return 1
+  end
+end
+```
+
 Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output. Much easier!
 
 ## 🗂 Custom Structures
