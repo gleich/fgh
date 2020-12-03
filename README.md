@@ -93,7 +93,7 @@ You can grab the binary from the [latest release](https://github.com/Matt-Gleich
 
 Before using `fgh`, you'll need to give it access to your GitHub repos. Simply run `fgh login` to quickly get set up! fgh only uses this access to get metadata about the repo (e.g. main language, if private) and to clone the repo. fgh needs the full `repo` scope to access private repos.
 
-If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. In Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` in Linux and  macOS. You should change/add the `pat` as seen below:
+If you need to use a GitHub custom access token, like a PAT, edit the secret configuration file. In Windows it is located in `~\.fgh\secrets.yml` and `~/.config/fgh/secrets.yml` in Linux and macOS. You should change/add the `pat` as seen below:
 
 ```yaml
 pat: <your token here>
@@ -244,6 +244,7 @@ fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" &&
 ```
 
 If you're using Fish, add the following to your `~/config/fish/config.fish`:
+
 ```fish
 function fcd
   if ! cd (fgh ls $argv) > /dev/null
@@ -263,7 +264,7 @@ Not a fan of the default structure used by fgh? Don't worry, you can change it w
 This is where the structure starts relative to your home folder. Make sure you use `\` if you are on Windows. By default, the `structure_root` is `github`. Below is an example of what you would put in the general config file:
 
 ```yaml
-structure_root: 'Documents/code/'
+structure_root: "Documents/code/"
 ```
 
 If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`
@@ -286,7 +287,7 @@ If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above i
 Say we have the following config:
 
 ```yaml
-structure_root: 'code'
+structure_root: "code"
 structure:
   - OWNER
 ```
@@ -306,8 +307,8 @@ fgh migrate <old project root>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-## 👥 Contributors
 
+## 👥 Contributors
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
