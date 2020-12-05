@@ -43,3 +43,27 @@ func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline
 	}
 	return repos.Repos(path)
 }
+
+// Set the valid args as the local repos.
+func validArgsAsRepos(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+	if len(args) != 0 {
+		return nil, cobra.ShellCompDirectiveNoFileComp
+	}
+
+	var (
+		secrets       = configuration.GetSecrets()
+		config        = configuration.GetConfig()
+		clonedRepos   = reposBasedOffCustomPath(cmd, config)
+		filteredRepos = repos.FilterRepos(secrets.Username, clonedRepos, args)
+		repoPairs     = []string{}
+	)
+
+	fmt.Println(toComplete)
+
+	for _, repo := range filteredRepos {
+		pair := repo.Owner + "/" + repo.Name
+		repoPairs = append(repoPairs, pair)
+	}
+
+	return repoPairs, cobra.ShellCompDirectiveNoFileComp
+}
