@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
@@ -46,10 +47,6 @@ func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline
 
 // Set the valid args as the local repos.
 func validArgsAsRepos(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
-	if len(args) != 0 {
-		return nil, cobra.ShellCompDirectiveNoFileComp
-	}
-
 	var (
 		secrets       = configuration.GetSecrets()
 		config        = configuration.GetConfig()
@@ -61,9 +58,22 @@ func validArgsAsRepos(cmd *cobra.Command, args []string, toComplete string) ([]s
 	fmt.Println(toComplete)
 
 	for _, repo := range filteredRepos {
+		if repo.Owner == secrets.Username {
+			repoPairs = append(repoPairs, repo.Name)
+			continue
+		}
 		pair := repo.Owner + "/" + repo.Name
 		repoPairs = append(repoPairs, pair)
 	}
+	if toComplete != "" {
+		repoPairsCleaned := []string{}
+		for _, repo := range repoPairs {
+			if strings.HasPrefix(repo, toComplete) {
+				repoPairsCleaned = append(repoPairsCleaned, repo)
+			}
+		}
+		return repoPairsCleaned, cobra.ShellCompDirectiveDefault
+	}
 
-	return repoPairs, cobra.ShellCompDirectiveNoFileComp
+	return repoPairs, cobra.ShellCompDirectiveDefault
 }
