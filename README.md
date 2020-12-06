@@ -40,8 +40,8 @@
   - [🧭 `fgh ls`](#-fgh-ls)
   - [⬇️ `fgh pull`](#️-fgh-pull)
 - [💡 Tips](#-tips)
-  - [<owner/name> shorthand](#ownername-shorthand)
-  - [`fgh ls` for `cd`](#fgh-ls-for-cd)
+  - [🤝 <owner/name> shorthand](#-ownername-shorthand)
+  - [🏎 `fgh ls` for `cd`](#-fgh-ls-for-cd)
   - [☑️ Autocompletion](#️-autocompletion)
 - [🗂 Custom Structures](#-custom-structures)
   - [📁 `structure_root`](#-structure_root)
@@ -219,7 +219,7 @@ fgh pull
 
 ## 💡 Tips
 
-### <owner/name> shorthand
+### 🤝 <owner/name> shorthand
 
 Any command that takes `<owner/name>` as an argument allows you to leave off the `owner` if the repo is under your account. For example, I own this repo so I can just do
 
@@ -233,7 +233,7 @@ instead of
 fgh clone Matt-Gleich/fgh
 ```
 
-### `fgh ls` for `cd`
+### 🏎 `fgh ls` for `cd`
 
 > NOTE: This only works in macOS and Linux
 
