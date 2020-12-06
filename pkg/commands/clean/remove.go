@@ -1,7 +1,6 @@
 package clean
 
 import (
-	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -58,9 +57,7 @@ func CleanUp(config configure.RegularOutline) []string {
 		if err != nil {
 			statuser.Error("Failed to get contents of "+path, err, 1)
 		}
-		fmt.Println(path, len(content))
 		if len(content) == 0 {
-
 			err = os.Remove(path)
 			if err != nil {
 				statuser.Error("Failed to remove "+path, err, 1)
