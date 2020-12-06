@@ -1,11 +1,11 @@
 package clean
 
 import (
+	"fmt"
 	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sort"
-	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
@@ -35,11 +35,10 @@ func CleanUp(config configure.RegularOutline) []string {
 				return err
 			}
 
-			trimmedPath := strings.TrimPrefix(path, ghFolder)
-			parts := strings.Split(trimmedPath, string(filepath.Separator))
-			if len(parts) > len(config.Structure)+1 {
-				return filepath.SkipDir
-			} else if info.IsDir() {
+			if info.IsDir() {
+				if repos.IsGitRepo(path) {
+					return filepath.SkipDir
+				}
 				foldersToCheck = append(foldersToCheck, path)
 			}
 			return nil
@@ -59,8 +58,16 @@ func CleanUp(config configure.RegularOutline) []string {
 		if err != nil {
 			statuser.Error("Failed to get contents of "+path, err, 1)
 		}
+		fmt.Println(path, len(content))
 		if len(content) == 0 {
+
 			err = os.Remove(path)
+			if err != nil {
+				statuser.Error("Failed to remove "+path, err, 1)
+			}
+		} else if len(content) == 1 && !content[0].IsDir() && content[0].Name() == ".DS_Store" {
+			// If the folder only contains a .DS_Store file
+			err = os.RemoveAll(path)
 			if err != nil {
 				statuser.Error("Failed to remove "+path, err, 1)
 			}
