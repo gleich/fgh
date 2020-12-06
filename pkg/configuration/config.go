@@ -15,12 +15,12 @@ const (
 	DefaultStructureRoot = "github"
 )
 
-// Get the regular config configuration
-func GetConfig() configure.RegularOutline {
+// Get the regular config configuration.
+func GetConfig(ignoreErr bool) configure.RegularOutline {
 	filePath := filepath.Join(configure.GetFolderPath(), configure.RegularFileName)
 	var config configure.RegularOutline
 	err := utils.ReadYAML(filePath, &config)
-	if err != nil {
+	if err != nil && !ignoreErr {
 		statuser.Error("Failed to read from configuration", err, 1)
 	}
 

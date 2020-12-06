@@ -21,7 +21,7 @@ const (
 // Add the custom path flag to the command
 func addCustomPathFlag(cmd *cobra.Command) {
 	var (
-		config     = configuration.GetConfig().StructureRoot
+		config     = configuration.GetConfig(true).StructureRoot
 		rootFolder = repos.StructureRootFolder(config)
 	)
 	cmd.Flags().StringP(
@@ -49,7 +49,7 @@ func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline
 func reposAsValidArgs(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
 	var (
 		secrets     = configuration.GetSecrets()
-		config      = configuration.GetConfig()
+		config      = configuration.GetConfig(false)
 		clonedRepos = reposBasedOffCustomPath(cmd, config)
 		repoPairs   = []string{}
 	)

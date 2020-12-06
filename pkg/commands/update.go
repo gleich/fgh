@@ -17,7 +17,7 @@ var updateCmd = &cobra.Command{
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-update",
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
-			config       = configuration.GetConfig()
+			config       = configuration.GetConfig(false)
 			repos        = repos.ReposInStructure(config)
 			changedRepos = update.GetChanged(repos, config)
 			toMove       = update.AskMove(changedRepos, config)

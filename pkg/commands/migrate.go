@@ -19,7 +19,7 @@ var mirgrateCmd = &cobra.Command{
 		var (
 			folder   = migrate.EnsureFolderExists(args)
 			oldRepos = repos.Repos(folder)
-			config   = configuration.GetConfig()
+			config   = configuration.GetConfig(false)
 			newPaths = migrate.NewPaths(oldRepos, config)
 		)
 		migrate.ConfirmMove(newPaths)

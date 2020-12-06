@@ -16,7 +16,7 @@ var cleanCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			flags       = clean.ParseFlags(cmd)
-			config      = configuration.GetConfig()
+			config      = configuration.GetConfig(false)
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 			toRemove    = []repos.LocalRepo{}
 		)

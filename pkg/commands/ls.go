@@ -17,7 +17,7 @@ var lsCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			secrets     = configuration.GetSecrets()
-			config      = configuration.GetConfig()
+			config      = configuration.GetConfig(false)
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 		)
 		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
