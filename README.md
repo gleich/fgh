@@ -65,8 +65,7 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 #### 🍎 macOS
 
 ```bash
-brew tap Matt-Gleich/homebrew-taps
-brew install fgh
+brew install Matt-Gleich/homebrew-taps/fgh
 ```
 
 #### 🐧 Linux and 🖥 Windows
