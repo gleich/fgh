@@ -24,6 +24,7 @@ var removeCmd = &cobra.Command{
 		remove.RemoveRepos(filtered)
 		clean.CleanUp(config)
 	},
+	ValidArgsFunction: reposAsValidArgs,
 }
 
 func init() {

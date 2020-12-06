@@ -23,7 +23,7 @@ var lsCmd = &cobra.Command{
 		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
 		fmt.Println(filtered[0].Path)
 	},
-	ValidArgsFunction: validArgsAsRepos,
+	ValidArgsFunction: reposAsValidArgs,
 }
 
 func init() {
