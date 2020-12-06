@@ -42,6 +42,7 @@
 - [💡 Tips](#-tips)
   - [<owner/name> shorthand](#ownername-shorthand)
   - [`fgh ls` for `cd`](#fgh-ls-for-cd)
+  - [☑️ Autocompletion](#️-autocompletion)
 - [🗂 Custom Structures](#-custom-structures)
   - [📁 `structure_root`](#-structure_root)
   - [🗂 `structure`](#-structure)
@@ -254,6 +255,17 @@ end
 ```
 
 Once you add that and reload your terminal you can simply run `fcd <owner/name>` instead of `fgh ls <owner/name>`, copying the output to your clipboard, typing `cd`, and pasting the output. Much easier!
+
+### ☑️ Autocompletion
+
+You can add autocompletion for fgh by running one of the following commands based on your shell:
+
+| Shell        | Command                                                      |
+|--------------|--------------------------------------------------------------|
+| zsh          | `fgh completion zsh > "${fpath[1]}/_fgh"`                    |
+| fish         | `fgh completion fish > ~/.config/fish/completions/fgh.fish`  |
+| bash (linux) | `fgh completion bash > /etc/bash_completion.d/fgh`           |
+| bash (macOS) | `fgh completion bash > /usr/local/etc/bash_completion.d/fgh` |
 
 ## 🗂 Custom Structures
 
