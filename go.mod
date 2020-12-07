@@ -12,7 +12,6 @@ require (
 	github.com/atotto/clipboard v0.1.2
 	github.com/briandowns/spinner v1.11.1
 	github.com/creack/pty v1.1.11 // indirect
-	github.com/disiqueira/gotree v1.0.0
 	github.com/dustin/go-humanize v1.0.0
 	github.com/fatih/color v1.10.0
 	github.com/gliderlabs/ssh v0.3.1 // indirect
