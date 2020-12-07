@@ -39,6 +39,7 @@
   - [🗑 `fgh remove`](#-fgh-remove)
   - [🧭 `fgh ls`](#-fgh-ls)
   - [⬇️ `fgh pull`](#️-fgh-pull)
+  - [📊 `fgh visualize`](#-fgh-visualize)
 - [💡 Tips](#-tips)
   - [🤝 <owner/name> shorthand](#-ownername-shorthand)
   - [🏎 `fgh ls` for `cd`](#-fgh-ls-for-cd)
@@ -74,7 +75,7 @@ You can grab the binary from the [latest release](https://github.com/Matt-Gleich
 
 ### 👀 Try out `fgh`'s automation
 
-[`fgh remove`](#-fgh-remove), [`fgh clean`](#-fgh-clean), and [`fgh ls`](#-fgh-ls) can be tried out on your current repository structure with the addition of the `-p` flag. The value for this flag is the relative root path to the folder where all your git repos live. If we had the repo structure shown below and we were running `fgh` from `~` the root folder would be `./code/`. This root folder is then passed into the command: `fgh ls -p=./code/`.
+[`fgh remove`](#-fgh-remove), [`fgh clean`](#-fgh-clean), [`fgh ls`](#-fgh-ls), [`fgh pull`](#-fgh-pull), and [`fgh visualize`](#-fgh-visualize) can be tried out on your current repository structure with the addition of the `-p` flag. The value for this flag is the relative root path to the folder where all your git repos live. If we had the repo structure shown below and we were running `fgh` from `~` the root folder would be `./code/`. This root folder is then passed into the command: `fgh ls -p=./code/`.
 
 ```
 ~
@@ -216,6 +217,14 @@ Pull all repos that don't have any non-pushed changes. Usage is as follows:
 fgh pull
 ```
 
+### 📊 `fgh visualize`
+
+Visualize all of the cloned repos in a table. Usage is as follows:
+
+```bash
+fgh visualize
+```
+
 ## 💡 Tips
 
 ### 🤝 <owner/name> shorthand
@@ -260,7 +269,7 @@ Once you add that and reload your terminal you can simply run `fcd <owner/name>`
 You can add autocompletion for fgh by running one of the following commands based on your shell:
 
 | Shell        | Command                                                      |
-|--------------|--------------------------------------------------------------|
+| ------------ | ------------------------------------------------------------ |
 | zsh          | `fgh completion zsh > "${fpath[1]}/_fgh"`                    |
 | fish         | `fgh completion fish > ~/.config/fish/completions/fgh.fish`  |
 | bash (linux) | `fgh completion bash > /etc/bash_completion.d/fgh`           |
@@ -318,8 +327,8 @@ fgh migrate <old project root>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-## 👥 Contributors
 
+## 👥 Contributors
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 

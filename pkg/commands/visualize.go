@@ -11,7 +11,7 @@ import (
 var visualizeCmd = &cobra.Command{
 	DisableFlagsInUseLine: true,
 	Use:                   "visualize",
-	Short:                 "Visualize the cloned repositories",
+	Short:                 "Visualize all of the cloned repos in a table",
 	Args:                  cobra.NoArgs,
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-visualize",
 	Run: func(cmd *cobra.Command, args []string) {
