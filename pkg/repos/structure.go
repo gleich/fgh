@@ -9,13 +9,6 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
-// A repo already cloned locally
-type LocalRepo struct {
-	Owner string
-	Name  string
-	Path  string
-}
-
 // Get all cloned repos in fgh's file structure
 func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
 	ghFolder := StructureRootFolder(config.StructureRoot)

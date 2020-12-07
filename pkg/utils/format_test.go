@@ -1,4 +1,4 @@
-package clean
+package utils
 
 import (
 	"testing"
@@ -31,6 +31,6 @@ func TestFormatDate(t *testing.T) {
 	}
 
 	for _, test := range tt {
-		assert.Equal(t, formatDate(test.date), test.output)
+		assert.Equal(t, FormatDate(test.date), test.output)
 	}
 }

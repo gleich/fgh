@@ -2,20 +2,17 @@ package clean
 
 import (
 	"fmt"
-	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/dustin/go-humanize"
 	"github.com/fatih/color"
-	tf "github.com/hepsiburada/time-formatter"
 )
 
 // Confirm with the user that they want to remove an outdated repo
-func AskToRemoveOutdated(outdatedRepos []OutdatedRepo) []repos.LocalRepo {
+func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) []repos.LocalRepo {
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range outdatedRepos {
-		time := formatDate(repo.ModTime)
+		time := utils.FormatDate(repo.ModTime)
 
 		var (
 			uncommittedMsg = color.GreenString("None")
@@ -72,30 +69,4 @@ func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) []repos.LocalRepo {
 		}
 	}
 	return toRemove
-}
-
-// Format date in the following format:
-// December 25th, 2020 at 12:00PM
-func formatDate(date time.Time) string {
-	var (
-		formatter     = tf.New()
-		hour          = date.Hour()
-		formattedHour string
-	)
-
-	if hour > 12 {
-		formattedHour = fmt.Sprint(hour - 12)
-	} else {
-		formattedHour = fmt.Sprint(hour)
-	}
-
-	return formatter.To(date, fmt.Sprintf(
-		"%s %s, %s at %v:%02v%s",
-		tf.MMMM,
-		humanize.Ordinal(date.Day()),
-		tf.YYYY,
-		formattedHour,
-		date.Minute(),
-		tf.A,
-	))
 }
