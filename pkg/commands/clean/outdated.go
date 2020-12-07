@@ -29,10 +29,10 @@ func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, day
 		)
 		if updatedTime.Unix() < timeThreshold.Unix() {
 			outdated = append(outdated, repos.DetailedLocalRepo{
-				Repo:        repo,
-				ModTime:     updatedTime,
-				Uncommitted: notCommitted,
-				NotPushed:   notPushed,
+				Repo:         repo,
+				ModTime:      updatedTime,
+				NotCommitted: notCommitted,
+				NotPushed:    notPushed,
 			})
 		}
 	}

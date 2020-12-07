@@ -15,14 +15,14 @@ func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) []repos.LocalR
 		time := utils.FormatDate(repo.ModTime)
 
 		var (
-			uncommittedMsg = color.GreenString("None")
-			notPushedMsg   = color.GreenString("None")
-		)
-		if !repo.Uncommitted {
 			uncommittedMsg = color.RedString("Yes")
+			notPushedMsg   = color.RedString("Yes")
+		)
+		if repo.NotCommitted {
+			uncommittedMsg = color.GreenString("None")
 		}
-		if !repo.NotPushed {
-			notPushedMsg = color.RedString("Yes")
+		if repo.NotPushed {
+			notPushedMsg = color.GreenString("None")
 		}
 
 		remove := utils.Confirm(fmt.Sprintf(

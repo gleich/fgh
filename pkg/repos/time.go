@@ -23,11 +23,11 @@ func LastUpdated(path string) time.Time {
 				return filepath.SkipDir
 			}
 
-			info, err := times.Stat(path)
+			timeInfo, err := times.Stat(path)
 			if err != nil {
 				return err
 			}
-			modTime := info.ModTime()
+			modTime := timeInfo.ModTime()
 			if modTime.Unix() > updatedTime.Unix() {
 				updatedTime = modTime
 			}

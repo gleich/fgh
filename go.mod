@@ -12,7 +12,7 @@ require (
 	github.com/atotto/clipboard v0.1.2
 	github.com/briandowns/spinner v1.11.1
 	github.com/creack/pty v1.1.11 // indirect
-	github.com/disiqueira/gotree v1.0.0 // indirect
+	github.com/disiqueira/gotree v1.0.0
 	github.com/dustin/go-humanize v1.0.0
 	github.com/fatih/color v1.10.0
 	github.com/gliderlabs/ssh v0.3.1 // indirect
@@ -22,6 +22,7 @@ require (
 	github.com/hepsiburada/time-formatter v1.0.1
 	github.com/hinshun/vt10x v0.0.0-20180809195222-d55458df857c // indirect
 	github.com/imdario/mergo v0.3.11 // indirect
+	github.com/jedib0t/go-pretty/v6 v6.0.5
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
 	github.com/kr/pty v1.1.8 // indirect
 	github.com/mgutz/ansi v0.0.0-20200706080929-d51e80ef957d // indirect

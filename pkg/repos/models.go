@@ -11,8 +11,8 @@ type LocalRepo struct {
 
 // A more detailed sepc of a repo cloned locally
 type DetailedLocalRepo struct {
-	Repo        LocalRepo
-	ModTime     time.Time
-	Uncommitted bool
-	NotPushed   bool
+	Repo         LocalRepo
+	ModTime      time.Time
+	NotCommitted bool
+	NotPushed    bool
 }
