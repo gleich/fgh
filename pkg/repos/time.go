@@ -9,14 +9,20 @@ import (
 	"gopkg.in/djherbis/times.v1"
 )
 
+// Get the time the repo was lasted updated
 func LastUpdated(path string) time.Time {
 	var updatedTime time.Time
 	err := filepath.Walk(
 		path,
-		func(path string, _ os.FileInfo, err error) error {
+		func(path string, info os.FileInfo, err error) error {
 			if err != nil {
 				return err
 			}
+
+			if info.IsDir() && info.Name() == "node_modules" {
+				return filepath.SkipDir
+			}
+
 			info, err := times.Stat(path)
 			if err != nil {
 				return err
