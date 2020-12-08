@@ -11,7 +11,7 @@ import (
 // Generate the table to display.
 func GenerateTable(clonedRepoMap map[string][]repos.DetailedLocalRepo, config configure.RegularOutline) table.Writer {
 	t := table.NewWriter()
-	t.AppendHeader(table.Row{"OWNER", "NAME", "LAST UPDATED", "CHANGES NOT PUSHED", "CHANGES NOT COMMITTED"})
+	t.AppendHeader(table.Row{"OWNER", "NAME", "LAST UPDATED", "CHANGES NOT COMMITTED", "CHANGES NOT PUSHED"})
 
 	for _, clonedRepos := range clonedRepoMap {
 		for _, repo := range clonedRepos {
