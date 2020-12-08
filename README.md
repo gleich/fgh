@@ -15,7 +15,7 @@
   <img alt="release" src="https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg" />
   <br />
   <br />
-  <i>📁 Automate the organization of your cloned GitHub repositories</i>
+  <i>📁 Automate the lifecycle and organization of your cloned GitHub repositories</i>
 </div>
 
 <hr />

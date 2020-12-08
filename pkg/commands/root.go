@@ -14,7 +14,7 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "fgh",
-	Short: "Automate the organization of your cloned GitHub repositories",
+	Short: "Automate the lifecycle and organization of your cloned GitHub repositories",
 	Long: `
    ___       __
  /'___\     /\ \
