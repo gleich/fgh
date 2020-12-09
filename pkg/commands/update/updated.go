@@ -9,18 +9,27 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
-	"github.com/briandowns/spinner"
 	"github.com/fatih/color"
+	"github.com/jedib0t/go-pretty/v6/progress"
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
 func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) map[repos.LocalRepo]api.Repo {
-	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
-	spin.Suffix = " Getting latest repo information for all cloned all repos"
-	spin.Start()
 
-	updated := map[repos.LocalRepo]api.Repo{}
-	client := api.GenerateClient(configuration.GetSecrets().PAT)
+	var (
+		updated = map[repos.LocalRepo]api.Repo{}
+		client  = api.GenerateClient(configuration.GetSecrets().PAT)
+		pw      = utils.GenerateProgressWriter()
+		tracker = progress.Tracker{
+			Message: "Getting valid path for all repos",
+			Total:   int64(len(clonedRepos)),
+		}
+	)
+
+	tracker.SetValue(1)
+	pw.AppendTracker(&tracker)
+	go pw.Render()
+
 	for _, localRepo := range clonedRepos {
 		updatedData, err := api.RepoData(client, localRepo.Owner, localRepo.Name)
 		if err != nil {
@@ -35,9 +44,8 @@ func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) 
 		if repos.RepoLocation(updatedData, config) != localRepo.Path {
 			updated[localRepo] = updatedData
 		}
+		tracker.Increment(1)
 	}
 
-	spin.Stop()
-	statuser.Success(fmt.Sprintf("%v repos cloned locally with new paths", len(updated)))
 	return updated
 }
