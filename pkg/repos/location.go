@@ -17,7 +17,11 @@ func StructureRootFolder(structureRoot string) string {
 	if err != nil {
 		statuser.Error("Failed to get home directory", err, 1)
 	}
-	return filepath.Join(homeDir, structureRoot)
+	if strings.HasPrefix(structureRoot, "/") {
+        	return filepath.Join("/", structureRoot)
+    	} else {
+        	return filepath.Join(homeDir, structureRoot)
+    	}
 }
 
 // Get the location to clone the repo
