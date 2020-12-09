@@ -5,16 +5,34 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/briandowns/spinner"
+	"github.com/jedib0t/go-pretty/v6/progress"
 )
 
 // Get the repos for each user. User mapped to repo.
 func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRepo {
 	mappedRepos := map[string][]repos.DetailedLocalRepo{}
 
-	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
-	spin.Suffix = fmt.Sprintf(" Getting data for %v repos", len(clonedRepos))
-	spin.Start()
+	var numOfRepos int
+	for range clonedRepos {
+		numOfRepos++
+	}
+	numOfRepos--
+
+	pw := progress.NewWriter()
+	pw.SetTrackerLength(30)
+	pw.ShowTime(true)
+	pw.ShowTracker(true)
+	pw.SetUpdateFrequency(utils.SpinnerSpeed)
+	pw.Style().Colors = progress.StyleCircle.Colors
+	pw.SetStyle(progress.StyleCircle)
+
+	tracker := progress.Tracker{
+		Message: fmt.Sprintf("Getting information for %v repositoties", numOfRepos),
+		Total:   int64(numOfRepos),
+		Units:   progress.UnitsDefault,
+	}
+	pw.AppendTracker(&tracker)
+	go pw.Render()
 
 	for _, repo := range clonedRepos {
 		var (
@@ -27,8 +45,9 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 			NotCommitted: notCommitted,
 			NotPushed:    notPushed,
 		})
+		tracker.Increment(1)
+
 	}
 
-	spin.Stop()
 	return mappedRepos
 }
