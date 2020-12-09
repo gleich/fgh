@@ -1,4 +1,4 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "cjdenio", "quackduck", "safinsingh", "imgbot[bot]"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "cjdenio", "quackduck", "safinsingh", "stratosgear", "imgbot[bot]"]:end -->
 
 <div align="center">
   <img alt="logo" src="./images/Entire%20Logo.png" height="250px">
@@ -327,8 +327,8 @@ fgh migrate <old project root>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-
 ## 👥 Contributors
+
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
@@ -337,6 +337,8 @@ Thank you for considering contributing to `fgh`! Before contributing, make sure 
 - **[@quackduck](https://github.com/quackduck)**
 
 - **[@safinsingh](https://github.com/safinsingh)**
+
+- **[@stratosgear](https://github.com/stratosgear)**
 
 - **[@imgbot[bot]](https://github.com/apps/imgbot)**
 
