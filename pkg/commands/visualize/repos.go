@@ -10,30 +10,22 @@ import (
 
 // Get the repos for each user. User mapped to repo.
 func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRepo {
-	mappedRepos := map[string][]repos.DetailedLocalRepo{}
-
-	var numOfRepos int
+	var numOfRepos int64
 	for range clonedRepos {
 		numOfRepos++
 	}
-	numOfRepos--
 
-	pw := progress.NewWriter()
-	pw.SetTrackerLength(30)
-	pw.ShowTime(true)
-	pw.ShowTracker(true)
-	pw.SetUpdateFrequency(utils.SpinnerSpeed)
-	pw.Style().Colors = progress.StyleCircle.Colors
-	pw.SetStyle(progress.StyleCircle)
-
+	pw := utils.GenerateProgressWriter()
 	tracker := progress.Tracker{
-		Message: fmt.Sprintf("Getting information for %v repositoties", numOfRepos),
-		Total:   int64(numOfRepos),
-		Units:   progress.UnitsDefault,
+		Message: fmt.Sprintf("Getting information for %v repositories", numOfRepos),
+		Total:   numOfRepos,
 	}
+
+	tracker.SetValue(1)
 	pw.AppendTracker(&tracker)
 	go pw.Render()
 
+	mappedRepos := map[string][]repos.DetailedLocalRepo{}
 	for _, repo := range clonedRepos {
 		var (
 			notCommitted, notPushed = repos.WorkingState(repo.Path)
@@ -46,7 +38,6 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 			NotPushed:    notPushed,
 		})
 		tracker.Increment(1)
-
 	}
 
 	return mappedRepos
