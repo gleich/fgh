@@ -21,6 +21,5 @@ func GenerateProgressWriter() progress.Writer {
 	pw.ShowTime(true)
 	pw.ShowTracker(true)
 	pw.SetUpdateFrequency(SpinnerSpeed)
-	pw.SetAutoStop(false)
 	return pw
 }

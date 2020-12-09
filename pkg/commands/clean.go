@@ -4,6 +4,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -19,15 +20,18 @@ var cleanCmd = &cobra.Command{
 			config      = configuration.GetConfig(false)
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 			toRemove    = []repos.LocalRepo{}
+			progressBar = utils.GenerateProgressWriter()
 		)
 
+		go progressBar.Render()
+
 		if !flags.SkipOutdated {
-			outdated := clean.GetOutdated(clonedRepos, flags.Years, flags.Months, flags.Days)
+			outdated := clean.GetOutdated(progressBar, clonedRepos, flags.Years, flags.Months, flags.Days)
 			toRemove = append(toRemove, clean.AskToRemoveOutdated(outdated)...)
 		}
 
 		if !flags.SkipDeleted {
-			deleted := clean.GetDeleted(clonedRepos)
+			deleted := clean.GetDeleted(progressBar, clonedRepos)
 			toRemove = append(toRemove, clean.AskToRemoveDeleted(deleted)...)
 		}
 

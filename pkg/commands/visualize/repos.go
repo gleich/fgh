@@ -1,8 +1,6 @@
 package visualize
 
 import (
-	"fmt"
-
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/jedib0t/go-pretty/v6/progress"
@@ -17,7 +15,7 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 
 	pw := utils.GenerateProgressWriter()
 	tracker := progress.Tracker{
-		Message: fmt.Sprintf("Getting information for %v repositories", numOfRepos),
+		Message: "Getting information for repositories",
 		Total:   numOfRepos,
 	}
 

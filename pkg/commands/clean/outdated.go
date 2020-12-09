@@ -1,26 +1,25 @@
 package clean
 
 import (
-	"fmt"
 	"time"
 
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
-	"github.com/briandowns/spinner"
+	"github.com/jedib0t/go-pretty/v6/progress"
 )
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []repos.DetailedLocalRepo) {
-	timeThreshold := time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
-	formattedDate := utils.FormatDate(timeThreshold)
-
-	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
-	spin.Suffix = fmt.Sprintf(
-		" Checking for any repos last updated before %v",
-		formattedDate,
+func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []repos.DetailedLocalRepo) {
+	var (
+		timeThreshold = time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
+		formattedDate = utils.FormatDate(timeThreshold)
+		tracker       = progress.Tracker{
+			Message: "Checking if any repos were last updated before " + formattedDate,
+			Total:   int64(len(clonedRepos)),
+		}
 	)
-	spin.Start()
+	tracker.SetValue(1)
+	pw.AppendTracker(&tracker)
 
 	for _, repo := range clonedRepos {
 		var (
@@ -35,9 +34,8 @@ func GetOutdated(clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, day
 				NotPushed:    notPushed,
 			})
 		}
+		tracker.Increment(1)
 	}
 
-	spin.Stop()
-	statuser.Success(fmt.Sprintf("%v repos last updated locally before %v", len(outdated), formattedDate))
 	return outdated
 }
