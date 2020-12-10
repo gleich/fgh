@@ -18,10 +18,10 @@ func StructureRootFolder(config configure.RegularOutline) string {
 		statuser.Error("Failed to get home directory", err, 1)
 	}
 
-	if config.AppentHomeDir {
-		return filepath.Join(homeDir, config.StructureRoot)
-	} else {
+	if config.DontAppendHomeDir {
 		return config.StructureRoot
+	} else {
+		return filepath.Join(homeDir, config.StructureRoot)
 	}
 }
 
