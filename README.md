@@ -287,7 +287,13 @@ This is where the structure starts relative to your home folder. Make sure you u
 structure_root: "Documents/code/"
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`
+If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`.
+
+By default, the home directory will be appended to the front of the path. If you like to turn this off add the following line to your fgh config file:
+
+```yaml
+dont_append_home_dir: true
+```
 
 ### 🗂 `structure`
 
@@ -327,8 +333,8 @@ fgh migrate <old project root>
 Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
-## 👥 Contributors
 
+## 👥 Contributors
 
 - **[@Matt-Gleich](https://github.com/Matt-Gleich)**
 
