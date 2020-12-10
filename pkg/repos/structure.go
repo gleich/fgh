@@ -11,7 +11,7 @@ import (
 
 // Get all cloned repos in fgh's file structure
 func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
-	ghFolder := StructureRootFolder(config.StructureRoot)
+	ghFolder := StructureRootFolder(config)
 
 	err := filepath.Walk(
 		ghFolder,

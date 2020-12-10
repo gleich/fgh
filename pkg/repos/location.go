@@ -12,21 +12,22 @@ import (
 )
 
 // Get the root GitHub folder
-func StructureRootFolder(structureRoot string) string {
+func StructureRootFolder(config configure.RegularOutline) string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		statuser.Error("Failed to get home directory", err, 1)
 	}
-	if strings.HasPrefix(structureRoot, string(filepath.Separator)) {
-		return filepath.Join(string(filepath.Separator), structureRoot)
+
+	if config.AppentHomeDir {
+		return filepath.Join(homeDir, config.StructureRoot)
 	} else {
-		return filepath.Join(homeDir, structureRoot)
+		return config.StructureRoot
 	}
 }
 
 // Get the location to clone the repo
 func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
-	path := filepath.Join(StructureRootFolder(config.StructureRoot), filepath.Join(config.Structure...))
+	path := filepath.Join(StructureRootFolder(config), filepath.Join(config.Structure...))
 
 	// Replacing owner
 	path = strings.ReplaceAll(path, configuration.OwnerRep, repo.Owner)

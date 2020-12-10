@@ -21,7 +21,7 @@ const (
 // Add the custom path flag to the command
 func addCustomPathFlag(cmd *cobra.Command) {
 	var (
-		config     = configuration.GetConfig(true).StructureRoot
+		config     = configuration.GetConfig(true)
 		rootFolder = repos.StructureRootFolder(config)
 	)
 	cmd.Flags().StringP(
