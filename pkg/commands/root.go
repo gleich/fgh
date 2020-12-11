@@ -28,15 +28,11 @@ var rootCmd = &cobra.Command{
 
 Automate the organization of your cloned GitHub repositories
 
-Repository: https://github.com/Matt-Gleich/fgh
-Authors:
-  - Matthew Gleich (@Matt-Gleich)
-  - Caleb Denio (@cjdenio)
-  - Safin Singh (@safinsingh)`,
+Repository: https://github.com/Matt-Gleich/fgh`,
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
-			version := "v2.5.1"
+			version := "v2.5.2"
 
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
