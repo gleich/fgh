@@ -287,13 +287,15 @@ This is where the structure starts relative to your home folder. Make sure you u
 structure_root: "Documents/code/"
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`.
+If we were to run `fgh clone Matt-Gleich/fgh` with the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`.
 
-By default, the home directory will be appended to the front of the path. If you like to turn this off add the following line to your fgh config file:
+By default, the home directory will be appended to the front of the path. If you like to turn this off add `/` for macOS/Linux or `\` for Windows to the beginning of your path. Below is an example:
 
 ```yaml
-dont_append_home_dir: true
+structure_root: "/code/github"
 ```
+
+If we were to run `fgh clone Matt-Gleich/fgh` with the config shown above it would be cloned to `/code/github/Matt-Gleich/public/Go/fgh`.
 
 ### 🗂 `structure`
 
