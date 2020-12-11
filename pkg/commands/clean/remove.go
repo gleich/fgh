@@ -24,7 +24,7 @@ func Remove(repos []repos.LocalRepo) {
 
 // Remove empty folders in the structure (NOT EMPTY REPOS)
 func CleanUp(config configure.RegularOutline) []string {
-	ghFolder := repos.StructureRootFolder(config)
+	ghFolder := repos.StructureRootPath(config)
 
 	foldersToCheck := []string{}
 	err := filepath.Walk(

@@ -22,7 +22,7 @@ const (
 func addCustomPathFlag(cmd *cobra.Command) {
 	var (
 		config     = configuration.GetConfig(true)
-		rootFolder = repos.StructureRootFolder(config)
+		rootFolder = repos.StructureRootPath(config)
 	)
 	cmd.Flags().StringP(
 		pathFlagName,

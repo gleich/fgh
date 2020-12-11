@@ -23,13 +23,6 @@ func AskQuestions() RegularOutline {
 			},
 		},
 		{
-			Name: "DontAppendHomeDir",
-			Prompt: &survey.Input{
-				Message: "Should the home directory not be appended infront of the structure root? (default no)",
-				Help:    "See https://github.com/Matt-Gleich/fgh#-structure_root for more info.",
-			},
-		},
-		{
 			Name: "LowercaseLang",
 			Prompt: &survey.Confirm{
 				Message: "Should language folders be lowercase?",

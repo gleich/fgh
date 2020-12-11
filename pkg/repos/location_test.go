@@ -28,7 +28,7 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "github/",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootFolder(configure.RegularOutline{
+	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
 		StructureRoot: "github/",
 	}), "/Testing-Owner/private/Go/fgh"), result1)
 
@@ -49,7 +49,7 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootFolder(configure.RegularOutline{
+	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
 		StructureRoot: "/code/stuff",
 	}), "/Matt-Gleich/JavaScript/archived/site-v2"), result2)
 
@@ -69,7 +69,7 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootFolder(configure.RegularOutline{
+	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
 		StructureRoot: "/code/stuff",
 	}), "/Matt-Gleich/JavaScript/site-v2"), result3)
 }

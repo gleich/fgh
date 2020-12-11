@@ -11,23 +11,24 @@ import (
 	"github.com/Matt-Gleich/statuser/v2"
 )
 
-// Get the root GitHub folder
-func StructureRootFolder(config configure.RegularOutline) string {
+// Get the structure root path
+func StructureRootPath(config configure.RegularOutline) string {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		statuser.Error("Failed to get home directory", err, 1)
 	}
 
-	if config.DontAppendHomeDir {
-		return config.StructureRoot
+	root := config.StructureRoot
+	if strings.HasPrefix(root, string(filepath.Separator)) {
+		return root
 	} else {
-		return filepath.Join(homeDir, config.StructureRoot)
+		return filepath.Join(homeDir, root)
 	}
 }
 
 // Get the location to clone the repo
 func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
-	path := filepath.Join(StructureRootFolder(config), filepath.Join(config.Structure...))
+	path := filepath.Join(StructureRootPath(config), filepath.Join(config.Structure...))
 
 	// Replacing owner
 	path = strings.ReplaceAll(path, configuration.OwnerRep, repo.Owner)
