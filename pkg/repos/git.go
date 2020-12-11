@@ -53,7 +53,7 @@ func OwnerAndNameFromRemote(path string) (owner string, name string) {
 		}
 		err := survey.AskOne(prompt, &defaultRemoteStr)
 		if err != nil {
-			statuser.Error("Failed to ask for the default remote", err, 1)
+			statuser.Error("Failed to ask for the default remote in "+path, err, 1)
 		}
 		url = getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
 	}
@@ -83,7 +83,7 @@ func getDefaultURL(remote *git.Remote, path string) string {
 
 		err := survey.AskOne(prompt, &chosenURL)
 		if err != nil {
-			statuser.Error("Failed to ask for the default url of the remote", err, 1)
+			statuser.Error("Failed to ask for the default url of the remote in "+path, err, 1)
 		}
 		return chosenURL
 	}

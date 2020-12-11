@@ -281,7 +281,7 @@ Not a fan of the default structure used by fgh? Don't worry, you can change it w
 
 ### 📁 `structure_root`
 
-This is where the structure starts relative to your home folder. Make sure you use `\` if you are on Windows. By default, the `structure_root` is `github`. Below is an example of what you would put in the general config file:
+This is where the structure starts relative to your home folder. Make sure you use `\` instead of `/` if you are on Windows. By default, the `structure_root` is `github`. Below is an example of what you would put in the general config file:
 
 ```yaml
 structure_root: "Documents/code/"
