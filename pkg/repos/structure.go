@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -10,7 +11,7 @@ import (
 )
 
 // Get all cloned repos in fgh's file structure
-func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
+func ReposInStructure(config configure.RegularOutline, fatalErr bool) (repos []LocalRepo) {
 	ghFolder := StructureRootPath(config)
 
 	err := filepath.Walk(
@@ -26,7 +27,16 @@ func ReposInStructure(config configure.RegularOutline) (repos []LocalRepo) {
 			}
 
 			if len(parts) == len(config.Structure)+2 && info.IsDir() && IsGitRepo(path) {
-				owner, name := OwnerAndNameFromRemote(path)
+				owner, name, err := OwnerAndNameFromRemote(path)
+				if err != nil {
+					msg := "Failed to get owner and name from remote in " + path
+					if fatalErr {
+						statuser.Error(msg, err, 1)
+					}
+					statuser.Warning(msg + fmt.Sprintln(err))
+					return nil
+				}
+
 				repos = append(repos, LocalRepo{
 					Owner: owner,
 					Name:  name,

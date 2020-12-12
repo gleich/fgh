@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"fmt"
 	"os"
 	"path/filepath"
 
@@ -10,7 +11,7 @@ import (
 )
 
 // Get all repos in the directory and all subdirectories
-func Repos(rootPath string) []LocalRepo {
+func Repos(rootPath string, fatalErr bool) []LocalRepo {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = " Getting list of repos"
 	spin.Start()
@@ -29,7 +30,16 @@ func Repos(rootPath string) []LocalRepo {
 					statuser.Error("Failed to get absolute path for "+path, err, 1)
 				}
 
-				owner, name := OwnerAndNameFromRemote(path)
+				owner, name, err := OwnerAndNameFromRemote(path)
+				if err != nil {
+					msg := "Failed to get owner and name from remote in " + path
+					if fatalErr {
+						statuser.Error(msg, err, 1)
+					}
+					statuser.Warning(msg + fmt.Sprintln(err))
+					return nil
+				}
+
 				oldRepos = append(oldRepos, LocalRepo{
 					Owner: owner,
 					Name:  name,

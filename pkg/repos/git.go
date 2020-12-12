@@ -1,6 +1,7 @@
 package repos
 
 import (
+	"errors"
 	"fmt"
 	"io/ioutil"
 	"os"
@@ -13,7 +14,7 @@ import (
 )
 
 // Get the owner and name of the repo just from the default remote
-func OwnerAndNameFromRemote(path string) (owner string, name string) {
+func OwnerAndNameFromRemote(path string) (owner string, name string, err error) {
 	repo, err := git.PlainOpen(path)
 	if err != nil {
 		statuser.Error("Failed to read from git repo located in "+path, err, 1)
@@ -31,7 +32,10 @@ func OwnerAndNameFromRemote(path string) (owner string, name string) {
 	for _, remote := range remotes {
 		if remote.Config().Name == "origin" {
 			foundOrigin = true
-			url = getDefaultURL(remote, path)
+			url, err = getDefaultURL(remote, path)
+			if err != nil {
+				return "", "", err
+			}
 		}
 	}
 	if !foundOrigin {
@@ -53,9 +57,12 @@ func OwnerAndNameFromRemote(path string) (owner string, name string) {
 		}
 		err := survey.AskOne(prompt, &defaultRemoteStr)
 		if err != nil {
-			statuser.Error("Failed to ask for the default remote in "+path, err, 1)
+			return "", "", err
 		}
-		url = getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
+		url, err = getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
+		if err != nil {
+			return "", "", err
+		}
 	}
 
 	// Getting name and owner
@@ -63,13 +70,16 @@ func OwnerAndNameFromRemote(path string) (owner string, name string) {
 	owner = parts[len(parts)-2]
 	name = strings.TrimSuffix(parts[len(parts)-1], ".git")
 
-	return owner, name
+	return owner, name, nil
 }
 
 // If the number of urls for a remote is over 1 then ask the user
 // which one to use. If not, just return the first url.
-func getDefaultURL(remote *git.Remote, path string) string {
+func getDefaultURL(remote *git.Remote, path string) (string, error) {
 	urls := remote.Config().URLs
+	if len(urls) == 0 {
+		return "", errors.New("No remotes found for " + path)
+	}
 	if len(urls) > 1 {
 		var chosenURL string
 		prompt := &survey.Select{
@@ -83,11 +93,11 @@ func getDefaultURL(remote *git.Remote, path string) string {
 
 		err := survey.AskOne(prompt, &chosenURL)
 		if err != nil {
-			statuser.Error("Failed to ask for the default url of the remote in "+path, err, 1)
+			return "", err
 		}
-		return chosenURL
+		return chosenURL, nil
 	}
-	return urls[0]
+	return urls[0], nil
 }
 
 // Check so see if a repo has a dirty working tree or any commits that haven't been pushed

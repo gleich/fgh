@@ -40,9 +40,9 @@ func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline
 	}
 
 	if path == "" {
-		return repos.ReposInStructure(config)
+		return repos.ReposInStructure(config, true)
 	}
-	return repos.Repos(path)
+	return repos.Repos(path, true)
 }
 
 // Set the valid args as the local repos.

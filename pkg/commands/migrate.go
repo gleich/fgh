@@ -18,7 +18,7 @@ var mirgrateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			folder   = migrate.EnsureFolderExists(args)
-			oldRepos = repos.Repos(folder)
+			oldRepos = repos.Repos(folder, false)
 			config   = configuration.GetConfig(false)
 			newPaths = migrate.NewPaths(oldRepos, config)
 		)

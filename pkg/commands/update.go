@@ -18,7 +18,7 @@ var updateCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
 			config       = configuration.GetConfig(false)
-			repos        = repos.ReposInStructure(config)
+			repos        = repos.ReposInStructure(config, false)
 			changedRepos = update.GetChanged(repos, config)
 			toMove       = update.AskMove(changedRepos, config)
 		)
