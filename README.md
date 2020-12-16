@@ -209,6 +209,8 @@ Get the path of a cloned repository. Usage is as follows:
 fgh ls <owner/name>
 ```
 
+You may omit `owner` if you own the repository, or if there is only one cloned repository with the given `name`.
+
 ### ⬇️ `fgh pull`
 
 Pull all repos that don't have any non-pushed changes. Usage is as follows:
