@@ -14,17 +14,6 @@ const (
 	SecretsFileName = "secrets.yaml"
 )
 
-// Create the folder where the configuration should live
-// Returns the folder path created
-func CreateFolders() string {
-	folderPath := GetFolderPath()
-	err := os.MkdirAll(folderPath, 0777)
-	if err != nil {
-		statuser.Error("Failed to create the configuration folder", err, 1)
-	}
-	return folderPath
-}
-
 // Write the regular configuration for the program
 func WriteConfig(config RegularOutline) {
 	folderPath := GetFolderPath()

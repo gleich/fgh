@@ -2,6 +2,8 @@ package utils
 
 import (
 	"io/ioutil"
+	"os"
+	"path/filepath"
 
 	"gopkg.in/yaml.v3"
 )
@@ -12,6 +14,12 @@ func WriteYAML(data interface{}, fName string) error {
 	if err != nil {
 		return err
 	}
+
+	err = os.MkdirAll(filepath.Dir(fName), 0777)
+	if err != nil {
+		return err
+	}
+
 	err = ioutil.WriteFile(fName, YAMLContent, 0644)
 	return err
 }
