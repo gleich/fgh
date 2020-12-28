@@ -32,7 +32,7 @@ Repository: https://github.com/Matt-Gleich/fgh`,
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag := utils.GetBool("version", cmd)
 		if versionFlag {
-			version := "v2.5.4"
+			version := "v2.5.5"
 
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
