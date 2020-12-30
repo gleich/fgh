@@ -126,11 +126,15 @@ func WorkingState(path string) (committed bool, pushed bool) {
 	if err != nil {
 		statuser.Error("Failed to change directory into "+path, err, 1)
 	}
-	_, err = exec.LookPath("git")
+
+	gitPath, err := exec.LookPath("git")
 	if err != nil {
 		statuser.Error("Looks like you don't have git installed. Please install it.", err, 1)
 	}
-	out, err := exec.Command("git", "cherry", "-v").Output()
+
+	cmd := exec.Command(gitPath, "cherry", "-v")
+	cmd.Stderr = os.Stderr
+	out, err := cmd.Output()
 	if err != nil {
 		statuser.Error("Failed to check if repo has any commits not pushed. Location: "+path, err, 1)
 	}
