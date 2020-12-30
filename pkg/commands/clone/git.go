@@ -49,7 +49,7 @@ func rawClone(repo api.Repo, path string) {
 			fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
 		},
 		Stdout: os.Stdout,
-		Stderr: os.Stderr,
+		Stderr: os.Stdout,
 	}
 	err = cmd.Run()
 

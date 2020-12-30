@@ -133,7 +133,7 @@ func WorkingState(path string) (committed bool, pushed bool) {
 	}
 
 	cmd := exec.Command(gitPath, "cherry", "-v")
-	cmd.Stderr = os.Stderr
+	cmd.Stderr = os.Stdout
 	out, err := cmd.Output()
 	if err != nil {
 		statuser.Error("Failed to check if repo has any commits not pushed. Location: "+path, err, 1)
