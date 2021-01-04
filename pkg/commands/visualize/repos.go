@@ -1,6 +1,8 @@
 package visualize
 
 import (
+	"sort"
+
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/jedib0t/go-pretty/v6/progress"
@@ -23,13 +25,13 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 	pw.AppendTracker(&tracker)
 	go pw.Render()
 
-	mappedRepos := map[string][]repos.DetailedLocalRepo{}
+	detailedRepos := []repos.DetailedLocalRepo{}
 	for _, repo := range clonedRepos {
 		var (
 			notCommitted, notPushed = repos.WorkingState(repo.Path)
 			updatedTime             = repos.LastUpdated(repo.Path)
 		)
-		mappedRepos[repo.Owner] = append(mappedRepos[repo.Owner], repos.DetailedLocalRepo{
+		detailedRepos = append(detailedRepos, repos.DetailedLocalRepo{
 			Repo:         repo,
 			ModTime:      updatedTime,
 			NotCommitted: notCommitted,
@@ -38,5 +40,16 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 		tracker.Increment(1)
 	}
 
-	return mappedRepos
+	// Sorting the repos by mod time
+	sort.SliceStable(detailedRepos, func(i, j int) bool {
+		return detailedRepos[i].ModTime.After(detailedRepos[j].ModTime)
+	})
+
+	// Grouping the repos by name
+	groupedRepos := map[string][]repos.DetailedLocalRepo{}
+	for _, repo := range detailedRepos {
+		groupedRepos[repo.Repo.Owner] = append(groupedRepos[repo.Repo.Owner], repo)
+	}
+
+	return groupedRepos
 }
