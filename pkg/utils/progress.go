@@ -22,5 +22,6 @@ func GenerateProgressWriter() progress.Writer {
 	pw.ShowTracker(true)
 	pw.SetUpdateFrequency(SpinnerSpeed)
 	pw.ShowPercentage(true)
+	pw.SetStyle(progress.StyleBlocks)
 	return pw
 }
