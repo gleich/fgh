@@ -19,10 +19,18 @@ func LastUpdated(path string) time.Time {
 				return err
 			}
 
+			// Checking if the file exists
+			_, err = os.Stat(path)
+			if os.IsNotExist(err) {
+				return nil
+			}
+
+			// Ignoring node_modules
 			if info.IsDir() && info.Name() == "node_modules" {
 				return filepath.SkipDir
 			}
 
+			// Getting the modification time
 			timeInfo, err := times.Stat(path)
 			if err != nil {
 				return err
