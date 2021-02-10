@@ -1,6 +1,8 @@
 package visualize
 
 import (
+	"fmt"
+
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
@@ -38,4 +40,11 @@ func GenerateTable(clonedRepoMap map[string][]repos.DetailedLocalRepo, config co
 
 	t.SetStyle(table.StyleLight)
 	return t
+}
+
+// Output a list of all repos with the owner, name, and local path
+func OutputOwnerNameList(clonedRepos []repos.LocalRepo) {
+	for _, repo := range clonedRepos {
+		fmt.Printf("%v/%v\n%v\n", repo.Owner, repo.Name, repo.Path)
+	}
 }

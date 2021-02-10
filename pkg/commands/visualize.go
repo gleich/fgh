@@ -5,6 +5,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/visualize"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -16,8 +17,16 @@ var visualizeCmd = &cobra.Command{
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-visualize",
 	Run: func(cmd *cobra.Command, args []string) {
 		var (
-			config       = configuration.GetConfig(false)
-			clonedRepos  = reposBasedOffCustomPath(cmd, config)
+			config      = configuration.GetConfig(false)
+			clonedRepos = reposBasedOffCustomPath(cmd, config)
+		)
+
+		if utils.GetBool("ownerName", cmd) {
+			visualize.OutputOwnerNameList(clonedRepos)
+			return
+		}
+
+		var (
 			mappedRepos  = visualize.GetRepos(clonedRepos)
 			createdTable = visualize.GenerateTable(mappedRepos, config)
 		)
@@ -27,5 +36,6 @@ var visualizeCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(visualizeCmd)
+	visualizeCmd.Flags().Bool("ownerName", false, "Output owner/name and path for all cloned repos")
 	addCustomPathFlag(visualizeCmd)
 }
