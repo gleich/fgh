@@ -31,7 +31,11 @@ var cleanCmd = &cobra.Command{
 		go progressBar.Render()
 
 		if !flags.SkipOutdated {
-			outdated := clean.GetOutdated(progressBar, clonedRepos, flags.Years, flags.Months, flags.Days)
+			outdated, err := clean.GetOutdated(progressBar, clonedRepos, flags.Years, flags.Months, flags.Days)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
 			approved, err := clean.AskToRemoveOutdated(outdated)
 			if err.Error != nil {
 				statuser.Error(err.Context, err.Error, 1)

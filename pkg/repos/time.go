@@ -5,12 +5,12 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"gopkg.in/djherbis/times.v1"
 )
 
 // Get the time the repo was lasted updated
-func LastUpdated(path string) time.Time {
+func LastUpdated(path string) (time.Time, utils.CtxErr) {
 	var updatedTime time.Time
 	err := filepath.Walk(
 		path,
@@ -42,8 +42,13 @@ func LastUpdated(path string) time.Time {
 			return nil
 		},
 	)
+
 	if err != nil {
-		statuser.Error("Failed to get last updated time for "+path, err, 1)
+		return time.Time{}, utils.CtxErr{
+			Context: "Failed to get last updated time for " + path,
+			Error:   err,
+		}
 	}
-	return updatedTime
+
+	return updatedTime, utils.CtxErr{}
 }

@@ -17,12 +17,14 @@ var updateCmd = &cobra.Command{
 	Short:                 "Ask if you want to update the path of any repos with updated fields",
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-update",
 	Run: func(cmd *cobra.Command, args []string) {
-		var (
-			config       = configuration.GetConfig(false)
-			repos        = repos.ReposInStructure(config, false)
-			changedRepos = update.GetChanged(repos, config)
-		)
+		config := configuration.GetConfig(false)
 
+		repos, err := repos.ReposInStructure(config, false)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		changedRepos := update.GetChanged(repos, config)
 		toMove, err := update.AskMove(changedRepos, config)
 		if err.Error != nil {
 			statuser.Error(err.Context, err.Error, 1)

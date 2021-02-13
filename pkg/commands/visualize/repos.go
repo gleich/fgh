@@ -9,7 +9,7 @@ import (
 )
 
 // Get the repos for each user. User mapped to repo.
-func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRepo {
+func GetRepos(clonedRepos []repos.LocalRepo) (map[string][]repos.DetailedLocalRepo, utils.CtxErr) {
 	var numOfRepos int64
 	for range clonedRepos {
 		numOfRepos++
@@ -29,8 +29,11 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 	for _, repo := range clonedRepos {
 		var (
 			notCommitted, notPushed = repos.WorkingState(repo.Path)
-			updatedTime             = repos.LastUpdated(repo.Path)
+			updatedTime, err        = repos.LastUpdated(repo.Path)
 		)
+		if err.Error != nil {
+			return map[string][]repos.DetailedLocalRepo{}, err
+		}
 		detailedRepos = append(detailedRepos, repos.DetailedLocalRepo{
 			Repo:         repo,
 			ModTime:      updatedTime,
@@ -51,5 +54,5 @@ func GetRepos(clonedRepos []repos.LocalRepo) map[string][]repos.DetailedLocalRep
 		groupedRepos[repo.Repo.Owner] = append(groupedRepos[repo.Repo.Owner], repo)
 	}
 
-	return groupedRepos
+	return groupedRepos, utils.CtxErr{}
 }

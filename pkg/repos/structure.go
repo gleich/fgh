@@ -1,23 +1,26 @@
 package repos
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 )
 
 // Get all cloned repos in fgh's file structure
-func ReposInStructure(config configure.RegularOutline, fatalErr bool) (repos []LocalRepo) {
-	ghFolder := StructureRootPath(config)
+func ReposInStructure(config configure.RegularOutline, ignoreErr bool) ([]LocalRepo, utils.CtxErr) {
+	var (
+		ghFolder = StructureRootPath(config)
+		repos    []LocalRepo
+		errCtx   utils.CtxErr
+	)
 
 	err := filepath.Walk(
 		ghFolder,
 		func(path string, info os.FileInfo, err error) error {
-			if err != nil {
+			if err != nil && !ignoreErr {
 				return err
 			}
 
@@ -28,13 +31,9 @@ func ReposInStructure(config configure.RegularOutline, fatalErr bool) (repos []L
 
 			if len(parts) == len(config.Structure)+2 && info.IsDir() && IsGitRepo(path) {
 				owner, name, err := OwnerAndNameFromRemote(path)
-				if err != nil {
-					msg := "Failed to get owner and name from remote in " + path
-					if fatalErr {
-						statuser.Error(msg, err, 1)
-					}
-					statuser.Warning(msg + fmt.Sprintln(err))
-					return nil
+				if err.Error != nil && !ignoreErr {
+					errCtx = err
+					return err.Error
 				}
 
 				repos = append(repos, LocalRepo{
@@ -47,8 +46,16 @@ func ReposInStructure(config configure.RegularOutline, fatalErr bool) (repos []L
 		},
 	)
 
-	if err != nil {
-		statuser.Error("Failed to get list cloned of repos", err, 1)
+	if err != nil && !ignoreErr {
+		return []LocalRepo{}, utils.CtxErr{
+			Context: "Failed to get list cloned of repos",
+			Error:   err,
+		}
 	}
-	return repos
+
+	if errCtx.Error != nil && !ignoreErr {
+		return []LocalRepo{}, errCtx
+	}
+
+	return repos, utils.CtxErr{}
 }

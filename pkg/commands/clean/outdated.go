@@ -9,8 +9,9 @@ import (
 )
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) (outdated []repos.DetailedLocalRepo) {
+func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) ([]repos.DetailedLocalRepo, utils.CtxErr) {
 	var (
+		outdated      []repos.DetailedLocalRepo
 		timeThreshold = time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)
 		formattedDate = utils.FormatDate(timeThreshold)
 		tracker       = progress.Tracker{
@@ -22,10 +23,12 @@ func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int
 	pw.AppendTracker(&tracker)
 
 	for _, repo := range clonedRepos {
-		var (
-			notCommitted, notPushed = repos.WorkingState(repo.Path)
-			updatedTime             = repos.LastUpdated(repo.Path)
-		)
+		notCommitted, notPushed := repos.WorkingState(repo.Path)
+		updatedTime, err := repos.LastUpdated(repo.Path)
+		if err.Error != nil {
+			return []repos.DetailedLocalRepo{}, err
+		}
+
 		if updatedTime.Unix() < timeThreshold.Unix() {
 			outdated = append(outdated, repos.DetailedLocalRepo{
 				Repo:         repo,
@@ -37,5 +40,5 @@ func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int
 		tracker.Increment(1)
 	}
 
-	return outdated
+	return outdated, utils.CtxErr{}
 }

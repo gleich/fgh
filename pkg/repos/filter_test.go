@@ -52,32 +52,17 @@ func TestFilterRepos(t *testing.T) {
 	for _, test := range tt {
 		username := "Matt-Gleich"
 
-		assert.Equal(t,
-			test.expectedResult,
-			FilterRepos(
-				username,
-				test.repos,
-				[]string{"Matt-Gleich/dots"},
-			),
-		)
+		result, err := FilterRepos(username, test.repos, []string{"Matt-Gleich/dots"})
+		assert.Equal(t, test.expectedResult, result)
+		assert.NoError(t, err.Error)
 
-		assert.Equal(t,
-			test.expectedResult,
-			FilterRepos(
-				username,
-				test.repos,
-				[]string{"dots"},
-			),
-		)
+		result, err = FilterRepos(username, test.repos, []string{"dots"})
+		assert.Equal(t, test.expectedResult, result)
+		assert.NoError(t, err.Error)
 
-		assert.Equal(t,
-			test.expectedResult,
-			FilterRepos(
-				username,
-				test.repos,
-				[]string{"Matt-Gleich/dots", ""},
-			),
-		)
+		result, err = FilterRepos(username, test.repos, []string{"Matt-Gleich/dots", ""})
+		assert.Equal(t, test.expectedResult, result)
+		assert.NoError(t, err.Error)
 
 	}
 }

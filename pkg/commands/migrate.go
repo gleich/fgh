@@ -6,6 +6,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -16,12 +17,15 @@ var mirgrateCmd = &cobra.Command{
 	Args:                  cobra.ExactArgs(1),
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-migrate",
 	Run: func(cmd *cobra.Command, args []string) {
-		var (
-			folder   = migrate.EnsureFolderExists(args)
-			oldRepos = repos.Repos(folder, false)
-			config   = configuration.GetConfig(false)
-			newPaths = migrate.NewPaths(oldRepos, config)
-		)
+		folder := migrate.EnsureFolderExists(args)
+
+		oldRepos, err := repos.Repos(folder, false)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		config := configuration.GetConfig(false)
+		newPaths := migrate.NewPaths(oldRepos, config)
 		migrate.ConfirmMove(newPaths)
 		utils.MoveRepos(newPaths)
 		clean.CleanUp(config)

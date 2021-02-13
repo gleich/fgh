@@ -9,19 +9,32 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/go-git/go-git/v5"
 )
 
 // Get the owner and name of the repo just from the default remote
-func OwnerAndNameFromRemote(path string) (owner string, name string, err error) {
+func OwnerAndNameFromRemote(path string) (string, string, utils.CtxErr) {
+	var (
+		owner string
+		name  string
+	)
+
 	repo, err := git.PlainOpen(path)
 	if err != nil {
-		statuser.Error("Failed to read from git repo located in "+path, err, 1)
+		return "", "", utils.CtxErr{
+			Context: "Failed to read from git repo located in " + path,
+			Error:   err,
+		}
 	}
+
 	remotes, err := repo.Remotes()
 	if err != nil {
-		statuser.Error("Failed to get remotes for git repo located in "+path, err, 1)
+		return "", "", utils.CtxErr{
+			Context: "Failed to get remotes from git repo located in " + path,
+			Error:   err,
+		}
 	}
 
 	// If origin isn't a remote then ask the user to see which one is
@@ -32,12 +45,14 @@ func OwnerAndNameFromRemote(path string) (owner string, name string, err error) 
 	for _, remote := range remotes {
 		if remote.Config().Name == "origin" {
 			foundOrigin = true
-			url, err = getDefaultURL(remote, path)
-			if err != nil {
+			defaultURL, err := getDefaultURL(remote, path)
+			url = defaultURL
+			if err.Error != nil {
 				return "", "", err
 			}
 		}
 	}
+
 	if !foundOrigin {
 		var (
 			remoteOptionMap = map[string]*git.Remote{}
@@ -57,11 +72,16 @@ func OwnerAndNameFromRemote(path string) (owner string, name string, err error) 
 		}
 		err := survey.AskOne(prompt, &defaultRemoteStr)
 		if err != nil {
-			return "", "", err
+			return "", "", utils.CtxErr{
+				Context: "Failed to ask what remote is the default remote",
+				Error:   err,
+			}
 		}
-		url, err = getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
+
+		defaultURL, errCtx := getDefaultURL(remoteOptionMap[defaultRemoteStr], path)
+		url = defaultURL
 		if err != nil {
-			return "", "", err
+			return "", "", errCtx
 		}
 	}
 
@@ -70,15 +90,19 @@ func OwnerAndNameFromRemote(path string) (owner string, name string, err error) 
 	owner = parts[len(parts)-2]
 	name = strings.TrimSuffix(parts[len(parts)-1], ".git")
 
-	return owner, name, nil
+	return owner, name, utils.CtxErr{}
 }
 
 // If the number of urls for a remote is over 1 then ask the user
 // which one to use. If not, just return the first url.
-func getDefaultURL(remote *git.Remote, path string) (string, error) {
+func getDefaultURL(remote *git.Remote, path string) (string, utils.CtxErr) {
 	urls := remote.Config().URLs
 	if len(urls) == 0 {
-		return "", errors.New("No remotes found for " + path)
+		errMsg := "No remotes found for " + path
+		return "", utils.CtxErr{
+			Context: errMsg,
+			Error:   errors.New(errMsg),
+		}
 	}
 	if len(urls) > 1 {
 		var chosenURL string
@@ -93,11 +117,14 @@ func getDefaultURL(remote *git.Remote, path string) (string, error) {
 
 		err := survey.AskOne(prompt, &chosenURL)
 		if err != nil {
-			return "", err
+			return "", utils.CtxErr{
+				Context: "Failed to ask what the default remote url is",
+				Error:   err,
+			}
 		}
-		return chosenURL, nil
+		return chosenURL, utils.CtxErr{}
 	}
-	return urls[0], nil
+	return urls[0], utils.CtxErr{}
 }
 
 // Check so see if a repo has a dirty working tree or any commits that haven't been pushed

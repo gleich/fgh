@@ -31,10 +31,12 @@ var visualizeCmd = &cobra.Command{
 			return
 		}
 
-		var (
-			mappedRepos  = visualize.GetRepos(clonedRepos)
-			createdTable = visualize.GenerateTable(mappedRepos, config)
-		)
+		mappedRepos, err := visualize.GetRepos(clonedRepos)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		createdTable := visualize.GenerateTable(mappedRepos, config)
 		fmt.Println(createdTable.Render())
 	},
 }

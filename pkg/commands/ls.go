@@ -5,6 +5,7 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -20,7 +21,12 @@ var lsCmd = &cobra.Command{
 			config      = configuration.GetConfig(false)
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 		)
-		filtered := repos.FilterRepos(secrets.Username, clonedRepos, args)
+
+		filtered, err := repos.FilterRepos(secrets.Username, clonedRepos, args)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		fmt.Println(filtered[0].Path)
 	},
 	ValidArgsFunction: reposAsValidArgs,

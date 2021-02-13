@@ -1,7 +1,6 @@
 package repos
 
 import (
-	"fmt"
 	"os"
 	"path/filepath"
 
@@ -11,33 +10,35 @@ import (
 )
 
 // Get all repos in the directory and all subdirectories
-func Repos(rootPath string, fatalErr bool) []LocalRepo {
+func Repos(rootPath string, ignoreErr bool) ([]LocalRepo, utils.CtxErr) {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = " Getting list of repos"
 	spin.Start()
 
-	oldRepos := []LocalRepo{}
+	var (
+		oldRepos = []LocalRepo{}
+		errCtx   utils.CtxErr
+	)
 	err := filepath.Walk(
 		rootPath,
 		func(path string, info os.FileInfo, err error) error {
-			if err != nil {
+			if err != nil && !ignoreErr {
 				return err
 			}
 			if info.IsDir() && IsGitRepo(path) {
-
 				absPath, err := filepath.Abs(path)
-				if err != nil {
-					statuser.Error("Failed to get absolute path for "+path, err, 1)
+				if err != nil && !ignoreErr {
+					errCtx = utils.CtxErr{
+						Context: "Failed to get absolute path for " + path,
+						Error:   err,
+					}
+					return err
 				}
 
-				owner, name, err := OwnerAndNameFromRemote(path)
-				if err != nil {
-					msg := "Failed to get owner and name from remote in " + path
-					if fatalErr {
-						statuser.Error(msg, err, 1)
-					}
-					statuser.Warning(msg + fmt.Sprintln(err))
-					return nil
+				owner, name, errInfo := OwnerAndNameFromRemote(path)
+				if err != nil && !ignoreErr {
+					errCtx = errInfo
+					return errInfo.Error
 				}
 
 				oldRepos = append(oldRepos, LocalRepo{
@@ -51,12 +52,19 @@ func Repos(rootPath string, fatalErr bool) []LocalRepo {
 	)
 
 	spin.Stop()
-	if err != nil {
-		statuser.Error("Failed to get list of repos", err, 1)
+	if err != nil && !ignoreErr {
+		return []LocalRepo{}, utils.CtxErr{
+			Context: "Failed to get list of repos",
+			Error:   err,
+		}
+	}
+	if errCtx.Error != nil && !ignoreErr {
+		return []LocalRepo{}, errCtx
 	}
 
-	if len(oldRepos) == 0 {
+	if len(oldRepos) == 0 && !ignoreErr {
 		statuser.Warning("0 repos found inside " + rootPath)
 	}
-	return oldRepos
+
+	return oldRepos, utils.CtxErr{}
 }
