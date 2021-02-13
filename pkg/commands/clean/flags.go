@@ -14,12 +14,37 @@ type Flags struct {
 }
 
 // Parse arguments
-func ParseFlags(cmd *cobra.Command) Flags {
-	return Flags{
-		Years:        utils.GetInt("years", cmd),
-		Months:       utils.GetInt("months", cmd),
-		Days:         utils.GetInt("days", cmd),
-		SkipOutdated: utils.GetBool("skipOutdated", cmd),
-		SkipDeleted:  utils.GetBool("skipDeleted", cmd),
+func ParseFlags(cmd *cobra.Command) (Flags, utils.CtxErr) {
+	years, err := utils.GetInt("years", cmd)
+	if err.Error != nil {
+		return Flags{}, err
 	}
+
+	months, err := utils.GetInt("months", cmd)
+	if err.Error != nil {
+		return Flags{}, err
+	}
+
+	days, err := utils.GetInt("days", cmd)
+	if err.Error != nil {
+		return Flags{}, err
+	}
+
+	skipOutdated, err := utils.GetBool("skipOutdated", cmd)
+	if err.Error != nil {
+		return Flags{}, err
+	}
+
+	skipDeleted, err := utils.GetBool("skipDeleted", cmd)
+	if err.Error != nil {
+		return Flags{}, err
+	}
+
+	return Flags{
+		Years:        years,
+		Months:       months,
+		Days:         days,
+		SkipOutdated: skipOutdated,
+		SkipDeleted:  skipDeleted,
+	}, utils.CtxErr{}
 }

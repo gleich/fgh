@@ -20,8 +20,8 @@ func GetConfig(ignoreErr bool) configure.RegularOutline {
 	filePath := filepath.Join(configure.GetFolderPath(), configure.RegularFileName)
 	var config configure.RegularOutline
 	err := utils.ReadYAML(filePath, &config)
-	if err != nil && !ignoreErr {
-		statuser.Error("Failed to read from configuration", err, 1)
+	if err.Error != nil && !ignoreErr {
+		statuser.Error(err.Context, err.Error, 1)
 	}
 
 	// Setting defaults:

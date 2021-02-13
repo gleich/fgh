@@ -9,27 +9,43 @@ import (
 )
 
 // Write to a yaml file
-func WriteYAML(data interface{}, fName string) error {
+func WriteYAML(data interface{}, fName string) CtxErr {
 	YAMLContent, err := yaml.Marshal(data)
 	if err != nil {
-		return err
+		return CtxErr{
+			Error:   err,
+			Context: "Failed to convert data to yaml",
+		}
 	}
 
-	err = os.MkdirAll(filepath.Dir(fName), 0777)
+	parentDir := filepath.Dir(fName)
+	err = os.MkdirAll(parentDir, 0777)
 	if err != nil {
-		return err
+		return CtxErr{
+			Error:   err,
+			Context: "Failed to make make directory: " + parentDir,
+		}
 	}
 
 	err = ioutil.WriteFile(fName, YAMLContent, 0644)
-	return err
+	return CtxErr{
+		Error:   err,
+		Context: "Failed to write data to " + fName,
+	}
 }
 
 // Read from a yaml file
-func ReadYAML(fName string, data interface{}) error {
+func ReadYAML(fName string, data interface{}) CtxErr {
 	byteContent, err := ioutil.ReadFile(fName)
 	if err != nil {
-		return err
+		return CtxErr{
+			Error:   err,
+			Context: "Failed to read from file",
+		}
 	}
 	err = yaml.Unmarshal(byteContent, data)
-	return err
+	return CtxErr{
+		Error:   err,
+		Context: "Failed to parse yaml file",
+	}
 }

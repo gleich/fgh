@@ -2,17 +2,16 @@ package utils
 
 import (
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/Matt-Gleich/statuser/v2"
 )
 
 // Confirm with a user
-func Confirm(q string) bool {
+func Confirm(q string) (bool, CtxErr) {
 	var confirmation bool
 	prompt := &survey.Confirm{Message: q}
 
 	err := survey.AskOne(prompt, &confirmation)
-	if err != nil {
-		statuser.Error("Failed to confirm", err, 1)
+	return confirmation, CtxErr{
+		Error:   err,
+		Context: "Failed to get confirm",
 	}
-	return confirmation
 }

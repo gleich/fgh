@@ -15,23 +15,25 @@ const (
 )
 
 // Write the regular configuration for the program
-func WriteConfig(config RegularOutline) {
+func WriteConfig(config RegularOutline) utils.CtxErr {
 	folderPath := GetFolderPath()
 	filePath := filepath.Join(folderPath, RegularFileName)
 	err := utils.WriteYAML(config, filePath)
-	if err != nil {
-		statuser.Error("Failed to write config secrets", err, 1)
+	if err.Error != nil {
+		return err
 	}
+	return utils.CtxErr{}
 }
 
 // Write the secret configuration for the program
-func WriteSecrets(secrets SecretsOutline) {
+func WriteSecrets(secrets SecretsOutline) utils.CtxErr {
 	folderPath := GetFolderPath()
 	filePath := filepath.Join(folderPath, SecretsFileName)
 	err := utils.WriteYAML(secrets, filePath)
-	if err != nil {
-		statuser.Error("Failed to write config secrets", err, 1)
+	if err.Error != nil {
+		return err
 	}
+	return utils.CtxErr{}
 }
 
 // Get the folder path for where the configuration should live

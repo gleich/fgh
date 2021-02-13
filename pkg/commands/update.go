@@ -6,6 +6,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -20,8 +21,13 @@ var updateCmd = &cobra.Command{
 			config       = configuration.GetConfig(false)
 			repos        = repos.ReposInStructure(config, false)
 			changedRepos = update.GetChanged(repos, config)
-			toMove       = update.AskMove(changedRepos, config)
 		)
+
+		toMove, err := update.AskMove(changedRepos, config)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		utils.MoveRepos(toMove)
 		clean.CleanUp(config)
 	},

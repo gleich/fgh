@@ -5,6 +5,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -15,8 +16,12 @@ var cleanCmd = &cobra.Command{
 	Short:                 "Ask to remove old or deleted cloned repos",
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
+		flags, err := clean.ParseFlags(cmd)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		var (
-			flags       = clean.ParseFlags(cmd)
 			config      = configuration.GetConfig(false)
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 			toRemove    = []repos.LocalRepo{}
@@ -27,12 +32,22 @@ var cleanCmd = &cobra.Command{
 
 		if !flags.SkipOutdated {
 			outdated := clean.GetOutdated(progressBar, clonedRepos, flags.Years, flags.Months, flags.Days)
-			toRemove = append(toRemove, clean.AskToRemoveOutdated(outdated)...)
+			approved, err := clean.AskToRemoveOutdated(outdated)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
+			toRemove = append(toRemove, approved...)
 		}
 
 		if !flags.SkipDeleted {
 			deleted := clean.GetDeleted(progressBar, clonedRepos)
-			toRemove = append(toRemove, clean.AskToRemoveDeleted(deleted)...)
+			approved, err := clean.AskToRemoveDeleted(deleted)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
+			toRemove = append(toRemove, approved...)
 		}
 
 		clean.Remove(toRemove)

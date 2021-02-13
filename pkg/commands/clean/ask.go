@@ -9,7 +9,7 @@ import (
 )
 
 // Confirm with the user that they want to remove an outdated repo
-func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) []repos.LocalRepo {
+func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) ([]repos.LocalRepo, utils.CtxErr) {
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range outdatedRepos {
 		time := utils.FormatDate(repo.ModTime)
@@ -25,7 +25,7 @@ func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) []repos.LocalR
 			notPushedMsg = color.GreenString("None")
 		}
 
-		remove := utils.Confirm(fmt.Sprintf(
+		remove, err := utils.Confirm(fmt.Sprintf(
 			`Path:     %v
   Owner:    %v
   Name:     %v
@@ -41,16 +41,20 @@ func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) []repos.LocalR
 			uncommittedMsg,
 			notPushedMsg,
 		))
+		if err.Error != nil {
+			return []repos.LocalRepo{}, err
+		}
+
 		fmt.Println()
 		if remove {
 			toRemove = append(toRemove, repo.Repo)
 		}
 	}
-	return toRemove
+	return toRemove, utils.CtxErr{}
 }
 
 // Confirm with the user that they want to remove a deleted repo
-func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) []repos.LocalRepo {
+func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) ([]repos.LocalRepo, utils.CtxErr) {
 	if len(deletedRepos) != 0 {
 		fmt.Println("\n----------------------")
 		fmt.Println(" Deleted Repositories ")
@@ -59,14 +63,18 @@ func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) []repos.LocalRepo {
 
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range deletedRepos {
-		remove := utils.Confirm(fmt.Sprintf(
+		remove, err := utils.Confirm(fmt.Sprintf(
 			"It seems as though %v has been deleted on GitHub.\n  Would you like to remove it?",
 			color.GreenString(repo.Path),
 		))
+		if err.Error != nil {
+			return []repos.LocalRepo{}, err
+		}
+
 		fmt.Println()
 		if remove {
 			toRemove = append(toRemove, repo)
 		}
 	}
-	return toRemove
+	return toRemove, utils.CtxErr{}
 }

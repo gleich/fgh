@@ -11,12 +11,12 @@ import (
 )
 
 // Ask the user if they want to move each repo
-func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutline) map[string]string {
+func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutline) (map[string]string, utils.CtxErr) {
 	toMove := map[string]string{}
 	for localRepo, repoAPIData := range updated {
 		newPath := repos.RepoLocation(repoAPIData, config)
 		fmt.Println()
-		move := utils.Confirm(fmt.Sprintf(
+		move, err := utils.Confirm(fmt.Sprintf(
 			`Current Path: %v
   New Path:     %v
   Owner:        %v
@@ -30,6 +30,11 @@ func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutli
 			repoAPIData.Name,
 			repoAPIData.MainLanguage,
 		))
+
+		if err.Error != nil {
+			return map[string]string{}, err
+		}
+
 		if move {
 			toMove[localRepo.Path] = newPath
 		}
@@ -39,5 +44,5 @@ func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutli
 		fmt.Println()
 	}
 
-	return toMove
+	return toMove, utils.CtxErr{}
 }

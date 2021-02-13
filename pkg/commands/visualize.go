@@ -6,6 +6,7 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/commands/visualize"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -21,7 +22,11 @@ var visualizeCmd = &cobra.Command{
 			clonedRepos = reposBasedOffCustomPath(cmd, config)
 		)
 
-		if utils.GetBool("ownerName", cmd) {
+		ownerNameFlag, err := utils.GetBool("ownerName", cmd)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+		if ownerNameFlag {
 			visualize.OutputOwnerNameList(clonedRepos)
 			return
 		}

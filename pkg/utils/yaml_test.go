@@ -14,8 +14,7 @@ func TestWriteReadYAML(t *testing.T) {
 	)
 
 	// Writing to the file
-	err := WriteYAML(data, fName)
-	assert.Nil(t, err)
+	assert.Nil(t, WriteYAML(data, fName).Error)
 
 	// Reading from the file
 	var readData struct {
@@ -24,9 +23,8 @@ func TestWriteReadYAML(t *testing.T) {
 	readErr := ReadYAML(fName, &readData)
 
 	// Removing the created file
-	err = os.Remove(fName)
-	assert.Nil(t, err)
+	assert.Nil(t, os.Remove(fName))
 
-	assert.Nil(t, readErr)
+	assert.Nil(t, readErr.Error)
 	assert.Equal(t, "test", readData.Test)
 }

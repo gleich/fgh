@@ -30,7 +30,11 @@ Automate the organization of your cloned GitHub repositories
 
 Repository: https://github.com/Matt-Gleich/fgh`,
 	Run: func(cmd *cobra.Command, args []string) {
-		versionFlag := utils.GetBool("version", cmd)
+		versionFlag, err := utils.GetBool("version", cmd)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		if versionFlag {
 			version := "v2.5.8"
 

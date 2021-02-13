@@ -10,7 +10,7 @@ import (
 )
 
 // Ask to remove each repo and then remove it
-func RemoveRepos(clonedRepos []repos.LocalRepo) {
+func RemoveRepos(clonedRepos []repos.LocalRepo) utils.CtxErr {
 	for _, repo := range clonedRepos {
 		committed, pushed := repos.WorkingState(repo.Path)
 		if !committed {
@@ -23,9 +23,13 @@ func RemoveRepos(clonedRepos []repos.LocalRepo) {
 				fmt.Sprintf("Repository located at %v has changes not pushed to a remote", repo.Path),
 			)
 		}
-		remove := utils.Confirm(fmt.Sprintf(
+		remove, err := utils.Confirm(fmt.Sprintf(
 			"Are you sure you want to permanently remove %v from your computer?", repo.Path,
 		))
+		if err.Error != nil {
+			return err
+		}
+
 		if remove {
 			err := os.RemoveAll(repo.Path)
 			if err != nil {
@@ -34,4 +38,5 @@ func RemoveRepos(clonedRepos []repos.LocalRepo) {
 			statuser.Success("Removed " + repo.Path)
 		}
 	}
+	return utils.CtxErr{}
 }

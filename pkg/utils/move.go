@@ -9,7 +9,7 @@ import (
 )
 
 // Move all repos
-func MoveRepos(repos map[string]string) {
+func MoveRepos(repos map[string]string) CtxErr {
 	for oldPath, newPath := range repos {
 		// Making base folder
 		parts := strings.Split(newPath, string(filepath.Separator))
@@ -22,8 +22,12 @@ func MoveRepos(repos map[string]string) {
 		// Renaming folder to new path
 		err = os.Rename(oldPath, newPath)
 		if err != nil {
-			statuser.Error("Failed to move "+oldPath+" to "+newPath, err, 1)
+			return CtxErr{
+				Error:   err,
+				Context: "Failed to move " + oldPath + " to " + newPath,
+			}
 		}
 		statuser.Success("Moved " + oldPath + " to " + newPath)
 	}
+	return CtxErr{}
 }
