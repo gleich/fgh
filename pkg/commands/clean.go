@@ -85,5 +85,10 @@ func init() {
 	cleanCmd.Flags().IntP("days", "d", 0, "Counts as outdated repo if it isn't modified locally in given number of days (default 0)")
 	cleanCmd.Flags().Bool("skipOutdated", false, "Don't check for outdated repos")
 	cleanCmd.Flags().Bool("skipDeleted", false, "Don't check for deleted repos")
-	addCustomPathFlag(cleanCmd)
+
+	// Allow the user to use this command on any directory
+	err := addCustomPathFlag(visualizeCmd)
+	if err.Error != nil {
+		statuser.Error(err.Context, err.Error, 1)
+	}
 }

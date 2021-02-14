@@ -43,5 +43,10 @@ var lsCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(lsCmd)
-	addCustomPathFlag(lsCmd)
+
+	// Allow the user to use this command on any directory
+	err := addCustomPathFlag(visualizeCmd)
+	if err.Error != nil {
+		statuser.Error(err.Context, err.Error, 1)
+	}
 }

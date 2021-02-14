@@ -38,5 +38,10 @@ var pullCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(pullCmd)
-	addCustomPathFlag(pullCmd)
+
+	// Allow the user to use this command on any directory
+	err := addCustomPathFlag(visualizeCmd)
+	if err.Error != nil {
+		statuser.Error(err.Context, err.Error, 1)
+	}
 }
