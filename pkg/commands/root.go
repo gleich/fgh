@@ -36,7 +36,7 @@ Repository: https://github.com/Matt-Gleich/fgh`,
 		}
 
 		if versionFlag {
-			version := "v2.5.8"
+			version := "v2.6.0"
 
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
