@@ -6,7 +6,6 @@ import (
 	"runtime"
 
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
 )
 
 const (
@@ -16,9 +15,13 @@ const (
 
 // Write the regular configuration for the program
 func WriteConfig(config RegularOutline) utils.CtxErr {
-	folderPath := GetFolderPath()
+	folderPath, err := GetFolderPath()
+	if err.Error != nil {
+		return err
+	}
+
 	filePath := filepath.Join(folderPath, RegularFileName)
-	err := utils.WriteYAML(config, filePath)
+	err = utils.WriteYAML(config, filePath)
 	if err.Error != nil {
 		return err
 	}
@@ -27,9 +30,13 @@ func WriteConfig(config RegularOutline) utils.CtxErr {
 
 // Write the secret configuration for the program
 func WriteSecrets(secrets SecretsOutline) utils.CtxErr {
-	folderPath := GetFolderPath()
+	folderPath, err := GetFolderPath()
+	if err.Error != nil {
+		return err
+	}
+
 	filePath := filepath.Join(folderPath, SecretsFileName)
-	err := utils.WriteYAML(secrets, filePath)
+	err = utils.WriteYAML(secrets, filePath)
 	if err.Error != nil {
 		return err
 	}
@@ -37,16 +44,21 @@ func WriteSecrets(secrets SecretsOutline) utils.CtxErr {
 }
 
 // Get the folder path for where the configuration should live
-func GetFolderPath() string {
+func GetFolderPath() (string, utils.CtxErr) {
 	homePath, err := os.UserHomeDir()
 	if err != nil {
-		statuser.Error("Failed to get homedirectory", err, 1)
+		return "", utils.CtxErr{
+			Context: "Failed to get homedirectory",
+			Error:   err,
+		}
 	}
+
 	var folderPath string
 	if runtime.GOOS == "darwin" || runtime.GOOS == "linux" {
 		folderPath = filepath.Join(homePath, ".config", "fgh")
 	} else {
 		folderPath = filepath.Join(homePath, ".fgh")
 	}
-	return folderPath
+
+	return folderPath, utils.CtxErr{}
 }

@@ -21,9 +21,17 @@ var cleanCmd = &cobra.Command{
 			statuser.Error(err.Context, err.Error, 1)
 		}
 
+		config, err := configuration.GetConfig(false)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		clonedRepos, err := reposBasedOffCustomPath(cmd, config)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		var (
-			config      = configuration.GetConfig(false)
-			clonedRepos = reposBasedOffCustomPath(cmd, config)
 			toRemove    = []repos.LocalRepo{}
 			progressBar = utils.GenerateProgressWriter()
 		)
@@ -45,7 +53,11 @@ var cleanCmd = &cobra.Command{
 		}
 
 		if !flags.SkipDeleted {
-			deleted := clean.GetDeleted(progressBar, clonedRepos)
+			deleted, err := clean.GetDeleted(progressBar, clonedRepos)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
 			approved, err := clean.AskToRemoveDeleted(deleted)
 			if err.Error != nil {
 				statuser.Error(err.Context, err.Error, 1)
@@ -54,8 +66,15 @@ var cleanCmd = &cobra.Command{
 			toRemove = append(toRemove, approved...)
 		}
 
-		clean.Remove(toRemove)
-		clean.CleanUp(config)
+		err = clean.Remove(toRemove)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		_, err = clean.CleanUp(config)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
 	},
 }
 

@@ -34,7 +34,8 @@ func TestOwnerAndName(t *testing.T) {
 	}
 
 	for _, test := range tt {
-		ownerResult, nameResult := OwnerAndName(test.username, test.args)
+		ownerResult, nameResult, err := OwnerAndName(test.username, test.args)
+		assert.NoError(t, err.Error)
 		assert.Equal(t, test.expectedOwner, ownerResult)
 		assert.Equal(t, test.expectedName, nameResult)
 	}

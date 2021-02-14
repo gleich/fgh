@@ -5,7 +5,6 @@ import (
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
 )
 
 const (
@@ -16,12 +15,18 @@ const (
 )
 
 // Get the regular config configuration.
-func GetConfig(ignoreErr bool) configure.RegularOutline {
-	filePath := filepath.Join(configure.GetFolderPath(), configure.RegularFileName)
+func GetConfig(ignoreErr bool) (configure.RegularOutline, utils.CtxErr) {
+	configPath, err := configure.GetFolderPath()
+	if err.Error != nil {
+		return configure.RegularOutline{}, err
+	}
+
+	filePath := filepath.Join(configPath, configure.RegularFileName)
 	var config configure.RegularOutline
-	err := utils.ReadYAML(filePath, &config)
+
+	err = utils.ReadYAML(filePath, &config)
 	if err.Error != nil && !ignoreErr {
-		statuser.Error(err.Context, err.Error, 1)
+		return configure.RegularOutline{}, err
 	}
 
 	// Setting defaults:
@@ -39,5 +44,5 @@ func GetConfig(ignoreErr bool) configure.RegularOutline {
 		config.SpaceChar = "-"
 	}
 
-	return config
+	return config, utils.CtxErr{}
 }

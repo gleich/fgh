@@ -19,13 +19,21 @@ func Repos(rootPath string, ignoreErr bool) ([]LocalRepo, utils.CtxErr) {
 		oldRepos = []LocalRepo{}
 		errCtx   utils.CtxErr
 	)
+
 	err := filepath.Walk(
 		rootPath,
 		func(path string, info os.FileInfo, err error) error {
 			if err != nil && !ignoreErr {
 				return err
 			}
-			if info.IsDir() && IsGitRepo(path) {
+
+			isRepo, errInfo := IsGitRepo(path)
+			if errInfo.Error != nil {
+				errCtx = errInfo
+				return errInfo.Error
+			}
+
+			if info.IsDir() && isRepo {
 				absPath, err := filepath.Abs(path)
 				if err != nil && !ignoreErr {
 					errCtx = utils.CtxErr{

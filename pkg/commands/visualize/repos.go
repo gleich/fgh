@@ -27,10 +27,12 @@ func GetRepos(clonedRepos []repos.LocalRepo) (map[string][]repos.DetailedLocalRe
 
 	detailedRepos := []repos.DetailedLocalRepo{}
 	for _, repo := range clonedRepos {
-		var (
-			notCommitted, notPushed = repos.WorkingState(repo.Path)
-			updatedTime, err        = repos.LastUpdated(repo.Path)
-		)
+		notCommitted, notPushed, err := repos.WorkingState(repo.Path)
+		if err.Error != nil {
+			return map[string][]repos.DetailedLocalRepo{}, err
+		}
+
+		updatedTime, err := repos.LastUpdated(repo.Path)
 		if err.Error != nil {
 			return map[string][]repos.DetailedLocalRepo{}, err
 		}

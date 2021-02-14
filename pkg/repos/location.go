@@ -8,27 +8,35 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 )
 
 // Get the structure root path
-func StructureRootPath(config configure.RegularOutline) string {
+func StructureRootPath(config configure.RegularOutline) (string, utils.CtxErr) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
-		statuser.Error("Failed to get home directory", err, 1)
+		return "", utils.CtxErr{
+			Context: "Failed to get home directory",
+			Error:   err,
+		}
 	}
 
 	root := config.StructureRoot
 	if strings.HasPrefix(root, string(filepath.Separator)) {
-		return root
+		return root, utils.CtxErr{}
 	} else {
-		return filepath.Join(homeDir, root)
+		return filepath.Join(homeDir, root), utils.CtxErr{}
 	}
 }
 
 // Get the location to clone the repo
-func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
-	path := filepath.Join(StructureRootPath(config), filepath.Join(config.Structure...))
+func RepoLocation(repo api.Repo, config configure.RegularOutline) (string, utils.CtxErr) {
+	root, err := StructureRootPath(config)
+	if err.Error != nil {
+		return "", err
+	}
+
+	path := filepath.Join(root, filepath.Join(config.Structure...))
 
 	// Replacing owner
 	path = strings.ReplaceAll(path, configuration.OwnerRep, repo.Owner)
@@ -57,5 +65,5 @@ func RepoLocation(repo api.Repo, config configure.RegularOutline) string {
 	repo.MainLanguage = strings.ReplaceAll(repo.MainLanguage, " ", config.SpaceChar)
 	path = strings.ReplaceAll(path, configuration.LangRep, repo.MainLanguage)
 
-	return filepath.Join(path, repo.Name)
+	return filepath.Join(path, repo.Name), utils.CtxErr{}
 }

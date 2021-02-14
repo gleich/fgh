@@ -11,11 +11,12 @@ import (
 
 // Get all cloned repos in fgh's file structure
 func ReposInStructure(config configure.RegularOutline, ignoreErr bool) ([]LocalRepo, utils.CtxErr) {
-	var (
-		ghFolder = StructureRootPath(config)
-		repos    []LocalRepo
-		errCtx   utils.CtxErr
-	)
+	var repos []LocalRepo
+
+	ghFolder, errCtx := StructureRootPath(config)
+	if errCtx.Error != nil {
+		return []LocalRepo{}, errCtx
+	}
 
 	err := filepath.Walk(
 		ghFolder,
@@ -29,7 +30,12 @@ func ReposInStructure(config configure.RegularOutline, ignoreErr bool) ([]LocalR
 				return filepath.SkipDir
 			}
 
-			if len(parts) == len(config.Structure)+2 && info.IsDir() && IsGitRepo(path) {
+			isRepo, errInfo := IsGitRepo(path)
+			if errInfo.Error != nil {
+				errCtx = errInfo
+			}
+
+			if len(parts) == len(config.Structure)+2 && info.IsDir() && isRepo {
 				owner, name, err := OwnerAndNameFromRemote(path)
 				if err.Error != nil && !ignoreErr {
 					errCtx = err

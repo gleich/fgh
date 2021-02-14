@@ -4,17 +4,20 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 )
 
 // Check to make sure that the folder exist
 // Returns the path of the folder
-func EnsureFolderExists(args []string) string {
+func EnsureFolderExists(args []string) (string, utils.CtxErr) {
 	folder, err := rawEnsureFolderExists(args)
 	if err != nil {
-		statuser.Error("Invalid folder", err, 1)
+		return "", utils.CtxErr{
+			Context: "Invalid folder",
+			Error:   err,
+		}
 	}
-	return folder
+	return folder, utils.CtxErr{}
 }
 
 // Testable, core logic for EnsureFolderExists

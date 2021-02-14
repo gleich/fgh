@@ -23,7 +23,11 @@ func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int
 	pw.AppendTracker(&tracker)
 
 	for _, repo := range clonedRepos {
-		notCommitted, notPushed := repos.WorkingState(repo.Path)
+		notCommitted, notPushed, err := repos.WorkingState(repo.Path)
+		if err.Error != nil {
+			return []repos.DetailedLocalRepo{}, err
+		}
+
 		updatedTime, err := repos.LastUpdated(repo.Path)
 		if err.Error != nil {
 			return []repos.DetailedLocalRepo{}, err

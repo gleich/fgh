@@ -13,8 +13,16 @@ var configureCmd = &cobra.Command{
 	Short:                 "Configure fgh with an interactive prompt",
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#%EF%B8%8F-fgh-configure",
 	Run: func(cmd *cobra.Command, args []string) {
-		config := configure.AskQuestions()
-		configure.WriteConfig(config)
+		config, err := configure.AskQuestions()
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
+		err = configure.WriteConfig(config)
+		if err.Error != nil {
+			statuser.Error(err.Context, err.Error, 1)
+		}
+
 		statuser.Success("Wrote to config")
 	},
 }

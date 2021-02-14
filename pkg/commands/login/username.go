@@ -4,11 +4,11 @@ import (
 	"context"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 )
 
 // Get the username of the authed user
-func Username(token string) string {
+func Username(token string) (string, utils.CtxErr) {
 	query := struct {
 		Viewer struct {
 			Login string
@@ -18,7 +18,10 @@ func Username(token string) string {
 	client := api.GenerateClient(token)
 	err := client.Query(context.Background(), &query, nil)
 	if err != nil || query.Viewer.Login == "" {
-		statuser.Error("Failed to yet your username", err, 1)
+		return "", utils.CtxErr{
+			Context: "Failed to yet your username",
+			Error:   err,
+		}
 	}
-	return query.Viewer.Login
+	return query.Viewer.Login, utils.CtxErr{}
 }

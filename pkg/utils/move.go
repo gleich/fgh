@@ -16,7 +16,10 @@ func MoveRepos(repos map[string]string) CtxErr {
 		baseFolder := strings.Join(parts[:len(parts)-1], string(filepath.Separator))
 		err := os.MkdirAll(baseFolder, 0777)
 		if err != nil {
-			statuser.Error("Failed to make "+baseFolder, err, 1)
+			return CtxErr{
+				Context: "Failed to make " + baseFolder,
+				Error:   err,
+			}
 		}
 
 		// Renaming folder to new path

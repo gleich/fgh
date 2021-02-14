@@ -14,7 +14,11 @@ import (
 func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutline) (map[string]string, utils.CtxErr) {
 	toMove := map[string]string{}
 	for localRepo, repoAPIData := range updated {
-		newPath := repos.RepoLocation(repoAPIData, config)
+		newPath, err := repos.RepoLocation(repoAPIData, config)
+		if err.Error != nil {
+			return map[string]string{}, err
+		}
+
 		fmt.Println()
 		move, err := utils.Confirm(fmt.Sprintf(
 			`Current Path: %v

@@ -8,17 +8,19 @@ import (
 	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
-	"github.com/fatih/color"
 	"github.com/jedib0t/go-pretty/v6/progress"
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
-func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) map[repos.LocalRepo]api.Repo {
+func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) (map[repos.LocalRepo]api.Repo, utils.CtxErr) {
+	updated := map[repos.LocalRepo]api.Repo{}
+	secrets, err := configuration.GetSecrets()
+	if err.Error != nil {
+		return map[repos.LocalRepo]api.Repo{}, err
+	}
 
 	var (
-		updated = map[repos.LocalRepo]api.Repo{}
-		client  = api.GenerateClient(configuration.GetSecrets().PAT)
+		client  = api.GenerateClient(secrets.PAT)
 		pw      = utils.GenerateProgressWriter()
 		tracker = progress.Tracker{
 			Message: "Getting valid path for all repos",
@@ -32,20 +34,26 @@ func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) 
 
 	for _, localRepo := range clonedRepos {
 		updatedData, err := api.RepoData(client, localRepo.Owner, localRepo.Name)
-		if err != nil {
-			statuser.Error(
-				fmt.Sprintf(
+		if err.Error != nil {
+			return map[repos.LocalRepo]api.Repo{}, utils.CtxErr{
+				Context: fmt.Sprintf(
 					"Failed to get data about repo located in %v. It is possible that it got deleted. If you want to remove all deleted repos run the clean command.",
-					color.RedString(localRepo.Path),
+					localRepo.Path,
 				),
-				err, 1,
-			)
+				Error: err.Error,
+			}
 		}
-		if repos.RepoLocation(updatedData, config) != localRepo.Path {
+
+		location, err := repos.RepoLocation(updatedData, config)
+		if err.Error != nil {
+			return map[repos.LocalRepo]api.Repo{}, err
+		}
+
+		if location != localRepo.Path {
 			updated[localRepo] = updatedData
 		}
 		tracker.Increment(1)
 	}
 
-	return updated
+	return updated, utils.CtxErr{}
 }

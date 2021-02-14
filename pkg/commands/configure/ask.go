@@ -5,11 +5,11 @@ import (
 	"path/filepath"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 )
 
 // Ask questions to fill in reglar config
-func AskQuestions() RegularOutline {
+func AskQuestions() (RegularOutline, utils.CtxErr) {
 	questions := []*survey.Question{
 		{
 			Name:   "CloneClipboard",
@@ -43,7 +43,10 @@ func AskQuestions() RegularOutline {
 	var answers RegularOutline
 	err := survey.Ask(questions, &answers)
 	if err != nil {
-		statuser.Error("Failed to ask questions about config", err, 1)
+		return RegularOutline{}, utils.CtxErr{
+			Context: "Failed to ask questions about config",
+			Error:   err,
+		}
 	}
-	return answers
+	return answers, utils.CtxErr{}
 }

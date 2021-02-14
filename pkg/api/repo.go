@@ -2,12 +2,14 @@ package api
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/shurcooL/githubv4"
 )
 
 // Get data about a repo
-func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) {
+func RepoData(client *githubv4.Client, owner string, name string) (Repo, utils.CtxErr) {
 	query := struct {
 		Repository struct {
 			IsPrivate       bool
@@ -32,7 +34,10 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 	}
 	err := client.Query(context.Background(), &query, vars)
 	if err != nil {
-		return Repo{}, err
+		return Repo{}, utils.CtxErr{
+			Context: fmt.Sprintf("Failed to get repo data for %v/%v", owner, name),
+			Error:   err,
+		}
 	}
 
 	if query.Repository.PrimaryLanguage.Name == "" {
@@ -48,5 +53,5 @@ func RepoData(client *githubv4.Client, owner string, name string) (Repo, error) 
 		Disabled:     query.Repository.IsDisabled,
 		Mirror:       query.Repository.IsMirror,
 		Fork:         query.Repository.IsFork,
-	}, nil
+	}, utils.CtxErr{}
 }

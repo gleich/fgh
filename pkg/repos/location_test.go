@@ -11,7 +11,7 @@ import (
 )
 
 func TestRepoLocation(t *testing.T) {
-	result1 := RepoLocation(
+	result, err := RepoLocation(
 		api.Repo{
 			Owner:        "Testing-Owner",
 			Name:         "fgh",
@@ -28,11 +28,14 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "github/",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
+	assert.NoError(t, err.Error)
+	root, err := StructureRootPath(configure.RegularOutline{
 		StructureRoot: "github/",
-	}), "/Testing-Owner/private/Go/fgh"), result1)
+	})
+	assert.NoError(t, err.Error)
+	assert.Equal(t, filepath.Join(root, "/Testing-Owner/private/Go/fgh"), result)
 
-	result2 := RepoLocation(
+	result, err = RepoLocation(
 		api.Repo{
 			Owner:        "Matt-Gleich",
 			Name:         "site-v2",
@@ -49,11 +52,14 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
+	assert.NoError(t, err.Error)
+	root, err = StructureRootPath(configure.RegularOutline{
 		StructureRoot: "/code/stuff",
-	}), "/Matt-Gleich/JavaScript/archived/site-v2"), result2)
+	})
+	assert.NoError(t, err.Error)
+	assert.Equal(t, filepath.Join(root, "/Matt-Gleich/JavaScript/archived/site-v2"), result)
 
-	result3 := RepoLocation(
+	result, err = RepoLocation(
 		api.Repo{
 			Owner:        "Matt-Gleich",
 			Name:         "site-v2",
@@ -69,7 +75,10 @@ func TestRepoLocation(t *testing.T) {
 			StructureRoot: "/code/stuff",
 		},
 	)
-	assert.Equal(t, filepath.Join(StructureRootPath(configure.RegularOutline{
+	assert.NoError(t, err.Error)
+	root, err = StructureRootPath(configure.RegularOutline{
 		StructureRoot: "/code/stuff",
-	}), "/Matt-Gleich/JavaScript/site-v2"), result3)
+	})
+	assert.NoError(t, err.Error)
+	assert.Equal(t, filepath.Join(root, "/Matt-Gleich/JavaScript/site-v2"), result)
 }

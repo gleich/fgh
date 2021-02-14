@@ -1,38 +1,47 @@
 package clone
 
 import (
+	"errors"
 	"fmt"
 	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/api"
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/briandowns/spinner"
 )
 
 // Get the meta data about the repo
-func GetRepository(secrets configure.SecretsOutline, args []string) api.Repo {
-	owner, name := OwnerAndName(configuration.GetSecrets().Username, args)
+func GetRepository(secrets configure.SecretsOutline, args []string) (api.Repo, utils.CtxErr) {
+	owner, name, err := OwnerAndName(secrets.Username, args)
+	if err.Error != nil {
+		return api.Repo{}, err
+	}
+
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = fmt.Sprintf(" Getting metadata for %v/%v", owner, name)
 	spin.Start()
 
-	client := api.GenerateClient(configuration.GetSecrets().PAT)
+	client := api.GenerateClient(secrets.PAT)
 	repo, err := api.RepoData(client, owner, name)
-	if err != nil {
+	if err.Error != nil {
 		fmt.Println()
-		statuser.Error("Failed to get repo information", err, 1)
+		return api.Repo{}, err
 	}
 
 	spin.Stop()
 	statuser.Success(fmt.Sprintf("Got metadata for %v/%v\n", owner, name))
-	return repo
+	return repo, utils.CtxErr{}
 }
 
 // Get the name of the repo and the of the owner
-func OwnerAndName(username string, args []string) (owner string, name string) {
+func OwnerAndName(username string, args []string) (string, string, utils.CtxErr) {
+	var (
+		owner string
+		name  string
+	)
+
 	if strings.Contains(args[0], "/") {
 		parts := strings.Split(args[0], "/")
 		owner = parts[0]
@@ -43,11 +52,19 @@ func OwnerAndName(username string, args []string) (owner string, name string) {
 	}
 
 	if owner == "" {
-		statuser.ErrorMsg("No owner provided", 1)
+		msg := "No owner provided"
+		return "", "", utils.CtxErr{
+			Context: msg,
+			Error:   errors.New(msg),
+		}
 	}
 	if name == "" {
-		statuser.ErrorMsg("No repository name provided", 1)
+		msg := "No repository name provided"
+		return "", "", utils.CtxErr{
+			Context: msg,
+			Error:   errors.New(msg),
+		}
 	}
 
-	return owner, name
+	return owner, name, utils.CtxErr{}
 }

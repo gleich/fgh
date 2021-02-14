@@ -14,25 +14,32 @@ import (
 )
 
 // Get the new paths for all the repos
-func NewPaths(oldRepos []repos.LocalRepo, config configure.RegularOutline) map[string]string {
+func NewPaths(oldRepos []repos.LocalRepo, config configure.RegularOutline) (map[string]string, utils.CtxErr) {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = fmt.Sprintf(" Getting latest metadata for %v repos", len(oldRepos))
 	spin.Start()
 
-	var (
-		newPaths = map[string]string{}
-		client   = api.GenerateClient(configuration.GetSecrets().PAT)
-	)
+	newPaths := map[string]string{}
+	secrets, err := configuration.GetSecrets()
+	if err.Error != nil {
+		return map[string]string{}, err
+	}
+
+	client := api.GenerateClient(secrets.PAT)
 	for _, repo := range oldRepos {
 		metadata, err := api.RepoData(client, repo.Owner, repo.Name)
-		if err != nil {
+		if err.Error != nil {
 			statuser.Warning(fmt.Sprintf(
 				"%v will not be moved because it has either been deleted from github or you don't have access",
 				repo.Path,
 			))
 		}
 
-		newPaths[repo.Path] = repos.RepoLocation(metadata, config)
+		newLocation, err := repos.RepoLocation(metadata, config)
+		if err.Error != nil {
+			return map[string]string{}, err
+		}
+		newPaths[repo.Path] = newLocation
 	}
 	spin.Stop()
 
@@ -41,5 +48,5 @@ func NewPaths(oldRepos []repos.LocalRepo, config configure.RegularOutline) map[s
 	}
 
 	statuser.Success(fmt.Sprintf("Got latest metadata for %v repos", len(oldRepos)))
-	return newPaths
+	return newPaths, utils.CtxErr{}
 }

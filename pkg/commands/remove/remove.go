@@ -12,7 +12,11 @@ import (
 // Ask to remove each repo and then remove it
 func RemoveRepos(clonedRepos []repos.LocalRepo) utils.CtxErr {
 	for _, repo := range clonedRepos {
-		committed, pushed := repos.WorkingState(repo.Path)
+		committed, pushed, err := repos.WorkingState(repo.Path)
+		if err.Error != nil {
+			return err
+		}
+
 		if !committed {
 			statuser.Warning(
 				fmt.Sprintf("Repository located at %v has uncommitted changes", repo.Path),
@@ -33,7 +37,10 @@ func RemoveRepos(clonedRepos []repos.LocalRepo) utils.CtxErr {
 		if remove {
 			err := os.RemoveAll(repo.Path)
 			if err != nil {
-				statuser.Error("Failed to remove "+repo.Path, err, 1)
+				return utils.CtxErr{
+					Context: "Failed to remove " + repo.Path,
+					Error:   err,
+				}
 			}
 			statuser.Success("Removed " + repo.Path)
 		}

@@ -14,7 +14,11 @@ import (
 func FilterRepos(username string, repos []LocalRepo, args []string) ([]LocalRepo, utils.CtxErr) {
 	var filtered []LocalRepo
 
-	owner, name := clone.OwnerAndName(username, args)
+	owner, name, err := clone.OwnerAndName(username, args)
+	if err.Error != nil {
+		return []LocalRepo{}, err
+	}
+
 	for _, repo := range repos {
 		if strings.EqualFold(repo.Name, name) {
 			filtered = append(filtered, repo)

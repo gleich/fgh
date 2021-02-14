@@ -25,7 +25,9 @@ func TestIsGitRepo(t *testing.T) {
 			assert.NoError(t, err)
 		}
 
-		assert.True(t, IsGitRepo("folder-1"))
+		isRepo, err := IsGitRepo("folder-1")
+		assert.NoError(t, err.Error)
+		assert.True(t, isRepo)
 
 		// Removing files and folders
 		for _, folder := range tt.extraFolders {

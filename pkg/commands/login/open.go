@@ -1,11 +1,23 @@
 package login
 
-import "github.com/pkg/browser"
+import (
+	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/pkg/browser"
+)
 
 // Open the auth page in the user's browser
-func OpenAuthPage() error {
-	// We're not setting a state at the moment, thus the blank string
-	return browser.OpenURL(AuthPageURL())
+func OpenAuthPage() utils.CtxErr {
+	var (
+		url = AuthPageURL()
+		err = browser.OpenURL(url)
+	)
+	if err != nil {
+		return utils.CtxErr{
+			Context: "Failed to open auth page in browser. Please open it manually:\n" + url,
+			Error:   err,
+		}
+	}
+	return utils.CtxErr{}
 }
 
 // Get the auth page URL

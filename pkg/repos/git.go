@@ -10,7 +10,6 @@ import (
 
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
 	"github.com/go-git/go-git/v5"
 )
 
@@ -129,20 +128,35 @@ func getDefaultURL(remote *git.Remote, path string) (string, utils.CtxErr) {
 
 // Check so see if a repo has a dirty working tree or any commits that haven't been pushed
 // Returns if all changes have been committed and pushed
-func WorkingState(path string) (committed bool, pushed bool) {
+func WorkingState(path string) (bool, bool, utils.CtxErr) {
+	var (
+		committed bool
+		pushed    bool
+	)
+
 	repo, err := git.PlainOpen(path)
 	if err != nil {
-		statuser.Error("Failed to read from git repo located in "+path, err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Failed to read from git repo located in " + path,
+			Error:   err,
+		}
 	}
 
 	// Working tree staged and unstaged changes
 	workingTree, err := repo.Worktree()
 	if err != nil {
-		statuser.Error("Failed to get working tree for "+path, err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Failed to get working tree for " + path,
+			Error:   err,
+		}
 	}
+
 	status, err := workingTree.Status()
 	if err != nil {
-		statuser.Error("Failed to get status of changes for "+path, err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Failed to get status of changes for " + path,
+			Error:   err,
+		}
 	}
 	if len(status) == 0 {
 		committed = true
@@ -151,42 +165,58 @@ func WorkingState(path string) (committed bool, pushed bool) {
 	// Commits not pushed
 	err = os.Chdir(path)
 	if err != nil {
-		statuser.Error("Failed to change directory into "+path, err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Failed to change directory into " + path,
+			Error:   err,
+		}
 	}
 
 	gitPath, err := exec.LookPath("git")
 	if err != nil {
-		statuser.Error("Looks like you don't have git installed. Please install it.", err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Looks like you don't have git installed. Please install it.",
+			Error:   err,
+		}
 	}
 
 	cmd := exec.Command(gitPath, "cherry", "-v")
 	cmd.Stderr = os.Stdout
 	out, err := cmd.Output()
 	if err != nil {
-		statuser.Error("Failed to check if repo has any commits not pushed. Location: "+path, err, 1)
+		return false, false, utils.CtxErr{
+			Context: "Failed to check if repo has any commits not pushed. Location: " + path,
+			Error:   err,
+		}
 	}
+
 	if len((strings.Split(string(out), "\n"))) == 1 {
 		pushed = true
 	}
 
-	return committed, pushed
+	return committed, pushed, utils.CtxErr{}
 }
 
 // Checks to make sure the given folder has a .git folder inside
-func IsGitRepo(path string) bool {
+func IsGitRepo(path string) (bool, utils.CtxErr) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
 		cwd, err1 := os.Getwd()
 		if err1 != nil {
-			statuser.Error("Failed to get current working directory", err, 1)
+			return false, utils.CtxErr{
+				Context: "Failed to get current working directory",
+				Error:   err1,
+			}
 		}
-		statuser.Error("Failed to list "+cwd, err, 1)
+		return false, utils.CtxErr{
+			Context: "Failed to list " + cwd,
+			Error:   err,
+		}
 	}
 
 	for _, f := range files {
 		if f.IsDir() && f.Name() == ".git" {
-			return true
+			return true, utils.CtxErr{}
 		}
 	}
-	return false
+	return false, utils.CtxErr{}
 }
