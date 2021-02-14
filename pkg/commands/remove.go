@@ -61,7 +61,7 @@ func init() {
 	removeCmd.Flags().Bool("force", false, "Force remove even if there are some errors")
 
 	// Allow the user to use this command on any directory
-	err := addCustomPathFlag(visualizeCmd)
+	err := addCustomPathFlag(removeCmd)
 	if err.Error != nil {
 		statuser.Error(err.Context, err.Error, 1)
 	}

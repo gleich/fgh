@@ -87,7 +87,7 @@ func init() {
 	cleanCmd.Flags().Bool("skipDeleted", false, "Don't check for deleted repos")
 
 	// Allow the user to use this command on any directory
-	err := addCustomPathFlag(visualizeCmd)
+	err := addCustomPathFlag(cleanCmd)
 	if err.Error != nil {
 		statuser.Error(err.Context, err.Error, 1)
 	}

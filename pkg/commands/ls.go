@@ -45,7 +45,7 @@ func init() {
 	rootCmd.AddCommand(lsCmd)
 
 	// Allow the user to use this command on any directory
-	err := addCustomPathFlag(visualizeCmd)
+	err := addCustomPathFlag(lsCmd)
 	if err.Error != nil {
 		statuser.Error(err.Context, err.Error, 1)
 	}

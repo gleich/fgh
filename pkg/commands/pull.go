@@ -40,7 +40,7 @@ func init() {
 	rootCmd.AddCommand(pullCmd)
 
 	// Allow the user to use this command on any directory
-	err := addCustomPathFlag(visualizeCmd)
+	err := addCustomPathFlag(pullCmd)
 	if err.Error != nil {
 		statuser.Error(err.Context, err.Error, 1)
 	}
