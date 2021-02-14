@@ -179,19 +179,40 @@ func WorkingState(path string) (bool, bool, utils.CtxErr) {
 		}
 	}
 
+	pushed, errCtx := runGitCherry(gitPath, path)
+	if errCtx.Error != nil {
+		// Refreshing origin
+		err = exec.Command(gitPath, "fetch", "--all").Run()
+		if err != nil {
+			return false, false, utils.CtxErr{
+				Context: "Failed to fetch latest commits" + path,
+				Error:   err,
+			}
+		}
+
+		pushed, errCtx = runGitCherry(gitPath, path)
+		if errCtx.Error != nil {
+			return false, false, errCtx
+		}
+	}
+
+	return committed, pushed, utils.CtxErr{}
+}
+
+// Run git cherry to see if there are any commits not yet pushed
+func runGitCherry(gitPath string, path string) (bool, utils.CtxErr) {
 	out, err := exec.Command(gitPath, "cherry", "-v").Output()
 	if err != nil {
-		return false, false, utils.CtxErr{
+		return false, utils.CtxErr{
 			Context: "Failed to check if repo has any commits not pushed. Location: " + path,
 			Error:   err,
 		}
 	}
 
-	if len((strings.Split(string(out), "\n"))) == 1 {
-		pushed = true
+	if len((strings.Split(string(out), "\n"))) != 1 {
+		return false, utils.CtxErr{}
 	}
-
-	return committed, pushed, utils.CtxErr{}
+	return true, utils.CtxErr{}
 }
 
 // Checks to make sure the given folder has a .git folder inside
