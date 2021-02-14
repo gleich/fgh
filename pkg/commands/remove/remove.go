@@ -10,11 +10,11 @@ import (
 )
 
 // Ask to remove each repo and then remove it
-func RemoveRepos(clonedRepos []repos.LocalRepo) utils.CtxErr {
+func RemoveRepos(clonedRepos []repos.LocalRepo, force bool) utils.CtxErr {
 	for _, repo := range clonedRepos {
-		committed, pushed, err := repos.WorkingState(repo.Path)
-		if err.Error != nil {
-			return err
+		committed, pushed, errCtx := repos.WorkingState(repo.Path)
+		if errCtx.Error != nil && !force {
+			return errCtx
 		}
 
 		if !committed {
@@ -27,23 +27,24 @@ func RemoveRepos(clonedRepos []repos.LocalRepo) utils.CtxErr {
 				fmt.Sprintf("Repository located at %v has changes not pushed to a remote", repo.Path),
 			)
 		}
-		remove, err := utils.Confirm(fmt.Sprintf(
+		remove, errCtx := utils.Confirm(fmt.Sprintf(
 			"Are you sure you want to permanently remove %v from your computer?", repo.Path,
 		))
-		if err.Error != nil {
-			return err
+		if errCtx.Error != nil {
+			return errCtx
+		}
+		if !remove {
+			continue
 		}
 
-		if remove {
-			err := os.RemoveAll(repo.Path)
-			if err != nil {
-				return utils.CtxErr{
-					Context: "Failed to remove " + repo.Path,
-					Error:   err,
-				}
+		err := os.RemoveAll(repo.Path)
+		if err != nil {
+			return utils.CtxErr{
+				Context: "Failed to remove " + repo.Path,
+				Error:   err,
 			}
-			statuser.Success("Removed " + repo.Path)
 		}
+		statuser.Success("Removed " + repo.Path)
 	}
 	return utils.CtxErr{}
 }

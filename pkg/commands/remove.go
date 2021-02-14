@@ -18,6 +18,7 @@ var removeCmd = &cobra.Command{
 	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
 	Run: func(cmd *cobra.Command, args []string) {
 		force, err := utils.GetBool("force", cmd)
+
 		if err.Error != nil {
 			statuser.Error(err.Context, err.Error, 1)
 		}
@@ -43,7 +44,7 @@ var removeCmd = &cobra.Command{
 			statuser.Error(err.Context, err.Error, 1)
 		}
 
-		err = remove.RemoveRepos(filtered)
+		err = remove.RemoveRepos(filtered, force)
 		if err.Error != nil && !force {
 			statuser.Error(err.Context, err.Error, 1)
 		}
