@@ -12,7 +12,7 @@ import (
 // December 25th, 2020 at 12:00PM
 func FormatDate(date time.Time) string {
 	var (
-		formatter     = tf.New()
+		formatter     = tf.New(tf.EN)
 		hour          = date.Hour()
 		formattedHour string
 	)
@@ -25,11 +25,11 @@ func FormatDate(date time.Time) string {
 
 	return formatter.To(date, fmt.Sprintf(
 		"%s %s, %s at %v:%02v%s",
-		tf.MMMM,
+		tf.TIME_MMMM,
 		humanize.Ordinal(date.Day()),
-		tf.YYYY,
+		tf.TIME_YYYY,
 		formattedHour,
 		date.Minute(),
-		tf.A,
+		tf.TIME_A,
 	))
 }
