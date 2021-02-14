@@ -200,15 +200,8 @@ func WorkingState(path string) (bool, bool, utils.CtxErr) {
 func IsGitRepo(path string) (bool, utils.CtxErr) {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		cwd, err1 := os.Getwd()
-		if err1 != nil {
-			return false, utils.CtxErr{
-				Context: "Failed to get current working directory",
-				Error:   err1,
-			}
-		}
 		return false, utils.CtxErr{
-			Context: "Failed to list " + cwd,
+			Context: "Failed to list " + path,
 			Error:   err,
 		}
 	}

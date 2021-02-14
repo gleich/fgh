@@ -30,23 +30,25 @@ func ReposInStructure(config configure.RegularOutline, ignoreErr bool) ([]LocalR
 				return filepath.SkipDir
 			}
 
-			isRepo, errInfo := IsGitRepo(path)
-			if errInfo.Error != nil {
-				errCtx = errInfo
-			}
-
-			if len(parts) == len(config.Structure)+2 && info.IsDir() && isRepo {
-				owner, name, err := OwnerAndNameFromRemote(path)
-				if err.Error != nil && !ignoreErr {
-					errCtx = err
-					return err.Error
+			if len(parts) == len(config.Structure)+2 && info.IsDir() {
+				isRepo, errInfo := IsGitRepo(path)
+				if errInfo.Error != nil {
+					errCtx = errInfo
 				}
 
-				repos = append(repos, LocalRepo{
-					Owner: owner,
-					Name:  name,
-					Path:  path,
-				})
+				if isRepo {
+					owner, name, err := OwnerAndNameFromRemote(path)
+					if err.Error != nil && !ignoreErr {
+						errCtx = err
+						return err.Error
+					}
+
+					repos = append(repos, LocalRepo{
+						Owner: owner,
+						Name:  name,
+						Path:  path,
+					})
+				}
 			}
 			return nil
 		},
