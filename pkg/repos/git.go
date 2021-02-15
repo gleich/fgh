@@ -182,6 +182,14 @@ func WorkingState(path string) (bool, bool, utils.CtxErr) {
 	pushed, errCtx := runGitCherry(gitPath, path)
 	if errCtx.Error != nil {
 		// Refreshing origin
+		err = os.RemoveAll("./.git/refs/remotes/origin")
+		if err != nil {
+			return false, false, utils.CtxErr{
+				Context: "Failed to remove local reference of origin remote",
+				Error:   err,
+			}
+		}
+
 		err = exec.Command(gitPath, "fetch", "--all").Run()
 		if err != nil {
 			return false, false, utils.CtxErr{
