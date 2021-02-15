@@ -1,15 +1,15 @@
 package pull
 
 import (
-	"errors"
 	"fmt"
+	"os"
+	"os/exec"
+	"strings"
 
 	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
 	"github.com/Matt-Gleich/fgh/pkg/repos"
 	"github.com/Matt-Gleich/fgh/pkg/utils"
 	"github.com/Matt-Gleich/statuser/v2"
-	"github.com/go-git/go-git/v5"
-	"github.com/go-git/go-git/v5/plumbing/transport/http"
 )
 
 // Pull the latest changes for all local repos not in
@@ -38,49 +38,30 @@ func PullRepos(secrets configure.SecretsOutline, clonedRepos []repos.LocalRepo) 
 			pullChanges = true
 		}
 		if !pullChanges {
-			msg := fmt.Sprintf("%v/%v has %v\n", repo.Owner, repo.Name, statusMsg)
-			return utils.CtxErr{
-				Context: msg,
-				Error:   errors.New(msg),
-			}
+			statuser.Warning(fmt.Sprintf("%v/%v has %v\n", repo.Owner, repo.Name, statusMsg))
+			continue
 		}
 
-		// Pulling latest changes
-		gitRepo, err := git.PlainOpen(repo.Path)
+		err := os.Chdir(repo.Path)
 		if err != nil {
 			return utils.CtxErr{
-				Context: "Failed to open repo in: " + repo.Path,
+				Context: "Failed to change directory to " + repo.Path,
 				Error:   err,
 			}
 		}
 
-		workingTree, err := gitRepo.Worktree()
+		output, err := exec.Command("git", "pull").Output()
 		if err != nil {
-			return utils.CtxErr{
-				Context: "Failed to get working tree for " + repo.Path,
-				Error:   err,
-			}
-		}
-
-		err = workingTree.Pull(&git.PullOptions{
-			RemoteName: "origin",
-			Auth: &http.BasicAuth{
-				Username: secrets.Username,
-				Password: secrets.PAT,
-			},
-		})
-
-		// Outputting final message
-		if err != nil {
-			if err.Error() == "already up-to-date" {
-				fmt.Printf("%v/%v is already up to date\n", repo.Owner, repo.Name)
-				continue
-			}
 			return utils.CtxErr{
 				Context: "Failed to pull changes for " + repo.Path,
 				Error:   err,
 			}
 		}
+		if strings.Contains(string(output), "Already up to date.") {
+			fmt.Printf("%v/%v is already up to date\n", repo.Owner, repo.Name)
+			continue
+		}
+
 		statuser.Success(fmt.Sprintf("Pulled latest changes for %v/%v", repo.Owner, repo.Name))
 		pulled++
 	}
