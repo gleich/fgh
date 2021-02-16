@@ -1,7 +1,8 @@
 package repos
 
 import (
-	"io/ioutil"
+	"bufio"
+	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -15,8 +16,10 @@ import (
 // Get the time the repo was lasted updated
 func LastUpdated(path string) (time.Time, utils.CtxErr) {
 	// Reading from gitignore and parsing it
-	ignoreData, _ := ioutil.ReadFile(filepath.Join(path, ".gitignore"))
-	ignore := gitignore.CompileIgnoreLines(string(ignoreData))
+	ignore, errCtx := readFromGitIgnore()
+	if errCtx.Error != nil {
+		return time.Time{}, errCtx
+	}
 
 	var updatedTime time.Time
 	err := filepath.Walk(
@@ -39,6 +42,7 @@ func LastUpdated(path string) (time.Time, utils.CtxErr) {
 			}
 
 			if ignore.MatchesPath(strings.TrimLeft(path, homeDir)) {
+				fmt.Println("In gitignore: ", path)
 				return filepath.SkipDir
 			}
 
@@ -63,4 +67,34 @@ func LastUpdated(path string) (time.Time, utils.CtxErr) {
 	}
 
 	return updatedTime, utils.CtxErr{}
+}
+
+func readFromGitIgnore() (*gitignore.GitIgnore, utils.CtxErr) {
+	const fileName = ".gitignore"
+
+	// Ensuring that the file exists
+	stat, err := os.Stat(fileName)
+	if os.IsNotExist(err) || stat.IsDir() {
+		return &gitignore.GitIgnore{}, utils.CtxErr{}
+	}
+
+	// Reading from the file
+	file, err := os.Open(fileName)
+	if err != nil {
+		return &gitignore.GitIgnore{}, utils.CtxErr{
+			Context: "Failed to read from gitignore file",
+			Error:   err,
+		}
+	}
+	defer file.Close()
+
+	var (
+		scanner = bufio.NewScanner(file)
+		lines   []string
+	)
+	for scanner.Scan() {
+		lines = append(lines, scanner.Text())
+	}
+
+	return gitignore.CompileIgnoreLines(lines...), utils.CtxErr{}
 }
