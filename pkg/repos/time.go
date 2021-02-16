@@ -2,7 +2,6 @@ package repos
 
 import (
 	"bufio"
-	"fmt"
 	"os"
 	"path/filepath"
 	"strings"
@@ -42,7 +41,6 @@ func LastUpdated(path string) (time.Time, utils.CtxErr) {
 			}
 
 			if ignore.MatchesPath(strings.TrimLeft(path, homeDir)) {
-				fmt.Println("In gitignore: ", path)
 				return filepath.SkipDir
 			}
 
