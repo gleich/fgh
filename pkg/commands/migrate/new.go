@@ -14,7 +14,10 @@ import (
 )
 
 // Get the new paths for all the repos
-func NewPaths(oldRepos []repos.LocalRepo, config configure.RegularOutline) (map[string]string, utils.CtxErr) {
+func NewPaths(
+	oldRepos []repos.LocalRepo,
+	config configure.RegularOutline,
+) (map[string]string, utils.CtxErr) {
 	spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 	spin.Suffix = fmt.Sprintf(" Getting latest metadata for %v repos", len(oldRepos))
 	spin.Start()

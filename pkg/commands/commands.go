@@ -31,13 +31,19 @@ func addCustomPathFlag(cmd *cobra.Command) utils.CtxErr {
 		pathFlagName,
 		"p",
 		"", // This would be set as the rootFolder but we need to know if the user actually gave the path and therefore needs to do a brute force search with repos.Repos().
-		fmt.Sprintf("Root folder where the repo(s) should be in at some level. Relative to where you are running this command (default \"%v\")", rootFolder),
+		fmt.Sprintf(
+			"Root folder where the repo(s) should be in at some level. Relative to where you are running this command (default \"%v\")",
+			rootFolder,
+		),
 	)
 	return utils.CtxErr{}
 }
 
 // Get the value for the custom path
-func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline) ([]repos.LocalRepo, utils.CtxErr) {
+func reposBasedOffCustomPath(
+	cmd *cobra.Command,
+	config configure.RegularOutline,
+) ([]repos.LocalRepo, utils.CtxErr) {
 	path, err := cmd.Flags().GetString(pathFlagName)
 	if err != nil {
 		return []repos.LocalRepo{}, utils.CtxErr{
@@ -59,7 +65,11 @@ func reposBasedOffCustomPath(cmd *cobra.Command, config configure.RegularOutline
 }
 
 // Set the valid args as the local repos.
-func reposAsValidArgs(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+func reposAsValidArgs(
+	cmd *cobra.Command,
+	args []string,
+	toComplete string,
+) ([]string, cobra.ShellCompDirective) {
 	secrets, err := configuration.GetSecrets()
 	if err.Error != nil {
 		statuser.Error(err.Context, err.Error, 1)

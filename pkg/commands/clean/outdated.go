@@ -9,7 +9,13 @@ import (
 )
 
 // Get the repos that haven't been modified locally in a certain amount of time
-func GetOutdated(pw progress.Writer, clonedRepos []repos.LocalRepo, yearsOld int, monthsOld int, daysOld int) ([]repos.DetailedLocalRepo, utils.CtxErr) {
+func GetOutdated(
+	pw progress.Writer,
+	clonedRepos []repos.LocalRepo,
+	yearsOld int,
+	monthsOld int,
+	daysOld int,
+) ([]repos.DetailedLocalRepo, utils.CtxErr) {
 	var (
 		outdated      []repos.DetailedLocalRepo
 		timeThreshold = time.Now().AddDate(-yearsOld, -monthsOld, -daysOld)

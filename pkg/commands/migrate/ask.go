@@ -9,7 +9,9 @@ import (
 
 // Confirm with the user that they want to move the repos
 func ConfirmMove(newPaths map[string]string) utils.CtxErr {
-	move, err := utils.Confirm(fmt.Sprintf("Are you sure you want to move %v repos?", len(newPaths)))
+	move, err := utils.Confirm(
+		fmt.Sprintf("Are you sure you want to move %v repos?", len(newPaths)),
+	)
 	if err.Error != nil {
 		return err
 	}

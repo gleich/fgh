@@ -10,7 +10,10 @@ import (
 )
 
 // Get all the repos locally that have been deleted on GitHub
-func GetDeleted(pw progress.Writer, clonedRepos []repos.LocalRepo) ([]repos.LocalRepo, utils.CtxErr) {
+func GetDeleted(
+	pw progress.Writer,
+	clonedRepos []repos.LocalRepo,
+) ([]repos.LocalRepo, utils.CtxErr) {
 	if !utils.HasInternetConnection() {
 		statuser.Warning("Failed to establish an internet connection")
 	}

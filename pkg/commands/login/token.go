@@ -38,7 +38,11 @@ func GetToken(port string) string {
 		c <- token
 
 		// Tell the user the good news!
-		_, err = w.Write([]byte("<style>body{height:100%;margin:0;display:flex;align-items:center;justify-content:center;background:black;color:#eee;font-family:sans-serif}</style><h1>You are all logged in! 🎉</h1>"))
+		_, err = w.Write(
+			[]byte(
+				"<style>body{height:100%;margin:0;display:flex;align-items:center;justify-content:center;background:black;color:#eee;font-family:sans-serif}</style><h1>You are all logged in! 🎉</h1>",
+			),
+		)
 		if err != nil {
 			statuser.Error("Failed to send the HTTP response", err, 1)
 		}

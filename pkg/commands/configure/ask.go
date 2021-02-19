@@ -12,8 +12,10 @@ import (
 func AskQuestions() (RegularOutline, utils.CtxErr) {
 	questions := []*survey.Question{
 		{
-			Name:   "CloneClipboard",
-			Prompt: &survey.Confirm{Message: "Do you want to copy the path of a cloned repo after clone to your clipboard?"},
+			Name: "CloneClipboard",
+			Prompt: &survey.Confirm{
+				Message: "Do you want to copy the path of a cloned repo after clone to your clipboard?",
+			},
 		},
 		{
 			Name: "StructureRoot",

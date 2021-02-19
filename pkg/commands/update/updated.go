@@ -12,7 +12,10 @@ import (
 )
 
 // Get all repos cloned locally that have a new location based off the repo changes
-func GetChanged(clonedRepos []repos.LocalRepo, config configure.RegularOutline) (map[repos.LocalRepo]api.Repo, utils.CtxErr) {
+func GetChanged(
+	clonedRepos []repos.LocalRepo,
+	config configure.RegularOutline,
+) (map[repos.LocalRepo]api.Repo, utils.CtxErr) {
 	updated := map[repos.LocalRepo]api.Repo{}
 	secrets, err := configuration.GetSecrets()
 	if err.Error != nil {

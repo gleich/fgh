@@ -11,7 +11,10 @@ import (
 )
 
 // Ask the user if they want to move each repo
-func AskMove(updated map[repos.LocalRepo]api.Repo, config configure.RegularOutline) (map[string]string, utils.CtxErr) {
+func AskMove(
+	updated map[repos.LocalRepo]api.Repo,
+	config configure.RegularOutline,
+) (map[string]string, utils.CtxErr) {
 	toMove := map[string]string{}
 	for localRepo, repoAPIData := range updated {
 		newPath, err := repos.RepoLocation(repoAPIData, config)

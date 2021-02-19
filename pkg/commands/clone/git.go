@@ -14,7 +14,12 @@ import (
 )
 
 // Clone the repo
-func Clone(config configure.RegularOutline, secrets configure.SecretsOutline, repo api.Repo, path string) utils.CtxErr {
+func Clone(
+	config configure.RegularOutline,
+	secrets configure.SecretsOutline,
+	repo api.Repo,
+	path string,
+) utils.CtxErr {
 	rawClone(repo, path)
 	statuser.Success(fmt.Sprintf("Cloned %v/%v to:\n\t%v\n", repo.Owner, repo.Name, path))
 	if config.CloneClipboard {

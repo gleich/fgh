@@ -39,7 +39,13 @@ var cleanCmd = &cobra.Command{
 		go progressBar.Render()
 
 		if !flags.SkipOutdated {
-			outdated, err := clean.GetOutdated(progressBar, clonedRepos, flags.Years, flags.Months, flags.Days)
+			outdated, err := clean.GetOutdated(
+				progressBar,
+				clonedRepos,
+				flags.Years,
+				flags.Months,
+				flags.Days,
+			)
 			if err.Error != nil {
 				statuser.Error(err.Context, err.Error, 1)
 			}
@@ -80,9 +86,24 @@ var cleanCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(cleanCmd)
-	cleanCmd.Flags().IntP("years", "y", 0, "Counts as outdated repo if it isn't modified locally in given number of years (default 0)")
-	cleanCmd.Flags().IntP("months", "m", 2, "Counts as outdated repo if it isn't modified locally in given number of months")
-	cleanCmd.Flags().IntP("days", "d", 0, "Counts as outdated repo if it isn't modified locally in given number of days (default 0)")
+	cleanCmd.Flags().IntP(
+		"years",
+		"y",
+		0,
+		"Counts as outdated repo if it isn't modified locally in given number of years (default 0)",
+	)
+	cleanCmd.Flags().IntP(
+		"months",
+		"m",
+		2,
+		"Counts as outdated repo if it isn't modified locally in given number of months",
+	)
+	cleanCmd.Flags().IntP(
+		"days",
+		"d",
+		0,
+		"Counts as outdated repo if it isn't modified locally in given number of days (default 0)",
+	)
 	cleanCmd.Flags().Bool("skipOutdated", false, "Don't check for outdated repos")
 	cleanCmd.Flags().Bool("skipDeleted", false, "Don't check for deleted repos")
 

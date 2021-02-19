@@ -24,7 +24,10 @@ func RemoveRepos(clonedRepos []repos.LocalRepo, force bool) utils.CtxErr {
 		}
 		if !pushed {
 			statuser.Warning(
-				fmt.Sprintf("Repository located at %v has changes not pushed to a remote", repo.Path),
+				fmt.Sprintf(
+					"Repository located at %v has changes not pushed to a remote",
+					repo.Path,
+				),
 			)
 		}
 		remove, errCtx := utils.Confirm(fmt.Sprintf(

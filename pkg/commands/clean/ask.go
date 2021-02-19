@@ -9,7 +9,9 @@ import (
 )
 
 // Confirm with the user that they want to remove an outdated repo
-func AskToRemoveOutdated(outdatedRepos []repos.DetailedLocalRepo) ([]repos.LocalRepo, utils.CtxErr) {
+func AskToRemoveOutdated(
+	outdatedRepos []repos.DetailedLocalRepo,
+) ([]repos.LocalRepo, utils.CtxErr) {
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range outdatedRepos {
 		time := utils.FormatDate(repo.ModTime)
