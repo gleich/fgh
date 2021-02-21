@@ -28,3 +28,4 @@ brews:
     commit_author:
       name: Matt-Gleich
       email: email@mattglei.ch
+    install: bin.install "fgh"
