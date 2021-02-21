@@ -33,8 +33,6 @@ files:
     source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/templates/issue_bug.md
   - path: .github/ISSUE_TEMPLATE/feature_request.md
     source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/templates/issue_feature.md
-  - path: .github/workflows/release.yml
-    source: https://github.com/Matt-Gleich/go_template/blob/master/.github/workflows/release.yml
   - path: .github/workflows/contributors.yml
     source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/workflows/contributors.yml
   - path: .github/workflows/fsync.yml
