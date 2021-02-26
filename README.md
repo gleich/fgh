@@ -255,10 +255,10 @@ If you would like to easily use the output of `fgh ls` for `cd` just add the fol
 fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" && return 1; ) }
 ```
 
-If you're using Fish, add the following to your `~/config/fish/config.fish`:
+If you're using Fish, add the following to your `~/.config/fish/config.fish`:
 
 ```fish
-function fcd
+function fcd --wraps "fgh ls"
   if ! cd (fgh ls $argv) > /dev/null
     echo "Failed to find repository"; return 1
   end
