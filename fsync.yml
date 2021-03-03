@@ -17,8 +17,6 @@ files:
     source: https://github.com/Matt-Gleich/go_template/blob/master/.gitignore
   - path: LICENSE.md
     source: https://github.com/Matt-Gleich/Matt-Gleich/blob/master/standard_documents/licenses/MIT_LICENSE.md
-  - path: docker/dev.lint.Dockerfile
-    source: https://github.com/Matt-Gleich/go_template/blob/master/dev.lint.Dockerfile
   - path: docker/dev.Dockerfile
     source: https://github.com/Matt-Gleich/go_template/blob/master/dev.Dockerfile
   - path: docker/Dockerfile
