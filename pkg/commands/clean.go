@@ -38,6 +38,20 @@ var cleanCmd = &cobra.Command{
 
 		go progressBar.Render()
 
+		if !flags.SkipDeleted {
+			deleted, err := clean.GetDeleted(progressBar, clonedRepos)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
+			approved, err := clean.AskToRemoveDeleted(deleted)
+			if err.Error != nil {
+				statuser.Error(err.Context, err.Error, 1)
+			}
+
+			toRemove = append(toRemove, approved...)
+		}
+
 		if !flags.SkipOutdated {
 			outdated, err := clean.GetOutdated(
 				progressBar,
@@ -51,20 +65,6 @@ var cleanCmd = &cobra.Command{
 			}
 
 			approved, err := clean.AskToRemoveOutdated(outdated)
-			if err.Error != nil {
-				statuser.Error(err.Context, err.Error, 1)
-			}
-
-			toRemove = append(toRemove, approved...)
-		}
-
-		if !flags.SkipDeleted {
-			deleted, err := clean.GetDeleted(progressBar, clonedRepos)
-			if err.Error != nil {
-				statuser.Error(err.Context, err.Error, 1)
-			}
-
-			approved, err := clean.AskToRemoveDeleted(deleted)
 			if err.Error != nil {
 				statuser.Error(err.Context, err.Error, 1)
 			}
