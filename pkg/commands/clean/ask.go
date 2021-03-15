@@ -57,12 +57,6 @@ func AskToRemoveOutdated(
 
 // Confirm with the user that they want to remove a deleted repo
 func AskToRemoveDeleted(deletedRepos []repos.LocalRepo) ([]repos.LocalRepo, utils.CtxErr) {
-	if len(deletedRepos) != 0 {
-		fmt.Println("\n----------------------")
-		fmt.Println(" Deleted Repositories ")
-		fmt.Println("----------------------")
-	}
-
 	toRemove := []repos.LocalRepo{}
 	for _, repo := range deletedRepos {
 		remove, err := utils.Confirm(fmt.Sprintf(
