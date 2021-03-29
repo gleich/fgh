@@ -4,16 +4,15 @@ on:
   push:
     branches:
       - master
+      - main
   schedule:
-    - cron: '0 */6 * * *' # Run every hour
+    - cron: '0 */6 * * *' # Run every 6 hours
 
 jobs:
   gh_fsync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
-      - name: Run gh_fsync
-        uses: Matt-Gleich/gh_fsync@master
+      - uses: Matt-Gleich/gh_fsync@master

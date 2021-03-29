@@ -4,13 +4,14 @@ on:
   push:
     branches:
       - master
+      - main
 
 jobs:
   contributor_list:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@v2
       - uses: cjdenio/contributor_list@master
         with:
-          commit_message: 📝 Update contributors list
+          commit_message: 'docs: Update contributor list'
           max_contributors: 10
