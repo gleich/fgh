@@ -13,5 +13,5 @@ jobs:
       - uses: actions/checkout@v2
       - uses: cjdenio/contributor_list@master
         with:
-          commit_message: 'docs: Update contributor list'
+          commit_message: 'docs: update contributor list'
           max_contributors: 10
