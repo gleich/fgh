@@ -16,5 +16,6 @@ RUN go build -o app .
 
 # hadolint ignore=DL3006,DL3007
 FROM alpine:latest
+WORKDIR /
 COPY --from=builder /usr/src/app/app .
 CMD ["./app"]
