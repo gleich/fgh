@@ -27,6 +27,10 @@ func Repos(rootPath string, ignoreErr bool) ([]LocalRepo, utils.CtxErr) {
 				return err
 			}
 
+			if !info.IsDir() {
+				return nil
+			}
+
 			isRepo, errInfo := IsGitRepo(path)
 			if errInfo.Error != nil {
 				errCtx = errInfo
