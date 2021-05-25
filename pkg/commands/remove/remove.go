@@ -40,6 +40,7 @@ func RemoveRepos(clonedRepos []repos.LocalRepo, force bool) utils.CtxErr {
 			continue
 		}
 
+		fmt.Println(repo.Path)
 		err := os.RemoveAll(repo.Path)
 		if err != nil {
 			return utils.CtxErr{
