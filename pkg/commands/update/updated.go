@@ -26,7 +26,7 @@ func GetChanged(
 		client  = api.GenerateClient(secrets.PAT)
 		pw      = utils.GenerateProgressWriter()
 		tracker = progress.Tracker{
-			Message: "Getting valid path for all repos",
+			Message: "Getting valid paths for all repos",
 			Total:   int64(len(clonedRepos)),
 		}
 	)
