@@ -3,8 +3,8 @@ package configuration
 import (
 	"path/filepath"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 const (

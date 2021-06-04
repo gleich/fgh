@@ -1,12 +1,12 @@
 package commands
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
-	"github.com/Matt-Gleich/fgh/pkg/commands/migrate"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/clean"
+	"github.com/gleich/fgh/pkg/commands/migrate"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/fgh/pkg/utils"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +15,7 @@ var mirgrateCmd = &cobra.Command{
 	Use:                   "migrate <FOLDER>",
 	Short:                 "Migrate all the repos in a directory and its subdirectories",
 	Args:                  cobra.ExactArgs(1),
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-migrate",
+	Long:                  longDocStart + "https://github.com/gleich/#-fgh-migrate",
 	Run: func(cmd *cobra.Command, args []string) {
 		folder, err := migrate.EnsureFolderExists(args)
 		if err.Error != nil {

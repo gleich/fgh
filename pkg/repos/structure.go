@@ -5,8 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Get all cloned repos in fgh's file structure

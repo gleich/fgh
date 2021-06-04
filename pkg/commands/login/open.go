@@ -1,7 +1,7 @@
 package login
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/utils"
 	"github.com/pkg/browser"
 )
 

@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/commands/login"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/commands/login"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +12,7 @@ var loginCmd = &cobra.Command{
 	Use:                   "login",
 	Short:                 "Login to GitHub via OAuth",
 	Args:                  cobra.NoArgs,
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-remove",
+	Long:                  longDocStart + "https://github.com/gleich/fgh#-fgh-remove",
 	Run: func(cmd *cobra.Command, args []string) {
 		err := login.OpenAuthPage()
 		if err.Error != nil {

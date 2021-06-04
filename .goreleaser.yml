@@ -1,6 +1,6 @@
 release:
   github:
-    owner: Matt-Gleich
+    owner: gleich
     name: 'fgh'
   prerelease: auto
 before:
@@ -20,12 +20,12 @@ builds:
       - 7
 brews:
   - tap:
-      owner: Matt-Gleich
+      owner: gleich
       name: homebrew-taps
     folder: Formula
-    homepage: 'https://github.com/Matt-Gleich/fgh'
+    homepage: 'https://github.com/gleich/fgh'
     description: '📁 Automate the organization of your cloned GitHub repositories'
     commit_author:
-      name: Matt-Gleich
+      name: gleich
       email: email@mattglei.ch
     install: bin.install "fgh"

@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands"
+	"github.com/gleich/statuser/v2"
 )
 
 func main() {

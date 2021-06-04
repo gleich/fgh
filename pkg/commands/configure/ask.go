@@ -5,7 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Ask questions to fill in reglar config
@@ -21,7 +21,7 @@ func AskQuestions() (RegularOutline, utils.CtxErr) {
 			Name: "StructureRoot",
 			Prompt: &survey.Input{
 				Message: "Where should the structure start relative to your home folder? (default is github/ enter nothing to use default)",
-				Help:    "See https://github.com/Matt-Gleich/fgh#-structure_root for more info.",
+				Help:    "See https://github.com/gleich/fgh#-structure_root for more info.",
 			},
 		},
 		{
@@ -30,8 +30,8 @@ func AskQuestions() (RegularOutline, utils.CtxErr) {
 				Message: "Should language folders be lowercase?",
 				Help: fmt.Sprintf(
 					"%v would become %v\n",
-					filepath.FromSlash("~/github/Matt-Gleich/public/Go/fgh"),
-					filepath.FromSlash("~/github/Matt-Gleich/public/go/fgh"),
+					filepath.FromSlash("~/github/gleich/public/Go/fgh"),
+					filepath.FromSlash("~/github/gleich/public/go/fgh"),
 				),
 			},
 		},

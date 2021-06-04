@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/utils"
 	gitignore "github.com/sabhiram/go-gitignore"
 	"gopkg.in/djherbis/times.v1"
 )

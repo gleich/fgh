@@ -5,10 +5,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/api"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Get the structure root path

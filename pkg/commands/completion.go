@@ -3,7 +3,7 @@ package commands
 import (
 	"os"
 
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 

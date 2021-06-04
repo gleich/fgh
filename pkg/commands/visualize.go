@@ -3,10 +3,10 @@ package commands
 import (
 	"fmt"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/visualize"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/visualize"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/utils"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -15,7 +15,7 @@ var visualizeCmd = &cobra.Command{
 	Use:                   "visualize",
 	Short:                 "Visualize all of the cloned repos in a table",
 	Args:                  cobra.NoArgs,
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-visualize",
+	Long:                  longDocStart + "https://github.com/gleich/fgh#-fgh-visualize",
 	Run: func(cmd *cobra.Command, args []string) {
 		config, err := configuration.GetConfig(false)
 		if err.Error != nil {

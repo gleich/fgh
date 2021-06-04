@@ -3,7 +3,7 @@ name: '🚀 Feature request'
 about: Request a feature
 title: ''
 labels: enhancement
-assignees: '@Matt-Gleich'
+assignees: '@gleich'
 ---
 
 <!--

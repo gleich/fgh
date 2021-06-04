@@ -1,11 +1,11 @@
 package commands
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands/clean"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/clean"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/fgh/pkg/utils"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ var cleanCmd = &cobra.Command{
 	Args:                  cobra.NoArgs,
 	Use:                   "clean",
 	Short:                 "Ask to remove old or deleted cloned repos",
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-clean",
+	Long:                  longDocStart + "https://github.com/gleich/fgh#-fgh-clean",
 	Run: func(cmd *cobra.Command, args []string) {
 		flags, err := clean.ParseFlags(cmd)
 		if err.Error != nil {

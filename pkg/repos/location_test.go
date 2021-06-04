@@ -4,9 +4,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/api"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/configuration"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -37,7 +37,7 @@ func TestRepoLocation(t *testing.T) {
 
 	result, err = RepoLocation(
 		api.Repo{
-			Owner:        "Matt-Gleich",
+			Owner:        "gleich",
 			Name:         "site-v2",
 			MainLanguage: "JavaScript",
 			Archived:     true,
@@ -57,11 +57,11 @@ func TestRepoLocation(t *testing.T) {
 		StructureRoot: "/code/stuff",
 	})
 	assert.NoError(t, err.Error)
-	assert.Equal(t, filepath.Join(root, "/Matt-Gleich/JavaScript/archived/site-v2"), result)
+	assert.Equal(t, filepath.Join(root, "/gleich/JavaScript/archived/site-v2"), result)
 
 	result, err = RepoLocation(
 		api.Repo{
-			Owner:        "Matt-Gleich",
+			Owner:        "gleich",
 			Name:         "site-v2",
 			MainLanguage: "JavaScript",
 			Archived:     false,
@@ -80,5 +80,5 @@ func TestRepoLocation(t *testing.T) {
 		StructureRoot: "/code/stuff",
 	})
 	assert.NoError(t, err.Error)
-	assert.Equal(t, filepath.Join(root, "/Matt-Gleich/JavaScript/site-v2"), result)
+	assert.Equal(t, filepath.Join(root, "/gleich/JavaScript/site-v2"), result)
 }

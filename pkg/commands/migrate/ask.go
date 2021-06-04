@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Confirm with the user that they want to move the repos

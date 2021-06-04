@@ -1,18 +1,18 @@
-<!-- DO NOT REMOVE - contributor_list:data:start:["Matt-Gleich", "cjdenio", "quackduck", "safinsingh", "stratosgear", "imgbot[bot]"]:end -->
+<!-- DO NOT REMOVE - contributor_list:data:start:["gleich", "cjdenio", "quackduck", "safinsingh", "stratosgear", "imgbot[bot]"]:end -->
 
 <div align="center">
   <img alt="logo" src="./images/Entire%20Logo.png" height="250px">
 
   <h1>fgh</h1>
 
-  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/Matt-Gleich/fgh">
-  <img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/Matt-Gleich/fgh">
-  <img alt="Golang report card" src ="https://goreportcard.com/badge/github.com/Matt-Gleich/fgh">
+  <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/gleich/fgh">
+  <img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/gleich/fgh">
+  <img alt="Golang report card" src ="https://goreportcard.com/badge/github.com/gleich/fgh">
   <br>
-  <img alt="build" src="https://github.com/Matt-Gleich/fgh/workflows/build/badge.svg" />
-  <img alt="test" src="https://github.com/Matt-Gleich/fgh/workflows/test/badge.svg" />
-  <img alt="lint" src="https://github.com/Matt-Gleich/fgh/workflows/lint/badge.svg" />
-  <img alt="release" src="https://github.com/Matt-Gleich/fgh/workflows/release/badge.svg" />
+  <img alt="build" src="https://github.com/gleich/fgh/workflows/build/badge.svg" />
+  <img alt="test" src="https://github.com/gleich/fgh/workflows/test/badge.svg" />
+  <img alt="lint" src="https://github.com/gleich/fgh/workflows/lint/badge.svg" />
+  <img alt="release" src="https://github.com/gleich/fgh/workflows/release/badge.svg" />
   <br />
   <br />
   <i>📁 Automate the lifecycle and organization of your cloned GitHub repositories</i>
@@ -67,12 +67,12 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 #### 🍎 macOS
 
 ```bash
-brew install Matt-Gleich/homebrew-taps/fgh
+brew install gleich/homebrew-taps/fgh
 ```
 
 #### 🐧 Linux and 🖥 Windows
 
-You can grab the binary from the [latest release](https://github.com/Matt-Gleich/fgh/releases/latest).
+You can grab the binary from the [latest release](https://github.com/gleich/fgh/releases/latest).
 
 ### 👀 Try out `fgh`'s automation
 
@@ -152,7 +152,7 @@ If you would like to use a custom structure see the [custom structures documenta
 fgh clone <owner/name>
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` it would be cloned to `~/github/Matt-Gleich/public/Go/fgh/` by default (`~` being your home directory). Once cloned, this path will be copied to your clipboard automatically (this can be turned off with [`fgh configure`](#️-fgh-configure) or just by editing the config file directly).
+If we were to run `fgh clone gleich/fgh` it would be cloned to `~/github/gleich/public/Go/fgh/` by default (`~` being your home directory). Once cloned, this path will be copied to your clipboard automatically (this can be turned off with [`fgh configure`](#️-fgh-configure) or just by editing the config file directly).
 
 > NOTE: On Linux machines running the X Window System, this program requires the `xclip` or `xsel` packages.
 
@@ -180,7 +180,7 @@ If any of a repository's fields are changed, such as its type, main language, ow
 
 Running `fgh update` will iterate over your local repositories and checks if any of them need updates. If they do, `fgh` will ask you if you want to move the entire repository to that new path.
 
-For example, If I had this repository cloned and later decided to archive it, its path would change from `~/github/Matt-Gleich/public/Go/fgh/` to `~/github/Matt-Gleich/archived/Go/fgh/`.
+For example, If I had this repository cloned and later decided to archive it, its path would change from `~/github/gleich/public/Go/fgh/` to `~/github/gleich/archived/Go/fgh/`.
 
 ### 🧼 `fgh clean`
 
@@ -241,7 +241,7 @@ fgh clone fgh
 instead of
 
 ```bash
-fgh clone Matt-Gleich/fgh
+fgh clone gleich/fgh
 ```
 
 ### 🏎 `fgh ls` for `cd`
@@ -251,7 +251,7 @@ fgh clone Matt-Gleich/fgh
 If you would like to easily use the output of `fgh ls` for `cd` just add the following snippet to your `~/.zshrc` or `~/.bashrc`:
 
 ```bash
-# cd with fgh (https://github.com/Matt-Gleich/fgh)
+# cd with fgh (https://github.com/gleich/fgh)
 fcd() { cd "$(fgh ls "$@" 2>/dev/null)" || ( echo "Failed to find repository" && return 1; ) }
 ```
 
@@ -294,7 +294,7 @@ This is where the structure starts relative to your home folder. Make sure you u
 structure_root: "Documents/code/"
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` with the config shown above it would be cloned to `~/Documents/code/Matt-Gleich/public/Go/fgh`.
+If we were to run `fgh clone gleich/fgh` with the config shown above it would be cloned to `~/Documents/code/gleich/public/Go/fgh`.
 
 By default, the home directory will be appended to the front of the path. If you like to turn this off add `/` for macOS/Linux or `\` for Windows to the beginning of your path. Below is an example:
 
@@ -302,7 +302,7 @@ By default, the home directory will be appended to the front of the path. If you
 structure_root: "/code/github"
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` with the config shown above it would be cloned to `/code/github/Matt-Gleich/public/Go/fgh`.
+If we were to run `fgh clone gleich/fgh` with the config shown above it would be cloned to `/code/github/gleich/public/Go/fgh`.
 
 ### 🗂 `structure`
 
@@ -315,7 +315,7 @@ structure:
   - MAIN_LANGUAGE
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` with just the config shown above it would be cloned to `~/github/Matt-Gleich/repos/Go/fgh`.
+If we were to run `fgh clone gleich/fgh` with just the config shown above it would be cloned to `~/github/gleich/repos/Go/fgh`.
 
 ### 💡 Example Config
 
@@ -327,7 +327,7 @@ structure:
   - OWNER
 ```
 
-If we were to run `fgh clone Matt-Gleich/fgh` it would clone the repo to `~/code/Matt-Gleich/fgh`.
+If we were to run `fgh clone gleich/fgh` it would clone the repo to `~/code/gleich/fgh`.
 
 ### 🚚 Moving Repos to New Structure
 
@@ -339,13 +339,13 @@ fgh migrate <old project root>
 
 ## 🙌 Contributing
 
-Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/Matt-Gleich/fgh/blob/master/CONTRIBUTING.md).
+Thank you for considering contributing to `fgh`! Before contributing, make sure to read the [CONTRIBUTING.md file](https://github.com/gleich/fgh/blob/master/CONTRIBUTING.md).
 
 <!-- DO NOT REMOVE - contributor_list:start -->
 
 ## 👥 Contributors
 
-- **[@Matt-Gleich](https://github.com/Matt-Gleich)**
+- **[@gleich](https://github.com/gleich)**
 
 - **[@cjdenio](https://github.com/cjdenio)**
 

@@ -6,8 +6,8 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/commands/clone"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Filter out repos that don't have the owner and name passed in via args

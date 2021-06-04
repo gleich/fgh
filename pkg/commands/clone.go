@@ -1,10 +1,10 @@
 package commands
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands/clone"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/clone"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -13,7 +13,7 @@ var cloneCmd = &cobra.Command{
 	Use:                   "clone <OWNER/REPO>",
 	Short:                 "Clone a repository from GitHub",
 	Args:                  cobra.ExactArgs(1),
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#%EF%B8%8F-fgh-clone",
+	Long:                  longDocStart + "https://github.com/gleich/fgh#%EF%B8%8F-fgh-clone",
 	Run: func(cmd *cobra.Command, args []string) {
 		secrets, err := configuration.GetSecrets()
 		if err.Error != nil {

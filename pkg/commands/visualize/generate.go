@@ -3,9 +3,9 @@ package visualize
 import (
 	"fmt"
 
-	"github.com/Matt-Gleich/fgh/pkg/commands/configure"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/commands/configure"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/fgh/pkg/utils"
 	"github.com/fatih/color"
 	"github.com/jedib0t/go-pretty/v6/table"
 )

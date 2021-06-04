@@ -3,9 +3,9 @@ package commands
 import (
 	"fmt"
 
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -14,7 +14,7 @@ var lsCmd = &cobra.Command{
 	Use:                   "ls <OWNER/NAME>",
 	Short:                 "Get the path for cloned repo",
 	Args:                  cobra.ExactArgs(1),
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/fgh#-fgh-ls",
+	Long:                  longDocStart + "https://github.com/gleich/fgh#-fgh-ls",
 	Run: func(cmd *cobra.Command, args []string) {
 		secrets, err := configuration.GetSecrets()
 		if err.Error != nil {

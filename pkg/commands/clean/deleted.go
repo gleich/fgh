@@ -1,11 +1,11 @@
 package clean
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/fgh/pkg/repos"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/api"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/fgh/pkg/repos"
+	"github.com/gleich/fgh/pkg/utils"
+	"github.com/gleich/statuser/v2"
 	"github.com/jedib0t/go-pretty/v6/progress"
 )
 

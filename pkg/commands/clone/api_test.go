@@ -14,21 +14,21 @@ func TestOwnerAndName(t *testing.T) {
 		expectedName  string
 	}{
 		{
-			username:      "Matt-Gleich",
+			username:      "gleich",
 			args:          []string{"dots"},
-			expectedOwner: "Matt-Gleich",
+			expectedOwner: "gleich",
 			expectedName:  "dots",
 		},
 		{
-			username:      "Matt-Gleich",
-			args:          []string{"Matt-Gleich/dots"},
-			expectedOwner: "Matt-Gleich",
+			username:      "gleich",
+			args:          []string{"gleich/dots"},
+			expectedOwner: "gleich",
 			expectedName:  "dots",
 		},
 		{
 			username:      "nat",
-			args:          []string{"Matt-Gleich/dots"},
-			expectedOwner: "Matt-Gleich",
+			args:          []string{"gleich/dots"},
+			expectedOwner: "gleich",
 			expectedName:  "dots",
 		},
 	}

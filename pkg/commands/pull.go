@@ -1,9 +1,9 @@
 package commands
 
 import (
-	"github.com/Matt-Gleich/fgh/pkg/commands/pull"
-	"github.com/Matt-Gleich/fgh/pkg/configuration"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/commands/pull"
+	"github.com/gleich/fgh/pkg/configuration"
+	"github.com/gleich/statuser/v2"
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +12,7 @@ var pullCmd = &cobra.Command{
 	Use:                   "pull",
 	Short:                 "Pull all repos that don't have any non-pushed changes",
 	Args:                  cobra.NoArgs,
-	Long:                  longDocStart + "https://github.com/Matt-Gleich/#-fgh-pull",
+	Long:                  longDocStart + "https://github.com/gleich/#-fgh-pull",
 	Run: func(cmd *cobra.Command, args []string) {
 		secrets, err := configuration.GetSecrets()
 		if err.Error != nil {

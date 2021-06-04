@@ -13,46 +13,46 @@ func TestFilterRepos(t *testing.T) {
 	}{
 		{
 			repos: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 			expectedResult: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 		},
 		{
 			repos: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 				{Owner: "cli", Name: "cli"},
 			},
 			expectedResult: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 		},
 		{
 			repos: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
-				{Owner: "Matt-Gleich", Name: "nuke"},
+				{Owner: "gleich", Name: "dots"},
+				{Owner: "gleich", Name: "nuke"},
 			},
 			expectedResult: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 		},
 		{
 			repos: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 			expectedResult: []LocalRepo{
-				{Owner: "Matt-Gleich", Name: "dots"},
-				{Owner: "Matt-Gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
+				{Owner: "gleich", Name: "dots"},
 			},
 		},
 	}
 
 	for _, test := range tt {
-		username := "Matt-Gleich"
+		username := "gleich"
 
-		result, err := FilterRepos(username, test.repos, []string{"Matt-Gleich/dots"})
+		result, err := FilterRepos(username, test.repos, []string{"gleich/dots"})
 		assert.Equal(t, test.expectedResult, result)
 		assert.NoError(t, err.Error)
 
@@ -60,7 +60,7 @@ func TestFilterRepos(t *testing.T) {
 		assert.Equal(t, test.expectedResult, result)
 		assert.NoError(t, err.Error)
 
-		result, err = FilterRepos(username, test.repos, []string{"Matt-Gleich/dots", ""})
+		result, err = FilterRepos(username, test.repos, []string{"gleich/dots", ""})
 		assert.Equal(t, test.expectedResult, result)
 		assert.NoError(t, err.Error)
 

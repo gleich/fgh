@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Matt-Gleich/fgh/pkg/utils"
-	"github.com/Matt-Gleich/release"
-	"github.com/Matt-Gleich/statuser/v2"
+	"github.com/gleich/fgh/pkg/utils"
+	"github.com/gleich/release"
+	"github.com/gleich/statuser/v2"
 	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
 )
@@ -28,7 +28,7 @@ var rootCmd = &cobra.Command{
 
 Automate the organization of your cloned GitHub repositories
 
-Repository: https://github.com/Matt-Gleich/fgh`,
+Repository: https://github.com/gleich/fgh`,
 	Run: func(cmd *cobra.Command, args []string) {
 		versionFlag, err := utils.GetBool("version", cmd)
 		if err.Error != nil {
@@ -41,7 +41,7 @@ Repository: https://github.com/Matt-Gleich/fgh`,
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
 			spin.Start()
-			outdated, v, err := release.Check(version, "https://github.com/Matt-Gleich/fgh")
+			outdated, v, err := release.Check(version, "https://github.com/gleich/fgh")
 			spin.Stop()
 
 			if err != nil {

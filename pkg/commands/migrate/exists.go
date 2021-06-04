@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Check to make sure that the folder exist

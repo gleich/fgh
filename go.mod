@@ -1,11 +1,11 @@
-module github.com/Matt-Gleich/fgh
+module github.com/gleich/fgh
 
 go 1.16
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.2.7
-	github.com/Matt-Gleich/release v0.0.0-20210118171406-869be6eb2b61
-	github.com/Matt-Gleich/statuser/v2 v2.4.0
+	github.com/gleich/release v0.0.0-20210118171406-869be6eb2b61
+	github.com/gleich/statuser/v2 v2.4.0
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/Netflix/go-expect v0.0.0-20201125194554-85d881c3777e // indirect
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be // indirect

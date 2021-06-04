@@ -3,8 +3,8 @@ package login
 import (
 	"context"
 
-	"github.com/Matt-Gleich/fgh/pkg/api"
-	"github.com/Matt-Gleich/fgh/pkg/utils"
+	"github.com/gleich/fgh/pkg/api"
+	"github.com/gleich/fgh/pkg/utils"
 )
 
 // Get the username of the authed user
