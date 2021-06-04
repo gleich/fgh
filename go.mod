@@ -4,8 +4,6 @@ go 1.16
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.2.7
-	github.com/gleich/release v0.0.0-20210118171406-869be6eb2b61
-	github.com/gleich/statuser/v2 v2.4.0
 	github.com/Microsoft/go-winio v0.4.16 // indirect
 	github.com/Netflix/go-expect v0.0.0-20201125194554-85d881c3777e // indirect
 	github.com/anmitsu/go-shlex v0.0.0-20200514113438-38f4b401e2be // indirect
@@ -14,6 +12,8 @@ require (
 	github.com/creack/pty v1.1.11 // indirect
 	github.com/dustin/go-humanize v1.0.0
 	github.com/fatih/color v1.10.0
+	github.com/gleich/release v0.0.0-20210604035540-68b9816a6144
+	github.com/gleich/statuser/v2 v2.4.1
 	github.com/gliderlabs/ssh v0.3.2 // indirect
 	github.com/go-git/go-git/v5 v5.2.0
 	github.com/golang/protobuf v1.4.3 // indirect
