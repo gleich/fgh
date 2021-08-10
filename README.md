@@ -55,7 +55,7 @@
 
 ## 👋 Getting started
 
-As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to organize and maintain them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line application) to automate the entire lifecycle of your cloned repos, saving you time _and_ helping you scale! Below is a list of the most useful automation commands:
+As you begin contributing to an increasing amount of GitHub repositories, you'll soon realize the effort it takes to organize and maintain them on your machine. `fgh` aims to solve this issue through the use of a CLI (command line interface) to automate the entire lifecycle of your cloned repos, saving you time _and_ helping you scale! Below is a list of the most useful automation commands:
 
 - [`fgh clone`](#️-fgh-clone)
 - [`fgh clean`](#-fgh-clean)
@@ -291,7 +291,7 @@ Not a fan of the default structure used by fgh? Don't worry, you can change it w
 This is where the structure starts relative to your home folder. Make sure you use `\` instead of `/` if you are on Windows. By default, the `structure_root` is `github`. Below is an example of what you would put in the general config file:
 
 ```yaml
-structure_root: "Documents/code/"
+structure_root: 'Documents/code/'
 ```
 
 If we were to run `fgh clone gleich/fgh` with the config shown above it would be cloned to `~/Documents/code/gleich/public/Go/fgh`.
@@ -299,7 +299,7 @@ If we were to run `fgh clone gleich/fgh` with the config shown above it would be
 By default, the home directory will be appended to the front of the path. If you like to turn this off add `/` for macOS/Linux or `\` for Windows to the beginning of your path. Below is an example:
 
 ```yaml
-structure_root: "/code/github"
+structure_root: '/code/github'
 ```
 
 If we were to run `fgh clone gleich/fgh` with the config shown above it would be cloned to `/code/github/gleich/public/Go/fgh`.
@@ -322,7 +322,7 @@ If we were to run `fgh clone gleich/fgh` with just the config shown above it wou
 Say we have the following config:
 
 ```yaml
-structure_root: "code"
+structure_root: 'code'
 structure:
   - OWNER
 ```
