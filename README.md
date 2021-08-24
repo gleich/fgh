@@ -45,6 +45,7 @@
   - [🏎 `fgh ls` for `cd`](#-fgh-ls-for-cd)
   - [☑️ Autocompletion](#️-autocompletion)
   - [🛠 `fgh`'s vscode extension](#-fghs-vscode-extension)
+  - [🔐 Cloning over SSH](#-cloning-over-ssh)
 - [🗂 Custom Structures](#-custom-structures)
   - [📁 `structure_root`](#-structure_root)
   - [🗂 `structure`](#-structure)
@@ -281,6 +282,10 @@ You can add autocompletion for fgh by running one of the following commands base
 ### 🛠 `fgh`'s vscode extension
 
 Thanks to the great work by [@cjdenio](https://github.com/cjdenio) fgh has a [visual studio code extension](https://github.com/cjdenio/fgh-code)! You can clone, open repos, and more right from vscode.
+
+### 🔐 Cloning over SSH
+
+To clone over SSH instead of HTTPS, simply run `fgh configure` or set `ssh: true` in your `~/.config/fgh/config.yaml`!
 
 ## 🗂 Custom Structures
 
