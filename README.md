@@ -67,7 +67,7 @@ As you begin contributing to an increasing amount of GitHub repositories, you'll
 #### 🍎 macOS
 
 ```bash
-brew install gleich/homebrew-taps/fgh
+brew install gleich/tap/fgh
 ```
 
 #### 🐧 Linux and 🖥 Windows
