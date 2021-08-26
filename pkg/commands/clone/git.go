@@ -25,7 +25,7 @@ func Clone(
 	if config.SSH {
 		err = sshClone(repo, path)
 	} else {
-		err = rawClone(repo, path)
+		err = httpsClone(repo, path)
 	}
 
 	if err.Error != nil {
@@ -46,7 +46,7 @@ func Clone(
 }
 
 // Raw function for cloning the repo
-func rawClone(repo api.Repo, path string) utils.CtxErr {
+func rawClone(repo api.Repo, url, path string) utils.CtxErr {
 	err := os.MkdirAll(path, 0777)
 	if err != nil {
 		return utils.CtxErr{
@@ -63,23 +63,16 @@ func rawClone(repo api.Repo, path string) utils.CtxErr {
 		}
 	}
 
-	err = os.Chdir(filepath.Dir(path))
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to change directory to the parent folder for " + path,
-			Error:   err,
-		}
-	}
-
 	cmd := &exec.Cmd{
 		Path: gitExecPath,
 		Args: []string{
 			gitExecPath,
 			"clone",
-			fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
+			url,
 		},
 		Stdout: os.Stdout,
 		Stderr: os.Stdout,
+		Dir:    filepath.Dir(path),
 	}
 	err = cmd.Run()
 
@@ -93,50 +86,10 @@ func rawClone(repo api.Repo, path string) utils.CtxErr {
 	return utils.CtxErr{}
 }
 
-// Raw function for cloning the repo
+func httpsClone(repo api.Repo, path string) utils.CtxErr {
+	return rawClone(repo, fmt.Sprintf("https://github.com/%s/%s.git", repo.Owner, repo.Name), path)
+}
+
 func sshClone(repo api.Repo, path string) utils.CtxErr {
-	err := os.MkdirAll(path, 0777)
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to create folder at " + path,
-			Error:   err,
-		}
-	}
-
-	gitExecPath, err := exec.LookPath("git")
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to locate the git executable. Please install it or put in your PATH",
-			Error:   err,
-		}
-	}
-
-	err = os.Chdir(filepath.Dir(path))
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to change directory to the parent folder for " + path,
-			Error:   err,
-		}
-	}
-
-	cmd := &exec.Cmd{
-		Path: gitExecPath,
-		Args: []string{
-			gitExecPath,
-			"clone",
-			fmt.Sprintf("git@github.com:%v/%v.git", repo.Owner, repo.Name),
-		},
-		Stdout: os.Stdout,
-		Stderr: os.Stdout,
-	}
-	err = cmd.Run()
-
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to clone repo",
-			Error:   err,
-		}
-	}
-
-	return utils.CtxErr{}
+	return rawClone(repo, fmt.Sprintf("git@github.com:%s/%s.git", repo.Owner, repo.Name), path)
 }
