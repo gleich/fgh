@@ -6,11 +6,11 @@ import (
 	"os/exec"
 	"path/filepath"
 
+	"github.com/atotto/clipboard"
 	"github.com/gleich/fgh/pkg/api"
 	"github.com/gleich/fgh/pkg/commands/configure"
 	"github.com/gleich/fgh/pkg/utils"
 	"github.com/gleich/statuser/v2"
-	"github.com/atotto/clipboard"
 )
 
 // Clone the repo
@@ -20,7 +20,18 @@ func Clone(
 	repo api.Repo,
 	path string,
 ) utils.CtxErr {
-	rawClone(repo, path)
+	err := utils.CtxErr{}
+
+	if config.SSH {
+		err = sshClone(repo, path)
+	} else {
+		err = httpsClone(repo, path)
+	}
+
+	if err.Error != nil {
+		return err
+	}
+
 	statuser.Success(fmt.Sprintf("Cloned %v/%v to:\n\t%v\n", repo.Owner, repo.Name, path))
 	if config.CloneClipboard {
 		err := clipboard.WriteAll(path)
@@ -35,7 +46,7 @@ func Clone(
 }
 
 // Raw function for cloning the repo
-func rawClone(repo api.Repo, path string) utils.CtxErr {
+func rawClone(repo api.Repo, url, path string) utils.CtxErr {
 	err := os.MkdirAll(path, 0777)
 	if err != nil {
 		return utils.CtxErr{
@@ -52,23 +63,16 @@ func rawClone(repo api.Repo, path string) utils.CtxErr {
 		}
 	}
 
-	err = os.Chdir(filepath.Dir(path))
-	if err != nil {
-		return utils.CtxErr{
-			Context: "Failed to change directory to the parent folder for " + path,
-			Error:   err,
-		}
-	}
-
 	cmd := &exec.Cmd{
 		Path: gitExecPath,
 		Args: []string{
 			gitExecPath,
 			"clone",
-			fmt.Sprintf("https://github.com/%v/%v.git", repo.Owner, repo.Name),
+			url,
 		},
 		Stdout: os.Stdout,
 		Stderr: os.Stdout,
+		Dir:    filepath.Dir(path),
 	}
 	err = cmd.Run()
 
@@ -80,4 +84,12 @@ func rawClone(repo api.Repo, path string) utils.CtxErr {
 	}
 
 	return utils.CtxErr{}
+}
+
+func httpsClone(repo api.Repo, path string) utils.CtxErr {
+	return rawClone(repo, fmt.Sprintf("https://github.com/%s/%s.git", repo.Owner, repo.Name), path)
+}
+
+func sshClone(repo api.Repo, path string) utils.CtxErr {
+	return rawClone(repo, fmt.Sprintf("git@github.com:%s/%s.git", repo.Owner, repo.Name), path)
 }

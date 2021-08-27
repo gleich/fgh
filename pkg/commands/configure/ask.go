@@ -41,6 +41,14 @@ func AskQuestions() (RegularOutline, utils.CtxErr) {
 				Message: "If a language name has a space in it what should the space be replaced with? (default is - enter nothing to use default)",
 			},
 		},
+		{
+			Name: "SSH",
+			Prompt: &survey.Confirm{
+				Message: "Clone over SSH?",
+				Default: false,
+				Help:    "More information at https://docs.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh/about-ssh",
+			},
+		},
 	}
 	var answers RegularOutline
 	err := survey.Ask(questions, &answers)
