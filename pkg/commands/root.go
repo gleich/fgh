@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/briandowns/spinner"
 	"github.com/gleich/fgh/pkg/utils"
 	"github.com/gleich/release"
 	"github.com/gleich/statuser/v2"
-	"github.com/briandowns/spinner"
 	"github.com/spf13/cobra"
 )
 
@@ -36,7 +36,7 @@ Repository: https://github.com/gleich/fgh`,
 		}
 
 		if versionFlag {
-			version := "v2.7.8"
+			version := "v2.8.1"
 
 			spin := spinner.New(utils.SpinnerCharSet, utils.SpinnerSpeed)
 			spin.Suffix = " Checking for update"
