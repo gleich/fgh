@@ -86,7 +86,7 @@ func OwnerAndNameFromRemote(path string) (string, string, utils.CtxErr) {
 
 	// Getting name and owner
 	parts := strings.Split(url, "/")
-	owner = parts[len(parts)-2]
+	owner = strings.TrimPrefix(parts[len(parts)-2], "git@github.com:")
 	name = strings.TrimSuffix(parts[len(parts)-1], ".git")
 
 	return owner, name, utils.CtxErr{}
