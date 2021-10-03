@@ -21,7 +21,7 @@ builds:
 brews:
   - tap:
       owner: gleich
-      name: tap
+      name: homebrew-tap
     folder: Formula
     homepage: 'https://github.com/gleich/fgh'
     description: '📁 Automate the organization of your cloned GitHub repositories'
