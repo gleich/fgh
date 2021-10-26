@@ -17,8 +17,6 @@ files:
     source: https://github.com/gleich/go_template/blob/master/.gitignore
   - path: LICENSE.md
     source: https://github.com/gleich/gleich/blob/master/standard_documents/licenses/MIT_LICENSE.md
-  - path: docker/dev.Dockerfile
-    source: https://github.com/gleich/go_template/blob/master/dev.Dockerfile
   - path: docker/Dockerfile
     source: https://github.com/gleich/go_template/blob/master/Dockerfile
   - path: CONTRIBUTING.md
