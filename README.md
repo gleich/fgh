@@ -7,7 +7,6 @@
 
   <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/gleich/fgh">
   <img alt="GitHub go.mod Go version" src="https://img.shields.io/github/go-mod/go-version/gleich/fgh">
-  <img alt="Golang report card" src ="https://goreportcard.com/badge/github.com/gleich/fgh">
   <br>
   <img alt="build" src="https://github.com/gleich/fgh/workflows/build/badge.svg" />
   <img alt="test" src="https://github.com/gleich/fgh/workflows/test/badge.svg" />
