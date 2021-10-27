@@ -10,7 +10,7 @@ WORKDIR /usr/src/app
 
 # Installing hadolint:
 WORKDIR /usr/bin
-RUN curl -sL -o hadolint "https://github.com/hadolint/hadolint/releases/download/v1.17.6/hadolint-$(uname -s)-$(uname -m)" \
+RUN curl -sL -o hadolint "https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-$(uname -s)-$(uname -m)" \
     && chmod 700 hadolint
 
 # Installing goreleaser
@@ -25,6 +25,11 @@ RUN go get ./... \
 RUN apt-get update && apt-get install make=4.2.1-1.2 -y --no-install-recommends \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+# Installing go 1.17
+RUN go install "golang.org/dl/go1.17@latest" \
+    && go1.17 download \
+    && mv "$(which go1.17)" "$(which go)"
 
 WORKDIR /usr/src/app
 
