@@ -1,4 +1,4 @@
-FROM golang:1.17
+FROM golang:1.18
 
 # Meta data:
 LABEL maintainer="email@mattglei.ch"
