@@ -1,3 +1,7 @@
+use std::process::{Command, Stdio};
+
+use anyhow::{ensure, Context, Result};
+
 #[derive(Debug, Default, PartialEq)]
 pub struct Repository {
     pub owner: String,
@@ -26,8 +30,24 @@ impl From<&str> for Repository {
     }
 }
 
+impl Repository {
+    pub fn git_clone(&self) -> Result<()> {
+        let status = Command::new("git")
+            .arg("clone")
+            .arg(format!("https://github.com/{}/{}", self.owner, self.name))
+            .status()
+            .context("Failed to setup process to clone repo with git")?;
+        ensure!(status.success());
+        Ok(())
+    }
+}
+
 #[cfg(test)]
 mod test {
+    use std::fs;
+
+    use anyhow::Result;
+
     use super::Repository;
 
     #[test]
@@ -40,5 +60,23 @@ mod test {
         assert_eq!(Repository::from("gleich/fgh"), repo);
         // Shouldn't be equal for now as owner is not detected
         assert_ne!(Repository::from("fgh"), repo);
+    }
+
+    #[test]
+    fn git_clone() -> Result<()> {
+        assert!(Repository {
+            owner: String::from("gleich"),
+            name: String::from("fgh")
+        }
+        .git_clone()
+        .is_ok());
+        fs::remove_dir_all("fgh").expect("Failed to remove cloned dir: fgh");
+        assert!(!Repository {
+            owner: String::from("gleich"),
+            name: String::from("")
+        }
+        .git_clone()
+        .is_ok());
+        Ok(())
     }
 }
